@@ -1,0 +1,2 @@
+"0","all_deaths_no_names <- select(all_deaths, -name)"
+"0","all_deaths_no_names"

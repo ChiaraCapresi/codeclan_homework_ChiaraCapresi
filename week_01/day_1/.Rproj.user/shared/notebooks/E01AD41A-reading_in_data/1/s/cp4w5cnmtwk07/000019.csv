@@ -1,0 +1,1 @@
+"0","filter(all_deaths, name=='Jon Snow' | name=='Daenerys Targaryen'| name=='Samwell Tarly')"

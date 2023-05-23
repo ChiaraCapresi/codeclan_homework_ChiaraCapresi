@@ -1,0 +1,21 @@
+"0","library(tidyverse)"
+"0","library(CodeClanData)"
+"2","
+Caricamento pacchetto: ‘CodeClanData’
+
+"
+"2","Il seguente oggetto è mascherato _da_ ‘.GlobalEnv’:
+
+    all_deaths
+
+"
+"2","Il seguente oggetto è mascherato da ‘package:dplyr’:
+
+    starwars
+
+"
+"2","Il seguente oggetto è mascherato da ‘package:tidyr’:
+
+    population
+
+"

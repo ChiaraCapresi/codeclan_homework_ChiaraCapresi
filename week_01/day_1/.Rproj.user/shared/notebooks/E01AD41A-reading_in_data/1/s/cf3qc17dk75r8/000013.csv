@@ -1,0 +1,2 @@
+"0","all_deaths %>% "
+"0","  mutate(logical_vec=is.na(book_intro_chapter), .after =book_intro_chapter)"

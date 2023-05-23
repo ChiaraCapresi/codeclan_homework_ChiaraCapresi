@@ -1,0 +1,1 @@
+"0","filter(.data=all_deaths, allegiances %in% c('House Lannister', 'Lannister'))"

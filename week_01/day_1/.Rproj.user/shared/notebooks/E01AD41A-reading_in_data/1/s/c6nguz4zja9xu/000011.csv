@@ -1,0 +1,1 @@
+"0","select(filter(all_deaths, gender==0 & allegiances!='Lannister'),name)"

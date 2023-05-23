@@ -1,0 +1,2 @@
+"0","all_deaths %>% "
+"0","  mutate(year_of_death = sum(year_of_death), na.rm=TRUE)"

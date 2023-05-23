@@ -1,0 +1,5 @@
+"0","all_deaths %>% "
+"0","  #select(name, year_of_death) %>% "
+"0","  mutate(years_survived = year_of_death - 298,"
+"0","         .after=year_of_death) %>% "
+"0","arrange(desc(years_survived))"
