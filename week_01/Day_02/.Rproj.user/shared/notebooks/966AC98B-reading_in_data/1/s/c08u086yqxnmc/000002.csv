@@ -1,0 +1,7 @@
+"0","```r
+all_deaths %>% 
+  select(gender) %>% 
+  sum(na.rm=TRUE)
+```"
+"1","[1] 760
+"

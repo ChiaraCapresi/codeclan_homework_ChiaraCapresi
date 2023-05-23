@@ -1,0 +1,4 @@
+"0","```r
+all_deaths %>% 
+  mutate(year_of_death = year_of_death + 1000)
+```"

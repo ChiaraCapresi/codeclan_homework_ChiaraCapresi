@@ -1,0 +1,2 @@
+"0","drinks_content %>% "
+"0","mutate(calorie_diff= 135 - Calories, na.rm=TRUE, .after=Calories)"

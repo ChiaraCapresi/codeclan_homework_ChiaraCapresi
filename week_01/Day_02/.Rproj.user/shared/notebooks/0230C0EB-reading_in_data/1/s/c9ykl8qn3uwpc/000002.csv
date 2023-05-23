@@ -1,0 +1,7 @@
+"0","```r
+all_deaths %>% 
+  group_by(nobility, gender) %>% 
+  summarize(sum_gender=n())
+```"
+"1","`summarise()` has grouped output by 'nobility'. You can override using the `.groups` argument.
+"

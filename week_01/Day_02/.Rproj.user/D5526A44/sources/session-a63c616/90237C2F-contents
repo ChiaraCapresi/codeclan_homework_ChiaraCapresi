@@ -1,0 +1,295 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(readr)
+library(readxl)
+```
+## Reading in data
+
+```{r}
+dog_bites <- read_csv('data/dog_bites.csv')
+
+```
+```{r}
+dog_bites
+```
+```{r}
+seedmix <- read_excel('data/edinburgh_seedmix.xlsx')
+```
+```{r}
+seedmix
+```
+```{r}
+seedmix_north <- read_excel('data/edinburgh_seedmix.xlsx', sheet=3)
+```
+
+
+```{r}
+seedmix
+seedmix_north
+```
+```{r}
+excel_sheets('data/edinburgh_seedmix.xlsx')
+```
+
+```{r}
+read_excel('data/edinburgh_seedmix.xlsx', sheet='West Neighbourhood')
+```
+```{r}
+write_csv(seedmix_north, 'data/seedmix_north')
+```
+
+## dplyr package
+
+
+```{r}
+# install.packages('devtools')
+
+devtools::install_github('codeclan/CodeClanData')
+```
+```{r}
+library(tidyverse)
+library(CodeClanData)
+```
+
+```{r}
+all_deaths <- readr::read_csv('data/all_deaths.csv')
+all_deaths
+                            
+```
+```{r}
+nrow(all_deaths)
+```
+
+```{r}
+dim(all_deaths)
+```
+
+```{r}
+head(all_deaths)
+```
+```{r}
+names(all_deaths)
+```
+
+```{r}
+glimpse(all_deaths)
+```
+
+
+```{r}
+View(all_deaths)
+```
+
+
+```{r}
+is.na(all_deaths$year_of_death)
+```
+
+```{r}
+class(all_deaths)
+```
+
+```{r}
+typeof(all_deaths)
+```
+#Wrangling with dplyer
+
+```{r}
+select(all_deaths, name, allegiances)
+```
+
+```{r}
+all_deaths_no_names <- select(all_deaths, -name)
+all_deaths_no_names
+```
+```{r}
+select(all_deaths, 1:3)
+```
+```{r}
+names(all_deaths)
+```
+
+```{r}
+select(all_deaths, contains('book'))
+```
+```{r}
+prova<- select(all_deaths, starts_with('b'))
+```
+
+```{r}
+dim(prova)
+```
+
+```{r}
+?mutate
+```
+
+```{r}
+filter(all_deaths, allegiances=='Lannister')
+```
+#### logical operators
+(boolean operators)
+
+&   (AND)
+|   (OR)
+>   (GREATER THAN)
+<   (LESS THAN)
+==  (EQUAL TO)
+!   (NOT)
+%in%==   :    tests if two things are equal.
+!=   :    tests if two things are not equal.
+<    :    tests if the left is less than the right.
+>    :    tests if the left is greater than the right.
+<=   :    tests if the left is less than or equal to the right
+>=   :    tests for greater than or equal to.
+%in% :    tests if the left is contained in the right.!    :    NOT - negates the operator after i.e. does the opposite.
+&    :    AND - only returns rows when both sides are true.
+|    :    OR - returns rows when either side is true.
+
+
+```{r}
+filter(.data=all_deaths, allegiances %in% c('House Lannister', 'Lannister'))
+```
+```{r}
+filter(all_deaths, allegiances=='Lannister' | allegiances == 'House lannister')
+```
+```{r}
+?head
+```
+
+```{r}
+TRUE | TRUE
+```
+
+```{r}
+filter(all_deaths, year_of_death <= 299)
+```
+```{r}
+filter(all_deaths, name=='Jon Snow' | name=='Daenerys Targaryen'| name=='Samwell Tarly')
+```
+```{r}
+select(filter(all_deaths, gender==0 & allegiances!='Lannister'),name)
+```
+```{r}
+filter(all_deaths, book_intro_chapter %in% 5:10)
+```
+```{r}
+select(filter(all_deaths, gender==0 & allegiances!='Lannister'),name)
+```
+```{r}
+all_deaths %>%
+  filter(allegiances != 'Lannister') %>% 
+  select(name)
+```
+
+
+Find where the year_of_death is less than or equal to 299.
+Find just the data for the characters “Jon Snow”, “Daenerys Targaryen” and “Samwell Tarly”.
+Find the females (gender is 0) who are not Lannisters and only return these characters names.
+
+
+
+
+```{r}
+all_deaths %>% 
+  select(name, gender) %>% 
+  arrange(gender)
+```
+
+```{r}
+all_deaths %>% 
+  select(name, allegiances,book_of_death, death_chapter) %>% 
+  arrange(book_of_death, death_chapter)
+```
+```{r}
+all_deaths %>% 
+  arrange(allegiances)
+```
+```{r}
+all_deaths %>% 
+  arrange(allegiances, book_intro_chapter)
+```
+```{r}
+all_deaths %>% 
+  arrange(desc(year_of_death))
+```
+```{r}
+all_deaths %>% 
+  #select(name, year_of_death) %>% 
+  mutate(years_survived = year_of_death - 298,
+         .after=year_of_death) %>% 
+arrange(desc(years_survived))
+```
+```{r}
+?mutate
+```
+
+```{r}
+all_deaths %>% 
+  mutate(year_of_death = year_of_death + 1000)
+```
+```{r}
+all_deaths %>% 
+  mutate(year_of_death2 = is.na(year_of_death), .after=year_of_death)
+```
+```{r}
+all_deaths %>% 
+  mutate(year_as_char=as.character(year_of_death), .after=year_of_death)
+```
+```{r}
+all_deaths %>% 
+  mutate(year_of_death = sum(year_of_death), na.rm=TRUE)
+```
+Add a new column which is a logical vector, which has TRUE if book_intro_chapter is empty, and FALSE if it isn’t. Hint: you’ll need to use the is.na() function.Change the nobility column to a logical vector.Find the number of male characters by taking the sum() of the gender column (as gender = 1 is male).
+```{r}
+all_deaths %>% 
+  mutate(logical_vec=is.na(book_intro_chapter), .after =book_intro_chapter)
+```
+
+```{r}
+all_deaths %>% 
+  mutate(logic_nobility=as.logical(nobility), .after= nobility)
+```
+```{r}
+all_deaths %>% 
+  select(gender) %>% 
+  sum(na.rm=TRUE)
+```
+
+```{r}
+all_deaths %>% 
+  summarize(sum_gender= sum(gender, na.rm=TRUE))
+```
+
+```{r}
+all_deaths %>% 
+  pull(name)
+```
+```{r}
+all_deaths %>% 
+  summarize(sum_gender = sum(gender, na.rm = TRUE))
+
+all_deaths %>% 
+  group_by(allegiances) %>% 
+  summarize(sum_gender = sum(gender, na.rm = TRUE))
+```
+```{r}
+all_deaths %>% 
+  group_by(allegiances) %>% 
+  summarize(sum_gender = mean(gender, na.rm = TRUE))
+```
+```{r}
+all_deaths %>% 
+  group_by(nobility, gender) %>% 
+  summarize(sum_gender = sum(gender, na.rm = TRUE))
+```
+```{r}
+all_deaths %>% 
+  group_by(nobility, gender) %>% 
+  summarize(sum_gender=n())
+```

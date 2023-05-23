@@ -1,0 +1,4 @@
+"0","```r
+all_deaths_no_names <- select(all_deaths, -name)
+all_deaths_no_names
+```"

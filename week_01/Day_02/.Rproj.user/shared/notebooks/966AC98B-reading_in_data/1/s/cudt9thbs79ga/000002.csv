@@ -1,0 +1,4 @@
+"0","```r
+all_deaths %>% 
+  mutate(year_as_char=as.character(year_of_death), .after=year_of_death)
+```"

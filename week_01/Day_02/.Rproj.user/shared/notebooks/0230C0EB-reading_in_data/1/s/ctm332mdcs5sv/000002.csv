@@ -1,0 +1,7 @@
+"0","```r
+excel_sheets('data/edinburgh_seedmix.xlsx')
+```"
+"1","[1] \"South West Neighbourhood\" \"East Neighbourhood\"      
+[3] \"North Neighbourhood\"      \"South Neighbourhood\"     
+[5] \"West Neighbourhood\"      
+"

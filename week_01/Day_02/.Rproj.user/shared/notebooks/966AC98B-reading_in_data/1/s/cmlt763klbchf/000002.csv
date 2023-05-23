@@ -1,0 +1,8 @@
+"0","```r
+names(all_deaths)
+```"
+"1"," [1] \"name\"               \"allegiances\"        \"year_of_death\"      \"book_of_death\"     
+ [5] \"death_chapter\"      \"book_intro_chapter\" \"gender\"             \"nobility\"          
+ [9] \"book1_GoT\"          \"book2_CoK\"          \"book3_SoS\"          \"book4_FfC\"         
+[13] \"book5_DwD\"         
+"

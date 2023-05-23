@@ -1,0 +1,5 @@
+"0","```r
+all_deaths %>% 
+  group_by(allegiances) %>% 
+  summarize(sum_gender = mean(gender, na.rm = TRUE))
+```"

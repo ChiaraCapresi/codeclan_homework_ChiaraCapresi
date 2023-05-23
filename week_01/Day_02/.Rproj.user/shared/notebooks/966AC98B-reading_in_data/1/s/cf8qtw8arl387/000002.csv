@@ -1,0 +1,5 @@
+"0","```r
+all_deaths %>% 
+  select(name, allegiances,book_of_death, death_chapter) %>% 
+  arrange(book_of_death, death_chapter)
+```"

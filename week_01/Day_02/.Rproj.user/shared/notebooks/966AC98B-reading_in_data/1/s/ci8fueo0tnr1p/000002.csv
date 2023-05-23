@@ -1,0 +1,4 @@
+"0","```r
+all_deaths %>% 
+  arrange(desc(year_of_death))
+```"

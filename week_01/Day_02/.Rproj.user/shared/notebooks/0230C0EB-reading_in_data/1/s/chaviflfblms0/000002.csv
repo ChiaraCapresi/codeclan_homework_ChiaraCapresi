@@ -1,0 +1,10 @@
+"0","```r
+dog_bites <- read_csv('data/dog_bites.csv')
+```"
+"1","Rows: 8707 Columns: 6── Column specification ──────────────────────────────────────
+Delimiter: \",\"
+chr (5): DateOfBite, Species, Breed, Age, Gender
+lgl (1): SpayNeuter
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"

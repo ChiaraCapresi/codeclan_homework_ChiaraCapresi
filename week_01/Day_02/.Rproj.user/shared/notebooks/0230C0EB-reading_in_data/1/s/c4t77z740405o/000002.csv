@@ -1,0 +1,13 @@
+"0","```r
+all_deaths <- readr::read_csv('data/all_deaths.csv')
+```"
+"1","Rows: 917 Columns: 13── Column specification ────────────────────────────────────────────────────────────────
+Delimiter: \",\"
+chr  (2): name, allegiances
+dbl (11): year_of_death, book_of_death, death_chapter, book_intro_chapter, gender, n...
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"0","```r
+all_deaths
+```"

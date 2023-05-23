@@ -1,0 +1,3 @@
+"0","drinks_content %>% "
+"0","  group_by(Beverage_category) %>% "
+"0","  summarize(mean_calories=mean(Calories, na.rm=TRUE))"

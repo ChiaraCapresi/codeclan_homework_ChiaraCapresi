@@ -1,0 +1,2 @@
+"0","drinks_cont2<-mutate(drinks_content, Calories2= is.na(Calories), .after=Calories)"
+"0"," filter(drinks_cont2, Calories2==FALSE)"
