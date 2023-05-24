@@ -155,15 +155,18 @@ QUESTION 6:
 
 Which Beverage_prep type contains more than the average calories of all drinks?
 
+```{r}
+
+```
+
 
 ```{r}
-drinks_content %>% 
-total_mean <- mean(Calories)
 
 drinks_content %>% 
   group_by(Beverage_category) %>% 
   summarize(mean_calories=mean(Calories, na.rm=TRUE))
 ```
+
 
 
 #########################################
