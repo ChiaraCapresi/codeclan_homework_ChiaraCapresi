@@ -17,6 +17,15 @@ read_csv("data/movies.csv")
 ```
 
 
+
+
+
+```{r}
+movies <- read_csv("data/movies.csv")
+
+```
+
+
 ```{r}
 movies <- read.csv("data/movies.csv")
 ```
@@ -101,11 +110,12 @@ movies_runtime <- movies_selected %>%
 
 ```{r}
 movies_runtime %>% 
+  filter(is.na(runtime)) %>% 
     summarise(missing_run=n())
 
 ```
 
-There are 4803 missing or unacceptable values in the column runtime.
+There are 37 missing or unacceptable values in the column runtime.
 
 QUESTION 5:
 
@@ -132,9 +142,16 @@ Finally, use the slice_min and slice_max functions on movies_imputed to get the 
 
 ```{r}
 movies_imputed %>% 
-  group_by(runtime)
-  slice_min(original_title, n=10)
+  #group_by(runtime)
+  slice_min(runtime, n=10)
 ```
+
+```{r}
+movies_imputed %>% 
+  #group_by(runtime)
+  slice_max(runtime, n=10)
+```
+
 
 QUESTION 7:
 
@@ -143,6 +160,29 @@ Using the if_else function, impute anything with a budget below $100 with the me
 
 ```{r}
 movies_imputed %>% 
-  mutate(budget=if_else(budget < 100, median(budget), .default=budget))
+  mutate(budget=if_else(budget < 100, median(budget), budget))
+```
+```{r}
+movies_budgets <- movies_imputed %>% 
+  mutate(budget_type = case_when(
+    budget < 12e6 ~ "Small budget",
+    budget < 40e6 ~ "Medium budget",
+    budget >= 40e6 ~ "Big budget"
+  ))
 ```
 
+```{r}
+movies %>% 
+  summarise(across(
+    .cols = everything(),
+    .fns = ~sum(is.na(.x))
+  ))
+```
+
+```{r}
+movies %>% 
+  summarise(across(
+    .cols = where(is.character),
+    .fns = ~sum(is.na(.x))
+  ))
+```
