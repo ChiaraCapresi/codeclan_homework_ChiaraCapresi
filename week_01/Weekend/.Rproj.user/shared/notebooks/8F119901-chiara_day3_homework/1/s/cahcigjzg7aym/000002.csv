@@ -1,0 +1,5 @@
+"0","```r
+movies_runtime %>% 
+  filter(is.na(runtime)) %>% 
+    summarise(missing_run=n())
+```"

@@ -1,0 +1,8 @@
+"0","```r
+movies_budgets <- movies_imputed %>% 
+  mutate(budget_type = case_when(
+    budget < 12e6 ~ \"Small budget\",
+    budget < 40e6 ~ \"Medium budget\",
+    budget >= 40e6 ~ \"Big budget\"
+  ))
+```"

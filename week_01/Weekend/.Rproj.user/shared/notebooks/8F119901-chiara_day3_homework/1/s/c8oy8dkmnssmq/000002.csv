@@ -1,0 +1,7 @@
+"0","```r
+movies %>% 
+  summarise(across(
+    .cols = everything(),
+    .fns = ~sum(is.na(.x))
+  ))
+```"

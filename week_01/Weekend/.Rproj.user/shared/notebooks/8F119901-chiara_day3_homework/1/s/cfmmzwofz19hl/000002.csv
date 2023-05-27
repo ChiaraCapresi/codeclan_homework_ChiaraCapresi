@@ -1,0 +1,10 @@
+"0","```r
+read_csv(\"data/movies.csv\")
+```"
+"1","Rows: 4803 Columns: 13── Column specification ───────────────────────────────────────────
+Delimiter: \",\"
+chr (7): original_title, title, homepage, original_language, ov...
+dbl (6): budget, popularity, revenue, runtime, vote_average, vo...
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"

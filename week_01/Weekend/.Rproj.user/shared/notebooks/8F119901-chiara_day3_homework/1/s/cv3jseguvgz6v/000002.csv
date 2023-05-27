@@ -1,0 +1,6 @@
+"0","```r
+movies_selected <- movies %>% 
+  select(original_title, budget, runtime)
+
+movies_selected
+```"

@@ -1,0 +1,6 @@
+"0","```r
+movies_selected %>% 
+    mutate(budget = na_if(budget, 0)) %>% 
+    filter(is.na(budget)) %>% 
+    summarise(budget_missing=n())
+```"
