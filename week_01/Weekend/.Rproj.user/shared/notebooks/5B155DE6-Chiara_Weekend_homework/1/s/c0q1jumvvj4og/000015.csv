@@ -1,0 +1,3 @@
+"0","books_clean %>% "
+"0","  mutate(num_pages = na_if(num_pages,0)) %>% "
+"0","  summarise(num_pages = sum(is.na(num_pages)))"

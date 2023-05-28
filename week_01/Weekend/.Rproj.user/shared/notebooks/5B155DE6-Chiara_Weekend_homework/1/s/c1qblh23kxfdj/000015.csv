@@ -1,0 +1,5 @@
+"0","books %>% "
+"0","  summarise("
+"0","    across(.col=everything(),"
+"0","           .fns = ~sum(is.na(.x)))"
+"0","  )"

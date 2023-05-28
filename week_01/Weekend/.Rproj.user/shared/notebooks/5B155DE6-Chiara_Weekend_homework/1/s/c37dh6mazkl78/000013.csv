@@ -1,0 +1,3 @@
+"0","prova %>% "
+"0","  mutate(ratings_count = na_if(ratings_count,0)) %>% "
+"0","  summarise(ratings_count = sum(is.na(ratings_count)))"

@@ -1,0 +1,4 @@
+"0","prova <- books_clean %>% "
+"0","  select(ratings_count, average_rating) %>% "
+"0","  mutate(ratings_count = if_else(average_rating != 0.00,"
+"0","      na_if(ratings_count, 0), average_rating))"

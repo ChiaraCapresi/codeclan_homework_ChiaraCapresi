@@ -1,0 +1,5 @@
+"0","books_check <- books %>% "
+"0","    mutate(ratings_count = na_if(ratings_count, 0))  "
+"0",""
+"0",""
+"0","books_check"

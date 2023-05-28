@@ -1,0 +1,16 @@
+"0","books_check <- books %>% "
+"0","  summarise("
+"0","           across(.col = is.double,"
+"0","                  .fns = ~ mutate(.x = na_if(.x,0)))"
+"0","  )"
+"1","[1m[33mError[39m in `summarise()`:[22m
+[38;5;255m[36mℹ[38;5;255m In argument: `across(.col = is.double, .fns =
+  ~mutate(.x = na_if(.x, 0)))`.[39m
+[1mCaused by error in `across()`:[22m
+[38;5;255m[33m![38;5;255m Can't compute column `rowid`.[39m
+[1mCaused by error in `UseMethod()`:[22m
+[33m![39m no applicable method for 'mutate' applied to an object of class ""c('double', 'numeric')""
+Backtrace:
+[90m  1. [39mbooks %>% ...
+[90m 12. [39m[1mdplyr[22m::mutate(.x = na_if(rowid, 0))
+"

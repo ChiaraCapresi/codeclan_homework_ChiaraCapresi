@@ -1,0 +1,3 @@
+"0","books_clean <- books %>% "
+"0","  mutate(num_pages = na_if(num_pages,0)) %>% "
+"0","  drop_na(num_pages)"

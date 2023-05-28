@@ -1,0 +1,3 @@
+"0","books_check <- books %>% "
+"0","  mutate(average_rating = na_if(average_rating, 0.00)) "
+"0",""

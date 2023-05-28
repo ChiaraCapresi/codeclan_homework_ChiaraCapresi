@@ -1,0 +1,4 @@
+"0","books_clean <- books_clean %>% "
+"0","  rename(""row_id"" = ""rowid"", ""isbn_13"" = ""isbn13"") #Why the left element is the new?"
+"0",""
+"0","books_clean"

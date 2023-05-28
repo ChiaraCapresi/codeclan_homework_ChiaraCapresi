@@ -1,0 +1,2 @@
+"0","books_check %>% "
+"0","    summarise(na_average_ratings=sum(is.na(average_rating)))"
