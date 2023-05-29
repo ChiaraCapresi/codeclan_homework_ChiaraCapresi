@@ -2,3 +2,6 @@
 "0","  slice_min(average_rating, n=5) %>% "
 "0","  filter(average_rating == 0) %>% "
 "0","  summarise(average_rating = n()) "
+"2","Error in books_clean %>% slice_min(average_rating, n = 5) %>% filter(average_rating ==  : 
+  could not find function ""%>%""
+"

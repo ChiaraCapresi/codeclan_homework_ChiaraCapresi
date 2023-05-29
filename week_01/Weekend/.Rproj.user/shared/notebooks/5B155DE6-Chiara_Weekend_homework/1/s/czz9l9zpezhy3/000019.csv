@@ -1,0 +1,7 @@
+"0","purged <- books %>% "
+"0","  #select(authors) %>% "
+"0","  filter(!authors == ""NOT A BOOK"")"
+"0",""
+"0","purged %>% "
+"0","  filter(ratings_count >= 100) %>% "
+"0","  slice_max(average_rating, n=5) "

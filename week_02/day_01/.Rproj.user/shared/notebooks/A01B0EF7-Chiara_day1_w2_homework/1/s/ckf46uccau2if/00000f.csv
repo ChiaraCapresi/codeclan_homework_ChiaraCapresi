@@ -1,0 +1,1 @@
+"0","full_join(frauds, transactions, by = ""transaction_id"")"

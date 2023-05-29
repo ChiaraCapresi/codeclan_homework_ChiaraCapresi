@@ -1,0 +1,5 @@
+"0","books %>% "
+"0","  select(authors, publication_date, language_code) %>% "
+"0","  mutate(JK = str_detect(authors,""J.K. Rowling""), .after = authors) %>% "
+"0","  filter(JK == TRUE) %>% "
+"0","  distinct(language_code)"

@@ -1,0 +1,2 @@
+"0","books %>% "
+"0","  summarise(across(.cols = everything(), .fns = ~ sum(is.na(.x))))"

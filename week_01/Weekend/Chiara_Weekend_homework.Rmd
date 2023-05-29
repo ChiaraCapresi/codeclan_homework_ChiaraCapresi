@@ -301,3 +301,69 @@ books_clean %>%
   select(title)
 ```
 And these are their titles.
+
+
+#HOMEWORK CORRECTION
+
+# 1. How many books in each language?
+
+```{r}
+books %>% 
+  
+  group_by(language_code) %>% 
+  summarise(num_of_books = n()) %>% 
+  arrange(desc(num_of_books))
+```
+
+
+#2. Any similarities between top rated books?
+
+```{r}
+purged <- books %>% 
+  #select(authors) %>% 
+  filter(!authors == "NOT A BOOK")
+
+purged %>% 
+  filter(ratings_count >= 100) %>% 
+  slice_max(average_rating, n=5) 
+```
+
+
+#3. Do more recently published books receive a higher review than older books?
+
+```{r}
+books %>% 
+  filter(ratings_count > 1) %>% 
+ # select(publication_date) %>% 
+  select(title, authors, publication_date, average_rating) %>% 
+  mutate(year = format(as.Date(publication_date, format = "%m/%d/%Y", "%Y"), .before = publication_date)) %>% 
+  summarise(across(.cols = everything(), .fns = ~ sum(is.na(.x)))) %>% 
+ mutate(age = case_when(
+  year <2000 ~ "old",
+  year >=2000 ~ "young"
+), .after = year) %>% 
+ # filter(is.na(year)) # there are 2 books that have NA for year, but publication date is like normal?!
+  group_by(age) %>% 
+  summarise(average_rating = mean(average_rating))
+```
+
+
+#4. Which languages has L.K. Rowling published in?
+
+```{r}
+books %>% 
+  select(authors, publication_date, language_code) %>% 
+  mutate(JK = str_detect(authors,"J.K. Rowling"), .after = authors) %>% 
+  filter(JK == TRUE) %>% 
+  distinct(language_code)
+```
+
+
+#5. Are there missing values in the data?
+
+```{r}
+books %>% 
+  summarise(across(.cols = everything(), .fns = ~ sum(is.na(.x))))
+```
+
+

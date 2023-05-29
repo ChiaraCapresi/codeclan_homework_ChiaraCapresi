@@ -1,0 +1,6 @@
+"0","hat_obs_tidy <- hat_obs_tidy %>% "
+"0","  unite(date,"
+"0","        c(""day"", ""month"", ""year""),"
+"0","        sep = ""/"")"
+"0",""
+"0","hat_obs_tidy"

@@ -1,0 +1,38 @@
+"0","cards <- read_csv(""data/CardBase.csv"")"
+"2","[1mRows: [22m[34m500[39m [1mColumns: [22m[34m4[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m──────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m (3): Card_Number, Card_Family, Cust_ID
+[32mdbl[39m (1): Credit_Limit"
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."
+"0","customers <- read_csv(""data/CustomerBase.csv"")"
+"2","[1mRows: [22m[34m5674[39m [1mColumns: [22m[34m4[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m──────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m (3): Cust_ID, Customer_Segment, Customer_Vintage_Group
+[32mdbl[39m (1): Age"
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."
+"0","#read_csv(""data/exam_scores.csv"")"
+"0","frauds <- read_csv(""data/FraudBase.csv"")"
+"2","[1mRows: [22m[34m109[39m [1mColumns: [22m[34m2[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m──────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m (1): Transaction_ID
+[32mdbl[39m (1): Fraud_Flag"
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."
+"0","#read_csv(""data/hat_observations.csv"")"
+"0","transactions <- read_csv(""data/TransactionBase.csv"")"
+"2","[1mRows: [22m[34m10000[39m [1mColumns: [22m[34m5[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m──────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m (4): Transaction_ID, Transaction_Date, Credit_Card_ID, Transaction_Seg...
+[32mdbl[39m (1): Transaction_Value"
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."

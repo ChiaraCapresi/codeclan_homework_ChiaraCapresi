@@ -1,0 +1,1 @@
+"0","left_join(cards, customers, by = ""cust_id"")"
