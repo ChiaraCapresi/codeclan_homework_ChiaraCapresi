@@ -77,7 +77,7 @@ Read in hat_observations and separate observation into two columns, hat_colour a
 
 ```{r}
 hat_observations <- read_csv("data/hat_observations.csv")
-view(hat_observations)
+# view(hat_observations)
 ```
 
 ```{r}
@@ -108,6 +108,25 @@ hat_obs_tidy %>%
   arrange(desc(observation_count))
 ```
 
+# CORRECTION
+
+
+
+```{r}
+hat_obs_tidy %>% 
+  filter(hat_type == "beret") %>% 
+  group_by(date) %>% 
+  summarise(total = sum(observation_count)) %>% 
+  slice_max(total)
+
+
+```
+
+
+
+
+
+
 ### Extension:
 
 # Question 1:
@@ -117,15 +136,19 @@ Can you join all 4 datasets together so that you’re left with a dataset that l
 
 # Question 2:
 
-Read in exam_scores and transform it into long format with two new columns exam_question and score. Then, using separate and select, remove superfluous information from the values in exam_question
+Read in exam_scores and transform it into long format with two new columns exam_question and score. Then, using separate and select, remove superfluous information from the values in exam_question```{r}
+exams <- read_csv("data/exam_scores.csv")
+view(exams)
 
 ```{r}
-exams <- read_csv("data/exam_scores.csv")
+exams <- read.csv("data/exam_scores.csv")
 view(exams)
 ```
 
+
 ```{r}
-pivot_longer(cols = starts_with("e"),
+exams %>% 
+pivot_longer(starts_with("e"),
              names_to = "exam",
                values_to = "score"
                )

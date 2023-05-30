@@ -1,0 +1,3 @@
+"0","codeclan_tweets %>% "
+"0","  filter(is_quote == FALSE) %>% "
+"0","  summarise(favorite_count = sum(favorite_count))"

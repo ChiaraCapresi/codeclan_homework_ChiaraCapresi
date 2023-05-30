@@ -1,0 +1,2 @@
+"0","exams <- read.csv(""data/exam_scores.csv"")"
+"0","view(exams)"

@@ -1,0 +1,3 @@
+"0","#view(codeclan_info)"
+"0","join <- left_join(codeclan_info, codeclan_tweets, by = ""tweet_id"")"
+"0","join"

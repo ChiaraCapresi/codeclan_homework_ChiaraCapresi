@@ -1,3 +1,0 @@
-"0","hat_obs_tidy %>% "
-"0","  filter(hat_type == ""beret"") %>% "
-"0","  arrange(desc(observation_count))"

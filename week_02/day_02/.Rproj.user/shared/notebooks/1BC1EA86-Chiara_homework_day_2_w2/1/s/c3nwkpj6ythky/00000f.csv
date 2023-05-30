@@ -1,0 +1,4 @@
+"0","codeclan_tweets %>% "
+"0","  select(text) %>%"
+"0","  mutate(text_count = nchar(text), .after = text) %>% "
+"0","  arrange(desc(text_count))"

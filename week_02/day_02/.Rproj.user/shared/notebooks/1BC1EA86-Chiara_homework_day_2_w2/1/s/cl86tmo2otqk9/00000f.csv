@@ -1,0 +1,4 @@
+"0","codeclan_tweets %>% "
+"0","  filter(is_quote == FALSE) %>% "
+"0","  group_by (source) %>% "
+"0","  summarise(retweet_mean = mean(retweet_count))"
