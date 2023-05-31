@@ -1,0 +1,14 @@
+"0","```r
+x <- list(1, \"CodeClan\", TRUE, c(1, 2, 3))
+
+# To access the second element:
+
+x[[2]]
+```"
+"1","[1] \"CodeClan\"
+"
+"0","```r
+class(x[[3]])
+```"
+"1","[1] \"logical\"
+"

@@ -1,0 +1,6 @@
+"0","```r
+m <- matrix(1:6, nrow = 2, ncol = 3)
+class(m)
+```"
+"1","[1] \"matrix\" \"array\" 
+"

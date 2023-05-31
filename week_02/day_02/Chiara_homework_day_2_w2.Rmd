@@ -78,6 +78,7 @@ codeclan_tweets %>%
   mutate(text_count = nchar(text), .after = text) %>% 
   summarise(mean_tweets = mean(text_count))
   
+view(codeclan_tweets)
 ```
 Just for checking if the value is acceptable...
 
@@ -124,6 +125,18 @@ codeclan_hashtags
 
 Some tweets have more than one hashtag, denoted by the c( symbols at the start of the string. Use the str_sub() and str_detect() functions and your codeclan_hashtags tibble from above to find all the cases in which the hashtag string begins with charactersc(. 
 
+```{r}
+?str_detect()
+```
 
 
+```{r}
+codeclan_hashtags %>%
+  mutate(start_hashtags = str_sub(hashtags, end = 2),.after = hashtags) %>% 
+  filter(str_detect(start_hashtags, "c\\("))
+```
+
+```{r}
+?str_detect
+```
 

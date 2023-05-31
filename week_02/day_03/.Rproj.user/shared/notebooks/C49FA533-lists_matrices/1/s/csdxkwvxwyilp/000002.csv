@@ -1,0 +1,16 @@
+"0","```r
+make_fancy_price <- function(x){
+  x_to_2dp <- round(x, digits = 2)
+  pence <- str_sub(x_to_2dp, start = -2) 
+  pounds <- str_sub(x_to_2dp, end = -4) 
+  if(pence == 0){
+  print(paste(pounds, \"pounds\"))
+}else{
+  if(pounds == 0){
+    print(paste(pence, \"pence\"))
+  }else{
+    print(paste(pounds, \"pounds\", pence, \"pence\"))
+  }
+}
+}
+```"

@@ -1,0 +1,5 @@
+"0","for(row_index in 1: number_of_rows){
+  for(col_index in 1:number_of_columns){
+    print(my_data[row_index, col_index])
+  }
+}"

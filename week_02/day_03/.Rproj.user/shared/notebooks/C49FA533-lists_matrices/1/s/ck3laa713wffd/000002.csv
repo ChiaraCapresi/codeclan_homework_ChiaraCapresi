@@ -1,0 +1,14 @@
+"0","```r
+make_fancy_price <- function(x){
+  x <- round(x, 2)
+  if(x == floor(x)){
+    paste(x, \"pounds\")
+  }else{
+    if(floor(x)==0){
+      paste((abs(x) - floor(x))*100, \"pence\")
+    }else{
+  paste(floor(x), \"pounds\", (abs(x) - floor(x))*100, \"pence\")
+    }
+  }
+}
+```"

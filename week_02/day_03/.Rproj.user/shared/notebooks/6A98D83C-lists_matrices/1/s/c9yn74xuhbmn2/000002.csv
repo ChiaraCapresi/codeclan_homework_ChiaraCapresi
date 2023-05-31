@@ -1,0 +1,5 @@
+"0","function_name <- function(argument_2, argument_2 = value){
+  Do something with the arguments
+  
+  return(output)
+}"

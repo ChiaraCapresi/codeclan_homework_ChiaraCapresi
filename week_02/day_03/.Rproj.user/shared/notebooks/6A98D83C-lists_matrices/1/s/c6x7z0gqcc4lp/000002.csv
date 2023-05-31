@@ -1,0 +1,5 @@
+"0","```r
+make_price <- function(x){
+  str_c(\"£\", x, sep =\"\")
+}
+```"

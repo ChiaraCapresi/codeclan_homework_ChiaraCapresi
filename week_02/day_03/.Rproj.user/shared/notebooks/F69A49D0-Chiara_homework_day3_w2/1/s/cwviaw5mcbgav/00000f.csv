@@ -1,0 +1,5 @@
+"0","weather_siena <- list("
+"0","  ""Thursday"" = list(temperature = 24, chance_of_rain = 70, wind_speed = 13),"
+"0","  ""Friday"" = list(temperature = 23, chance_of_rain = 50, wind_speed = 10),"
+"0","  ""Saturday"" = list(temperature = 22, chance_of_rain = 30, wind_speed = 8)"
+"0",")"

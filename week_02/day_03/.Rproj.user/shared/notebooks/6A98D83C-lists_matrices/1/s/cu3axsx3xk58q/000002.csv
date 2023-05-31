@@ -1,0 +1,18 @@
+"0","```r
+x <- 5
+y <- 8
+
+if(x %% 2 == 0){
+  print(\"yes that divides by 2\")
+}
+
+if(y %% 2 == 0){
+  print(\"yes that divides by 2\")
+}
+```"
+"1","[1] \"yes that divides by 2\"
+"
+"0","```r
+  
+ 
+```"

@@ -1,0 +1,5 @@
+"0","```r
+triangle <- function(n){
+  n*(n+1)/2
+}
+```"

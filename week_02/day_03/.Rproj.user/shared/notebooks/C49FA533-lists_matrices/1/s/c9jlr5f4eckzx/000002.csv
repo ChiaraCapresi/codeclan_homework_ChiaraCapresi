@@ -1,0 +1,3 @@
+"0","if(weather == 'Sunny'){
+  hang_up_washing()
+}"

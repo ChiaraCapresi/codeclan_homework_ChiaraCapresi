@@ -1,0 +1,14 @@
+"0","```r
+make_fancy_price <- function(price){
+  pounds <- floor(price) # round down to whole number to return only the number of pounds
+  pence <- round((price - pounds), 2) * 100
+  
+  if (pounds == 0){ # only pence
+    paste(pence, \"pence\")
+  } else if(pence == 0) { # only pounds
+    paste(pounds, \"pounds\")
+  }else{ #both pounds and pence
+    paste(pounds, \"pounds\", pence, \"pence\")
+  }
+}
+```"

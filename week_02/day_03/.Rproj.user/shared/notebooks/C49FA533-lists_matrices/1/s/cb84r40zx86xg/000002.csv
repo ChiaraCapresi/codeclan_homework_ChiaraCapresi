@@ -1,0 +1,4 @@
+"0","```r
+animals_sorted <- sort(animals)
+animals_joined <- str_c(animals_sorted, collapse = \", \")
+```"

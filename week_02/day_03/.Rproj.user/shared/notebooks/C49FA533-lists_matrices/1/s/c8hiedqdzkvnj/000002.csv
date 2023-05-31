@@ -1,0 +1,7 @@
+"0","```r
+make_fancy_price <- function(x){
+  if(round(x, 2) %% 1 == 0){  return(str_c(“£”, round(x, 0)))  }else{  return(str_c(“£”, round(x, 2)))
+  }
+}
+
+```"

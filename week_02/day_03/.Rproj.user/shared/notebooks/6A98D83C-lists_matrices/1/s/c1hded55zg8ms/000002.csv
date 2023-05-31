@@ -1,0 +1,32 @@
+"0","```r
+student_info <- list(
+                \"Agnes\" = list(height = 1.8, shoe_size = 8L),
+                \"Bobby\" = list(height = 2.1, gender = \"Male\"),
+                \"Charlie\" = list(gender = \"Female\", likes_beets = TRUE)
+)
+
+student_info
+```"
+"1","$Agnes
+$Agnes$height
+[1] 1.8
+
+$Agnes$shoe_size
+[1] 8
+
+
+$Bobby
+$Bobby$height
+[1] 2.1
+
+$Bobby$gender
+[1] \"Male\"
+
+
+$Charlie
+$Charlie$gender
+[1] \"Female\"
+
+$Charlie$likes_beets
+[1] TRUE
+"

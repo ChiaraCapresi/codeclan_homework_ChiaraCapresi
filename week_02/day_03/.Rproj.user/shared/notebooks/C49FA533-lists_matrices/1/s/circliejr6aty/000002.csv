@@ -1,0 +1,23 @@
+"0","```r
+num_rows <- dim(product_matrix)[1] # == 5
+num_cols <- dim(product_matrix)[2] # == 5
+
+# convert each element = row x col for itself
+for(row_index in 1:num_rows){
+  for(col_index in 1:num_cols){
+    product <- row_index * col_index
+    # print(product)
+    product_matrix[row_index,col_index] <- product
+  }
+}
+
+# show updated matrix
+product_matrix
+```"
+"1","     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    2    3    4    5
+[2,]    2    4    6    8   10
+[3,]    3    6    9   12   15
+[4,]    4    8   12   16   20
+[5,]    5   10   15   20   25
+"

@@ -1,0 +1,5 @@
+"0","```r
+str_c(\"Ordered List: \", animals_joined)
+```"
+"1","[1] \"Ordered List: Cat, Dog, Elephant, Frog, Monkey\"
+"

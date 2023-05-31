@@ -1,0 +1,11 @@
+"0","```r
+for (i in 1:length(weekdays)){
+  plural <- paste0(weekdays[i], \"s\")
+  weekdays[i] <- plural
+  #print(weekdays[i])
+}
+
+weekdays
+```"
+"1","[1] \"Mondays\"    \"Tuesdays\"   \"Wednesdays\" \"Thursdays\"  \"Fridays\"   
+"

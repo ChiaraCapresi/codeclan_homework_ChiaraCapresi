@@ -1,0 +1,11 @@
+"0","```r
+x<- 11
+
+if(x %% 2 == 0){
+  print(\"Yes that divides\")
+}else{
+  print(\"No that does not divide\")
+}
+```"
+"1","[1] \"No that does not divide\"
+"

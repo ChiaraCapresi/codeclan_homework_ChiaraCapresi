@@ -1,0 +1,15 @@
+"0","```r
+make_fancy_price(5.45)
+```"
+"1","[1] \"5 pounds 45 pence\"
+"
+"0","```r
+make_fancy_price(6)
+```"
+"1","[1] \"6 pounds\"
+"
+"0","```r
+make_fancy_price(0.45)
+```"
+"1","[1] \"45 pence\"
+"
