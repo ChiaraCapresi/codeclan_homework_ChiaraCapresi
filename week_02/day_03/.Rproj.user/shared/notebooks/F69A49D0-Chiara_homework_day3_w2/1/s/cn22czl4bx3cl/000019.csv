@@ -7,7 +7,7 @@
 "0","  }"
 "0","  for(i in 1:length(elements)){"
 "0","    if(!is.na(elements[i])){"
-"0","      cat(paste(elements[i]), ""|"", ""*{elements[i]}\n"")"
+"0","      cat(paste(elements[i]), ""|"", rep(""*"", elements[i]), ""\n"")"
 "0","    }"
 "0","  }"
 "0","}"

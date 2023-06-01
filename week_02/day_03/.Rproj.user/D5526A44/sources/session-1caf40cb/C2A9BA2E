@@ -3,7 +3,7 @@
     "path": "C:/Users/chiar/codeclan/codeclan_homework_ChiaraCapresi/week_02/day_03/Chiara_homework_day3_w2.Rmd",
     "project_path": "Chiara_homework_day3_w2.Rmd",
     "type": "r_markdown",
-    "hash": "3371082595",
+    "hash": "541264511",
     "contents": "",
     "dirty": false,
     "created": 1685553213317.0,
@@ -14,15 +14,15 @@
         "chunk_output_type": "inline",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "205,37",
-        "scrollLine": "193"
+        "cursorPosition": "205,56",
+        "scrollLine": "196"
     },
     "folds": "",
-    "lastKnownWriteTime": 1685560441,
+    "lastKnownWriteTime": 1685608251,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1685560441361,
+    "last_content_update": 1685608251182,
     "read_only": false,
     "read_only_alternatives": []
 }

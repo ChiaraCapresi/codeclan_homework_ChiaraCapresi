@@ -203,7 +203,7 @@ hist <- function(v){
   }
   for(i in 1:length(elements)){
     if(!is.na(elements[i])){
-      cat(paste(elements[i]), "|", "*{elements[i]}\n")
+      cat(paste(elements[i]), "|", rep("*", elements[i]), "\n")
     }
   }
 }
