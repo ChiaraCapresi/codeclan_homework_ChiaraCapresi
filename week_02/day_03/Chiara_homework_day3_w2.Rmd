@@ -196,6 +196,7 @@ library(tidyverse)
 ```{r}
 hist <- function(v){
   elements <- c()
+  count <- c()
   for(i in 1:length(v)){
     if(!(v[i] %in% elements)){
       elements[i] = v[i]
@@ -203,7 +204,8 @@ hist <- function(v){
   }
   for(i in 1:length(elements)){
     if(!is.na(elements[i])){
-      cat(paste(elements[i]), "|", rep("*", elements[i]), "\n")
+      count <- sum(v == elements[i])
+      cat(paste(elements[i]), "|", rep("*", count), "\n")
     }
   }
 }
@@ -213,5 +215,13 @@ hist <- function(v){
 v <- c(1,3,5,3,6,7,8,1,5,5,7)
 w <- c()
 hist(v)
+```
+```{r}
+numbers <- sample(1:5, size = 50, replace = TRUE) 
+numbers
+```
+
+```{r}
+hist(numbers)
 ```
 
