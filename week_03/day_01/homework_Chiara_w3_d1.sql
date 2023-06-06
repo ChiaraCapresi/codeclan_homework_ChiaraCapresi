@@ -66,7 +66,7 @@ ORDER BY country NULLS LAST, last_name NULLS LAST;
 
 SELECT *
 FROM employees
-ORDER BY salary DESC
+ORDER BY salary desc nulls LAST
 LIMIT 10;
 
 
@@ -118,7 +118,7 @@ WHERE department = 'Engineering' AND fte_hours = 1.0
  * 
 (fte_hours), salary, and a new column effective_yearly_salary which should contain fte_hours multiplied by salary.  */
 
-SELECT first_name, last_name, fte_hours, salary, concat(fte_hours * salary) AS effective_yearly_salary
+SELECT first_name, last_name, fte_hours, salary, fte_hours * salary AS effective_yearly_salary
 FROM employees
 
 
@@ -146,7 +146,7 @@ AND department IS NOT NULL;
  * */
 
 SELECT 
-concat(first_name, ' ', last_name, '-', department, ' (joined ', EXTRACT(year FROM TO_CHAR(start_date,'YEAR-MON-DD')), ')') AS badge_label 
+concat(first_name, ' ', last_name, '-', department, ' (joined ', EXTRACT(YEAR FROM start_date), ')') AS badge_label 
 FROM employees
 WHERE start_date IS NOT NULL;
 
@@ -159,3 +159,16 @@ WHERE start_date IS NOT NULL;
  */
 
 SELECT first_name, last_name, salary, concat() AS salary_class
+
+/* Correction */
+
+
+SELECT 
+  first_name, 
+  last_name, 
+  CASE 
+    WHEN salary < 40000 THEN 'low'
+    WHEN salary IS NULL THEN NULL
+    ELSE 'high' 
+  END AS salary_class
+FROM employees;
