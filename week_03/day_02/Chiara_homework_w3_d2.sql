@@ -5,7 +5,7 @@ SELECT
 	a.last_name,
 	t.name
 FROM employees AS a
-LEFT JOIN teams AS t
+INNER JOIN teams AS t
 ON a.team_id = t.id;
 
 /* (b). Find the first name, last name and team name of employees who are members of teams and are 
@@ -16,7 +16,7 @@ SELECT
 	e.last_name,
 	t.name
 FROM employees AS e
-LEFT JOIN teams AS t
+INNER JOIN teams AS t
 ON e.team_id = t.id
 WHERE e.pension_enrol = TRUE;
 
@@ -30,7 +30,7 @@ SELECT
 	e.last_name,
 	t.name
 FROM employees AS e
-LEFT JOIN teams AS t
+INNER JOIN teams AS t
 ON e.team_id = t.id
 WHERE CAST(t.charge_cost AS INT)>80;
 
@@ -102,7 +102,7 @@ SELECT
 	t.name,
 	COUNT(e.id)
 FROM teams AS t
-LEFT JOIN employees AS e
+INNER JOIN employees AS e
 ON t.id = e.team_id
 GROUP BY t.id;
 
@@ -128,7 +128,7 @@ SELECT
 	COUNT(e.id),
 	CAST(t.charge_cost AS INT)*COUNT(e.id) AS total_day_charge
 FROM teams AS t
-LEFT JOIN employees AS e
+INNER JOIN employees AS e
 ON t.id = e.team_id
 GROUP BY t.id
 HAVING CAST(t.charge_cost AS INT)*COUNT(e.id) > 5000;
@@ -139,23 +139,15 @@ HAVING CAST(t.charge_cost AS INT)*COUNT(e.id) > 5000;
 
 /* Question 5:  How many of the employees serve on one or more committees? */
 
-SELECT 
-	COUNT(e.id)
-FROM committees AS c
-LEFT JOIN employees_committees AS ec
-ON c.id = ec.committee_id
-LEFT JOIN employees AS e
-ON e.id = ec.employee_id;
+
 
 SELECT 
-employee_id,
-COUNT(committee_id)
-FROM employees_committees
-GROUP BY employee_id;
+  COUNT(DISTINCT(employee_id)) AS num_employees_on_committees
+FROM employees_committees;
 
 
 
-/* How many of the employees do not serve on a committee?  */
+/* Question 6: How many of the employees do not serve on a committee?  */
 
 
 SELECT 
