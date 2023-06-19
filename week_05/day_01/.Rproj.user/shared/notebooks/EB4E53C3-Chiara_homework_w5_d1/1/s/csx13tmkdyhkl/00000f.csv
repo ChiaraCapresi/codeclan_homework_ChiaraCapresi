@@ -1,0 +1,5 @@
+"0","ggplot(qb_device_data)+"
+"0","  aes(x = hours, y = counts, group = device, colour = device)+"
+"0","  geom_line()+"
+"0","  facet_wrap(~device)"
+"0",""

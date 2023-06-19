@@ -1,0 +1,241 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+students <- read_csv("data/students.csv")
+```
+
+```{r}
+#view(students)
+```
+```{r}
+ggplot(students) +
+  geom_bar(aes(x=superpower))
+```
+```{r}
+ggplot(students) +
+  geom_bar(aes(x=superpower), fill = 'light blue', color = "red")
+```
+
+
+
+```{r}
+ggplot(students) +
+  geom_bar(aes(x=superpower, fill = school_year))
+```
+
+
+```{r}
+ggplot(students) +
+  geom_bar(aes(x=superpower, fill = school_year), position = "dodge")
+```
+# Statistical transformations
+
+```{r}
+ggplot(students) +
+  geom_bar(aes(x = superpower, fill = school_year), stat = "count")
+
+
+count_data <- students %>% 
+  group_by(superpower, school_year) %>% 
+  summarise(counts = n())
+```
+
+
+
+
+```{r}
+ggplot(count_data) +
+  geom_bar(aes(x = superpower, y = counts, fill = school_year), stat = "identity")
+```
+#Labels
+
+
+```{r}
+ggplot(students) +
+  geom_bar(aes(x = superpower, fill = school_year)) +
+  labs(
+    x = "\nSuperpower",
+    y = "Count",
+    title = "Preferred Superpower by School Year",
+    subtitle = "Data from students"
+  )
+```
+```{r}
+ggplot(students) +
+  geom_bar(aes(x = superpower, fill = school_year)) +
+  xlab("\nSuperpower") +
+  ylab("Count") +
+  ggtitle("Preferred Superpower by School Year",
+          subtitle = "Data from students around the world\n") +
+  labs(fill = "School Year") 
+```
+```{r}
+olympics_overall_medals <- read_csv("data/olympics_overall_medals.csv")
+```
+
+```{r}
+top_10 <- olympics_overall_medals %>% 
+  filter(season == "Summer", medal == "Gold") %>% 
+  arrange(desc(count)) %>% 
+  top_n(10)
+
+top_10
+```
+
+```{r}
+ggplot(top_10) +
+  geom_bar(aes(x = team, y = count), fill = "gold", stat = "identity")
+```
+```{r}
+ggplot(top_10) +
+  geom_bar(aes(x=team,y=count), fill="gold" , stat="identity")
+```
+
+#Layers
+
+
+```{r}
+library(janitor)
+```
+
+
+```{r}
+chick_weight <- clean_names(ChickWeight)
+head(ChickWeight)
+```
+
+```{r}
+ggplot(chick_weight) +
+  geom_line(aes(x = time, y = weight, group = chick, color = diet))
+```
+
+```{r}
+ggplot(chick_weight) +
+  geom_line(aes(x = time, y = weight, group = chick, color = diet)) +
+  geom_point(aes(x = time, y = weight, color = diet))
+```
+
+```{r}
+ggplot(chick_weight) +
+  geom_line(aes(x = time, y = weight, group = chick, color = diet)) +
+  geom_point(aes(x = time, y = weight, color = diet)) +
+  geom_smooth(aes( x = time, y = weight, color = diet))
+```
+
+
+```{r}
+ggplot(chick_weight) +
+  geom_line(aes(x = time, y = weight, group = chick, color = diet), alpha = 0.25) +
+  geom_point(aes(x = time, y = weight, color = diet), alpha = 0.5) +
+  geom_smooth(aes( x = time, y = weight, color = diet)) 
+```
+
+```{r}
+ggplot(chick_weight) +
+  aes(x = time, y = weight, color = diet) +
+  geom_line(aes(group = chick), alpha = 0.25) +
+  geom_point(alpha = 0.5)+
+  geom_smooth()
+```
+```{r}
+ggplot(students) +
+  aes(x = height_cm, y = reaction_time, color = superpower) +
+  geom_line(aes(group = superpower), alpha = 0.5) +
+  geom_point(color="blue")
+```
+
+The graph emphasises the ratio between students' height and their superpower reaction time for any superpower.
+
+
+
+```{r}
+
+#1
+ggplot((students)) +
+  geom_point(aes(x = height_cm, y = reaction_time)) 
+
+
+#2
+ggplot((students)) +
+  geom_point(aes(x = height_cm, y = reaction_time), color = "blue") 
+
+#3
+
+ggplot((students)) +
+  geom_point(aes(x = height_cm, y = reaction_time, color = superpower))
+
+ggsave("g1_save.pdf")
+
+  
+```
+#Facetting
+
+```{r}
+ggplot(chick_weight) +
+  aes(x = time, y = weight, group = chick, colour = diet) +
+  geom_line() +
+  facet_wrap(~ diet)
+```
+```{r}
+ggplot(chick_weight) +
+  aes(x = time, y = weight, group = chick, colour = diet) +
+  geom_line() +
+  facet_wrap(~ diet, ncol = 4)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

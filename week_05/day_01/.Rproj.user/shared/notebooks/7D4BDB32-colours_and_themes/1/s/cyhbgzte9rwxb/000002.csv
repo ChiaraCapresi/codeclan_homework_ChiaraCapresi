@@ -1,0 +1,10 @@
+"0","```r
+pets <- read_csv(\"data/pets.csv\")
+```"
+"1","Rows: 10 Columns: 6── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: \",\"
+chr (3): name, animal, sex
+dbl (3): age, weight, sleep
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"

@@ -1,0 +1,16 @@
+"0","```r
+students <- students %>% 
+  mutate(school_year = factor(school_year, levels = c(\"Year 7\", \"Year 8\", \"Year 9\", \"Year 10\", \"Year 11\", \"Year 12\")))
+
+ggplot(students)+
+  aes(x = school_year, fill = superpower)+
+  geom_bar()+
+  scale_fill_manual(
+    values = c(
+      \"Fly\" = \"coral\",
+      \"Freeze time\" = \"seagreen\",
+      \"Invisibility\" = \"orange\",
+      \"Telepathy\" = \"red\"
+    )
+  )
+```"

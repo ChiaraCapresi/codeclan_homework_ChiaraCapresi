@@ -1,0 +1,7 @@
+"0","qb_revenue_breakdown <- clean_names(qb_revenue_breakdown)"
+"0",""
+"0","qb_monthly_sales <- clean_names(qb_monthly_sales)"
+"0",""
+"0","qb_competitors <- clean_names(qb_competitors)"
+"0",""
+"0","qb_device_data <- clean_names(qb_device_data)"

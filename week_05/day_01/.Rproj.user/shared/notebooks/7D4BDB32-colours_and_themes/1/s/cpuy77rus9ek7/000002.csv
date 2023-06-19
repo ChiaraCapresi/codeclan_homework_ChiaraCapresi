@@ -1,0 +1,10 @@
+"0","```r
+students <- read_csv(\"data/students.csv\")
+```"
+"1","Rows: 14 Columns: 10── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: \",\"
+chr (4): favorite_school_subject, school_year, superpower, planned_education_level
+dbl (6): age_years, reaction_time, text_messages_sent_yesterday, height_cm, sleep_hours_schoolnight, languages_spoken
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"

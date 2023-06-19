@@ -1,0 +1,5 @@
+"0","```r
+ggplot(pets, aes(weight, age, colour = sleep))+
+  geom_point()+
+  scale_colour_gradient(low = \"gray0\", high = \"gray100\")
+```"

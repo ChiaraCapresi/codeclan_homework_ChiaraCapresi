@@ -1,0 +1,6 @@
+"0","```r
+ggplot(students)+
+  aes(x = school_year, fill = superpower)+
+  geom_bar()+
+  scale_fill_brewer(palette = \"Set1\")
+```"
