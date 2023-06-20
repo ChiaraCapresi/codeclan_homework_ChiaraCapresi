@@ -1,2 +1,0 @@
-"0","ggplot(qb_revenue_breakdown)+"
-"0","  geom_bar(aes(x = product, fill = year), position = ""dodge"")"

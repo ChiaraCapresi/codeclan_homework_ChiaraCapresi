@@ -1,0 +1,8 @@
+"0","```r
+ggplot(recovery_times) %>% 
+  aes(x = treatment__group, y = recovery, group = prognosis, fill = prognosis)+
+  geom_col(position = \"dodge\")
+
+```"
+"1","NULL
+"

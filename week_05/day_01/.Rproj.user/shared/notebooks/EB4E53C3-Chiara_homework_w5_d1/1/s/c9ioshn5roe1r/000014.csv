@@ -1,0 +1,2 @@
+"0","ggplot(qb_revenue_breakdown)+"
+"0","  geom_col(aes(x = year, y = revenue, fill = product), position = ""dodge"")"

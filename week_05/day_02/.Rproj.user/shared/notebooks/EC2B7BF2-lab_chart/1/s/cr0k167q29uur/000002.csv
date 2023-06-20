@@ -1,0 +1,6 @@
+"0","```r
+pension_surplus %>% 
+  ggplot()+
+  geom_col(aes(x = reorder(item, balance), y = balance))+
+  coord_flip()
+```"

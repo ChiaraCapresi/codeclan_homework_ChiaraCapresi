@@ -1,0 +1,5 @@
+"0","```r
+d20_outcomes %>% 
+  ggplot(aes(x = outcome))+
+  geom_histogram()
+```"

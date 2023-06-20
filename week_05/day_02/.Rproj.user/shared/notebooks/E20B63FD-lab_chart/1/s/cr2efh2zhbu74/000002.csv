@@ -1,0 +1,7 @@
+"0","```r
+car_use %>%
+  summarise(
+    min_pop = min(population),
+    max_pop = max(population)
+  )
+```"

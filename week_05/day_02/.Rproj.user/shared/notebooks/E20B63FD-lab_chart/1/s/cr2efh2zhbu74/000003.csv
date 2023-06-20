@@ -1,0 +1,21 @@
+"0","```r
+
+# cut population into quartiles
+car_use <- car_use %>%
+  mutate(
+    population_cat = cut_number(
+      x = population,
+      n = 4, 
+      labels = c(\"Quart1\", \"Quart2\", \"Quart3\", \"Quart4\")
+    )
+  )
+
+ggplot(car_use) +
+  aes(
+    x = car_use_percent,
+    y = air_so2_concentration_ppm,
+    shape = population_cat
+  ) +
+  geom_point() + 
+  labs(x = \"car use (%)\", y = \"air CO2 concentration (ppm)\", shape = \"population quartile\")
+```"

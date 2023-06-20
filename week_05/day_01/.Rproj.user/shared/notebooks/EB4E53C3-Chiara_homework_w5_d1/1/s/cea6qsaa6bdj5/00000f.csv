@@ -1,0 +1,8 @@
+"0","theme_qb <- "
+"0","  theme("
+"0","    text = element_text(size = 12),"
+"0","    title = element_text(size = 14),"
+"0","    axis.text = element_text(size = 10),"
+"0","    panel.background = element_rect(fill = ""white""),"
+"0","    panel.grid = element_line(colour = ""grey90"", linetype = ""dashed"")"
+"0","  )"

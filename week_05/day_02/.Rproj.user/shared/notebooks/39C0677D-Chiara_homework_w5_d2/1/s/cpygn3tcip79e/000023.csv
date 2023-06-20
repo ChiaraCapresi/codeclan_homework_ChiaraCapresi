@@ -1,0 +1,7 @@
+"0","backpack %>% "
+"0","  ggplot() +"
+"0","  aes(x = back_problems, fill = factor(back_problems)) +"
+"0","  geom_bar()+"
+"0","  scale_x_continuous(breaks = 0:1) +"
+"0","  facet_wrap(~sex) +"
+"0","  theme(legend.position = ""none"")"

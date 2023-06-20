@@ -1,0 +1,4 @@
+"0","```r
+ d20_outcomes <- read_csv(\"data/d20_outcomes.csv\")
+d20x5_outcomes <- read_csv(\"data/d20x5_outcomes.csv\")
+```"

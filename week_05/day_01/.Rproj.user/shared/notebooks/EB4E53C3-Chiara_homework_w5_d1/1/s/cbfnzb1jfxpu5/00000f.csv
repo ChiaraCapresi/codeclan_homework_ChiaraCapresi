@@ -1,7 +1,6 @@
 "0","qb_monthly_sales_KwikBit <- qb_monthly_sales %>% "
 "0"," filter(cashflow == ""Kwikbit Unit 1 Sales"" & year(date) == 2019) "
 "0",""
-"0","?subset"
 "0",""
 "0","ggplot(qb_monthly_sales_KwikBit)+"
-"0","  geom_line(aes(x = amount, y = date))"
+"0","  geom_line(aes(x = date, y = amount, colour = cashflow))"

@@ -1,0 +1,7 @@
+"0","```r
+d20x5_outcomes %>% 
+  ggplot() +
+  geom_histogram(aes(x = outcome), binwidth = 5, colour = \"white\") +
+  scale_x_continuous(breaks = c(15,30,45,60,75,90), limits = c(15,90))
+                                                               
+```"

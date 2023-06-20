@@ -1,0 +1,7 @@
+"0","```r
+blood_pressure %>% 
+  ggplot()+
+  aes(x = daily_saturated_fat_intake_mg, y = systolic_blood_pressure_mm_hg)+
+  geom_point()+
+  geom_smooth(method = lm)
+```"

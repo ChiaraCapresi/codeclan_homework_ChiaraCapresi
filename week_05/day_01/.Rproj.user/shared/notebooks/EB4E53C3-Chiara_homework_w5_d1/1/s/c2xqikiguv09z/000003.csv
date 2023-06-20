@@ -1,0 +1,3 @@
+"0","ggplot(qb_competitors)+"
+"0","    geom_line(aes(x = year, y = revenue, color = company))+"
+"0"," geom_point(aes(x = year, y = revenue, color = company))"

@@ -1,0 +1,2 @@
+"0","qb_monthly_sales %>% "
+"0","  filter(cashflow != ""Kwikbit Unit 1 Sales"" & year(date) == 2019)"

@@ -1,0 +1,8 @@
+"0","```r
+# colour cities
+car_use %>% 
+  ggplot(aes(x = (car_use_percent*population), y = air_so2_concentration_ppm)) +
+  geom_point(aes(size = population, colour = factor(city))) +
+  geom_smooth(method = lm, se = FALSE) +
+  theme_classic()
+```"

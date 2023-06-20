@@ -42,7 +42,7 @@ Take the data in the dataset qb_revenue_breakdown and make a stacked bar chart s
 
 ```{r}
 ggplot(qb_revenue_breakdown)+
-  geom_bar(aes(x = product, fill = year), position = "dodge")
+  geom_col(aes(x = year, y = revenue, fill = product), position = "dodge")
 ```
 Question 2.
 Make a line chart showing monthly sales of the “flagship product” - the ‘KwikBit Unit 1’ - over the last year. This data is inside qb_monthly_sales, but you will need to use filter() or subset() (base R).
@@ -53,10 +53,9 @@ Make a line chart showing monthly sales of the “flagship product” - the ‘K
 qb_monthly_sales_KwikBit <- qb_monthly_sales %>% 
  filter(cashflow == "Kwikbit Unit 1 Sales" & year(date) == 2019) 
 
-?subset
 
 ggplot(qb_monthly_sales_KwikBit)+
-  geom_line(aes(x = amount, y = date))
+  geom_line(aes(x = date, y = amount, colour = cashflow))
 ```
 
 
@@ -71,13 +70,7 @@ qb_monthly_sales %>%
 remove(qb_monthly_sales_year)
 
 ggplot(qb_monthly_sales %>% filter(year(date) == 2019 & cashflow != "Kwikbit Unit 1 Sales"))+
-  geom_line(aes(x = date, y = amount, group= cashflow, colour = cashflow))+
-  labs(
-    x = "months_2019",
-    y = "revenue_costs"
-  )
-
-?year()
+  geom_line(aes(x = date, y = amount, colour = cashflow))
 
 ```
 
@@ -104,8 +97,8 @@ Now show the sales from the four competitors as a line graph. Include an extra l
 
 ```{r}
 ggplot(qb_competitors)+
-    geom_line(aes(x = year, y = revenue, group = company, color = company))+
- geom_point(aes(x = year, y = revenue, color = company), stat = "identity")
+    geom_line(aes(x = year, y = revenue, color = company))+
+ geom_point(aes(x = year, y = revenue, color = company))
 ```
 
 
@@ -119,6 +112,24 @@ ggplot(qb_device_data)+
   facet_wrap(~device)
 
 ```
+
+```{r}
+#Correction
+
+qb_device_data <- 
+mutate(qb_device_data, decimal_hour = hours + (mins/60))
+
+ggplot(qb_device_data) +
+  aes(x = decimal_hour, y = counts) +
+  geom_line() + 
+  facet_grid(id ~ device)
+```
+
+
+
+
+
+
 
 ## 2.2 Part 2
 
@@ -147,16 +158,18 @@ Take the data in the dataset qb_revenue_breakdown and make a stacked bar chart s
 
 ```{r}
 ggplot(qb_revenue_breakdown)+
-  geom_bar(aes(x = product, fill = year), position = "dodge")+
+  geom_col(aes(x = year, y = revenue, fill = product), position = "dodge")+
   labs(
     x = "source_of_revenue",
     y = "revenue"
   )+
-theme_grey()+
+  theme_grey()+
   scale_fill_manual(
     values = c(
-      "2018" = "#E89FE9",
-      "2019" = "#F9A472"
+      "Accessories" = "#E89FE9",
+      "Smart Watches" = "#50434F",
+      "Subscription Services" = "#B6A7B5",
+      "Trackers" = "#F9A472"
     )
   )
 ```
@@ -173,12 +186,14 @@ qb_monthly_sales_KwikBit <- qb_monthly_sales %>%
 
 
 ggplot(qb_monthly_sales_KwikBit)+
-  geom_line(aes(x = amount, y = date, colour = cashflow))+
+  geom_line(aes(x = date, y = amount, colour = cashflow))+
   labs(
-    x = "sales",
-    y = "months_2019"
+    x = "\nmonths_2019",
+    y = "\nsales"
   )+
-  theme_light()
+  theme_light()+
+  scale_x_date(date_breaks = "1 month", date_labels = "%b-%y")+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
 
@@ -193,7 +208,7 @@ qb_monthly_sales %>%
 remove(qb_monthly_sales_year)
 
 ggplot(qb_monthly_sales %>% filter(year(date) == 2019 & cashflow != "Kwikbit Unit 1 Sales"))+
-  geom_line(aes(x = date, y = amount, group= cashflow, colour = cashflow))+
+  geom_line(aes(x = date, y = amount, colour = cashflow))+
   labs(
     x = "months_2019",
     y = "revenue_costs"
@@ -243,9 +258,9 @@ Now show the sales from the four competitors as a line graph. Include an extra l
 
 
 ```{r}
-ggplot(qb_competitors %>%  mutate(revenue_thousands = revenue/1000))+
-    geom_line(aes(x = year, y = revenue_thousands, group = company, color = company))+
- geom_point(aes(x = year, y = revenue_thousands, color = company), stat = "identity")+
+ggplot(qb_competitors)+
+    geom_line(aes(x = year, y = revenue, color = company))+
+ geom_point(aes(x = year, y = revenue, color = company))+
   labs(
     x = "year",
     y = "revenue(1000 units)"
@@ -268,7 +283,7 @@ Now the company wants to compare the number of steps that their device counts vs
 ggplot(qb_device_data)+
   aes(x = hours, y = counts, group = device, colour = device)+
   geom_line()+
-  facet_wrap(~device)+
+  facet_grid(id~device)+
   labs(
     x = "hours",
     y = "device_count"
@@ -284,9 +299,16 @@ ggplot(qb_device_data)+
   )
 
 ```
+#Correction
 
-
-
-
-
+```{r}
+theme_qb <- 
+  theme(
+    text = element_text(size = 12),
+    title = element_text(size = 14),
+    axis.text = element_text(size = 10),
+    panel.background = element_rect(fill = "white"),
+    panel.grid = element_line(colour = "grey90", linetype = "dashed")
+  )
+```
 

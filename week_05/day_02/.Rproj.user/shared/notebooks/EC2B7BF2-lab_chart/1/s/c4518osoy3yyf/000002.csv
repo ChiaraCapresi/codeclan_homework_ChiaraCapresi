@@ -1,0 +1,7 @@
+"0","```r
+
+late_deliveries <- read_csv(\"data/late_deliveries.csv\")
+recovery_times <- read_csv(\"data/recovery_times.csv\")
+fitness_levels <- read_csv(\"data/fitness_levels.csv\")
+
+```"

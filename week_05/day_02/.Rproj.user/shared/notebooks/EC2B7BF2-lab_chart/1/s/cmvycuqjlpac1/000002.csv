@@ -1,0 +1,9 @@
+"0","```r
+fitness_levels %>%
+  group_by(group, age) %>% 
+  mutate(mean_group_score = mean(fitness_score)) %>%
+  mutate(group = as_factor(group)) %>% 
+  ggplot() +
+  aes(x = age, y = mean_group_score, group = group, colour = group) +
+  geom_line()
+```"

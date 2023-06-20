@@ -1,0 +1,6 @@
+"0","```r
+pension_liabilities %>% 
+  ggplot()+
+  geom_col(aes(x = year, y = liability_millions, fill = liability_type), position = \"dodge\")
+  
+```"
