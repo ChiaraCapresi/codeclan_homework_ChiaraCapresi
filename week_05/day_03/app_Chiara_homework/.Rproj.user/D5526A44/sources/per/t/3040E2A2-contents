@@ -1,0 +1,65 @@
+library(shiny)
+library(tidyverse)
+library(bslib)
+
+olympics_overall_medals <- read_csv("data/olympics_overall_medals.csv")
+
+all_teams <- unique(olympics_overall_medals$team)
+
+ui <- fluidPage(
+  
+  #add a theme
+  
+  theme = bs_theme(bootswatch = "minty"),
+  
+  
+  titlePanel(tags$h1("Olympic Medals")),
+  
+  sidebarLayout(
+    sidebarPanel(
+      
+      
+      #make the text summer or winter be in italisc
+      radioButtons("season_input",
+                   tags$i("Summer or Winter Olympics?"),
+                   choices = c("Summer", "Winter")
+      ),
+      
+      
+      #make the text which team by in bold
+      selectInput("team_input",
+                  tags$b("Which Team?"),
+                  choices = all_teams
+      )
+   ),
+    
+    mainPanel(
+      plotOutput("medal_plot"),
+      
+      br(), #space
+      
+      #can also add breaks using raw HTML
+      HTML("<br><br><br>"),
+      
+      
+      #add a link to the olympics website
+      tags$a("The Olympics website", 
+             href = "https://www.Olympic.org")
+    )
+  )
+)
+
+server <- function(input, output) {
+  
+  output$medal_plot <- renderPlot({
+    olympics_overall_medals %>%
+      filter(team == input$team_input) %>%
+      filter(season == input$season_input) %>%
+      ggplot() +
+      aes(x = medal, y = count, fill = medal) +
+      geom_col()
+  })
+  
+}
+
+shinyApp(ui = ui, server = server)

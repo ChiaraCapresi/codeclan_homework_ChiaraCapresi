@@ -1,0 +1,11 @@
+"0","```r
+olympics_overall_medals <- read_csv(\"data/olympics_overall_medals.csv\")
+
+```"
+"1","Rows: 922 Columns: 4── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: \",\"
+chr (3): team, season, medal
+dbl (1): count
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"

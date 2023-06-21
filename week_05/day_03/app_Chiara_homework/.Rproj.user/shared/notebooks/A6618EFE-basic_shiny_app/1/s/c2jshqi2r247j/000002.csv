@@ -1,0 +1,4 @@
+"0","widgetInput(inputId = \"id\", #server friendly widget label
+            label = \"widget label\", #human friendly widget label
+            choices = c(\"choice A\", \"choice B\", \"choice C\")
+            )"

@@ -1,0 +1,11 @@
+"0","library(shiny)  #first we load the package
+
+  ui <- fluidPage() # define the user interface
+  # determines the layout and appearance of the app
+  # going to use a fluidPage, others are available but will use this for now
+  
+  server <- function(input, output){
+    #define the server, this defines the logic of our app
+  }
+  
+  shinyApp(ui = ui, server = server) #run function with ui and server as input"

@@ -1,0 +1,36 @@
+---
+title: "Shiny app: 'Scottish exports'"
+output: html_notebook
+---
+
+```{r}
+library(CodeClanData)
+library(tidyverse)
+```
+```{r}
+milk
+pets
+scottish_exports
+world
+```
+
+
+```{r}
+scottish_exports %>% 
+  filter(year == 2003) %>% 
+  ggplot() +
+  aes(x = sector, y = exports, fill = sector) +
+  geom_col(show.legend = FALSE) +
+  labs(
+    x = "\nsectors",
+    y = "\nexports per year\n",
+    title = "Scottish exports\n"
+  ) +
+  coord_flip()
+```
+```{r}
+all_years <- scottish_exports %>% 
+  distinct(year) %>% 
+  pull()
+```
+

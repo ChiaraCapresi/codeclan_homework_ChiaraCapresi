@@ -1,0 +1,5 @@
+"0","```r
+all_teams <- olympics_overall_medals %>% 
+  distinct(team) %>% 
+  pull()
+```"

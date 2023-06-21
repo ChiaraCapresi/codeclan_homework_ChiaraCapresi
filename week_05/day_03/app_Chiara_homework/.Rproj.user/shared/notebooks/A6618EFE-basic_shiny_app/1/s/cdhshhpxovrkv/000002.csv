@@ -1,0 +1,5 @@
+"0","```r
+selectInput(inputId = \"country_input\",
+             label = \"Country?\",
+             choices = c(\"United States\", \"Soviet Union\", \"Germany\", \"Italy\", \"Great Britain\"))
+```"

@@ -1,0 +1,7 @@
+"0","# different for males vs females?"
+"0","ggplot(backpack) + "
+"0","  aes(x = body_weight, y = backpack_weight, color = sex) + "
+"0","  geom_point() + "
+"0","  facet_wrap(~sex) + "
+"0","    scale_color_manual(values=c('#E69F00', '#56B4E9'))+"
+"0","    labs(x = ""body weight"", y = ""backpack weight"")"

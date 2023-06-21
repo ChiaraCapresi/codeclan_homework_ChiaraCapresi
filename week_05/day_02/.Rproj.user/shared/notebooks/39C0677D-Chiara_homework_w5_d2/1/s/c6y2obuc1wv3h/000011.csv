@@ -1,0 +1,5 @@
+"0",""
+"0","backpack %>% "
+"0","  ggplot(aes(x = factor(back_problems), fill = sex)) +"
+"0","  geom_bar(position = ""fill"")"
+"0",""

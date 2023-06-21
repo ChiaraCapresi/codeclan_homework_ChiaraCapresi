@@ -1,0 +1,8 @@
+"0",""
+"0","# distribution of backpack weight"
+"0","ggplot(backpack) +"
+"0","  aes(x = backpack_weight) +"
+"0","  geom_histogram(bins = 20, col = ""white"", fill = ""dark green"") + "
+"0","  theme_light() + "
+"0","  labs(y = ""number of backpacks"", x = ""weight"")"
+"0",""

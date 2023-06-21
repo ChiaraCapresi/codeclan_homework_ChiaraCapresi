@@ -1,0 +1,3 @@
+"0","radioButtons(inputId = \"season_input\",
+             label = \"Summer or Winter Olympics?\",
+             choices = c(\"Summer\", \"Winter\"))"

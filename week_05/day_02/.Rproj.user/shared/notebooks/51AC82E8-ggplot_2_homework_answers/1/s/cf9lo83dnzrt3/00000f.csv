@@ -1,0 +1,7 @@
+"0","ggplot(backpack) + "
+"0","  geom_histogram(aes(x = ratio, fill = backpain_labelled), bins = 20, col = ""white"") + "
+"0","  facet_grid(sex ~ backpain_labelled, "
+"0","             labeller = labeller(backpain_labelled = pain_labels, sex = sex_labels)) + "
+"0","  labs(x = ""\n body weight: backpack weight ratio"") +"
+"0","      scale_fill_manual(values=c('#f0ca41', '#5022bd'))+"
+"0","theme(legend.position = ""none"")"

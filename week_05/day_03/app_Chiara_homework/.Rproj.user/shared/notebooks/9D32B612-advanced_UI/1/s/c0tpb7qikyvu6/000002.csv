@@ -1,0 +1,7 @@
+"0","library(bslib)
+
+ui <- fluidPage(
+  theme = bs_theme(bootswatch = \"flatly\")
+  
+  title Panel(\"Olympic Medals\")
+)"

@@ -1,0 +1,19 @@
+"0","backpack <- backpack %>%"
+"0","  mutate(backpain_labelled = recode(back_problems, "
+"0","                       ""0"" = ""No"", "
+"0","                       ""1"" = ""Yes""))"
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"
+"2","Error in assign(cacheKey, frame, .rs.CachedDataEnv) : 
+  attempt to use zero-length variable name
+"
+"0","backpack %>% "
+"0","  ggplot() +"
+"0","  aes(x = back_problems, fill = factor(back_problems)) +"
+"0","  geom_bar()+"
+"0","  scale_x_continuous(breaks = 0:1) +"
+"0","  theme(legend.position = ""none"") +"
+"0","  labs(x = ""Backpain (0/1)"","
+"0","       y = ""Number of students"","
+"0","       )"

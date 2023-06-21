@@ -1,0 +1,5 @@
+"0","# relationship between weight and backpack weight?"
+"0","ggplot(backpack) + "
+"0","  aes(x = body_weight, y = backpack_weight) + "
+"0","  geom_point() + "
+"0","  labs(x = ""body weight"", y = ""backpack weight"")"

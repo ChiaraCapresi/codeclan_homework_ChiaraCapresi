@@ -1,0 +1,51 @@
+---
+title: "Whisky Distilleries"
+output: html_notebook
+---
+
+```{r}
+library(CodeClanData)
+library(tidyverse)
+```
+
+```{r}
+whisky %>% 
+  filter(Region == "Highlands") 
+```
+```{r}
+whisky %>% 
+  filter(Region == "Highlands") %>% 
+  filter(Body == 2) %>% 
+  filter(Sweetness == 3) %>% 
+  filter(Smoky == 1) %>% 
+  mutate(capacity_thousands = Capacity/1000) %>% 
+  ggplot() +
+  aes(x = Distillery, y = capacity_thousands, fill = Distillery) +
+  geom_col(show.legend = FALSE) +
+  coord_flip() +
+  labs(
+    x = "\ncapacity (1000 units)",
+    y = "\nDistilleries\n\n",
+    title = "Whisky Distilleries\n"
+  )
+  
+```
+
+
+
+
+
+
+
+```{r}
+all_region <- whisky %>% 
+  distinct(Region) %>% 
+  pull()
+```
+
+```{r}
+all_bodies <- whisky %>% 
+  distinct(Body) %>% 
+  pull()
+```
+

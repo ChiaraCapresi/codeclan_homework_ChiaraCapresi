@@ -66,8 +66,9 @@ Are there differences in backpack weight between sex?
 backpack %>% 
   ggplot()+
   aes(x = backpack_weight, fill = sex) +
-  geom_bar(position = "dodge") +
-  scale_x_continuous(breaks = 1:35) 
+  geom_histogram(bins = 20, col = "white") +
+  scale_x_continuous(breaks = 1:35) +
+  facet_wrap(~sex, nrow = 2)
 ```
 In this chart we can see the distribution of each weight depending on sex.
 
@@ -111,7 +112,7 @@ backpack %>%
    ggplot()+
   aes(x = backpack_weight, y = body_weight, colour = sex) +
   geom_point() +
-    geom_smooth(method = lm)
+    geom_smooth(method = lm) 
 
 ```
 
@@ -124,13 +125,63 @@ What proportion of students report back pain?
 
 
 ```{r}
+backpack <- backpack %>%
+  mutate(backpain_labelled = recode(back_problems, 
+                       "0" = "No", 
+                       "1" = "Yes"))
+
 backpack %>% 
   ggplot() +
   aes(x = back_problems, fill = factor(back_problems)) +
   geom_bar()+
   scale_x_continuous(breaks = 0:1) +
-  theme(legend.position = "none")
+  theme(legend.position = "none") +
+  labs(x = "Backpain (0/1)",
+       y = "Number of students",
+       )
+
+backpack %>% 
+  ggplot(aes(x = factor(back_problems), fill = sex)) +
+  geom_bar(position = "fill")
+
 ```
+
+
+
+```{r}
+backpack1 <- backpack %>% 
+  mutate(back_problems = recode(back_problems,
+                               "1" = "Back problem",
+                                "0" = "No back problem"))
+
+
+
+backpack1 %>% 
+ggplot(aes(x = back_problems, y = after_stat(prop), group = 1)) +
+  geom_bar() +    
+  xlab("Back issues among students") +
+  ylab("Percentage") +
+  ggtitle("Percentage students with back issues") +
+  scale_y_continuous(labels = scales::percent_format())
+```
+
+
+```{r}
+backpack %>% 
+  ggplot(aes(x = "", fill = back_problems)) +
+  geom_bar(position = "fill") +
+  theme_minimal() +
+  labs(y = "proportion",
+       x = "proportion of students with back pain") +
+  scale_y_continuous(labels = scales::percent)
+```
+
+
+
+
+
+
+
 This chart gives us the count of students who has back problems and the count of students who doesn't.
 
 ## Question 7.
@@ -162,7 +213,7 @@ Hint: faceting would be useful here.
 ```{r}
 backpack %>% 
   ggplot() +
-  aes(x = backpack_weight, y = body_weight) +
+  aes(x = backpack_weight, y = body_weight, colour = factor(back_problems)) +
   geom_point(position = "dodge") +
   facet_grid(sex~back_problems) +
   geom_smooth(method = lm)
@@ -170,3 +221,54 @@ backpack %>%
 ```
 
 Here we show the relationship between backpack weight and body weight depending on gender and on back problems.
+
+#Correction
+
+
+```{r}
+ggplot(backpack) + 
+  geom_histogram(aes(x = ratio, fill = backpain_labelled), bins = 20, col = "white") + 
+  facet_grid(sex ~ backpain_labelled, 
+             labeller = labeller(backpain_labelled = pain_labels, sex = sex_labels)) + 
+  labs(x = "\n body weight: backpack weight ratio") +
+      scale_fill_manual(values=c('#f0ca41', '#5022bd'))+
+theme(legend.position = "none")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

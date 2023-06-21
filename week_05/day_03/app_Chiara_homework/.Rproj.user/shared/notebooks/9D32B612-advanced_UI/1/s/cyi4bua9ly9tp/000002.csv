@@ -1,0 +1,8 @@
+"0","tabsetPanel(
+  
+  tabPanel(\"First tab\",
+           \"First tab content hete\"),
+  
+  tabPanel(\"Second tab\",
+           \"second tab content here\")
+)"
