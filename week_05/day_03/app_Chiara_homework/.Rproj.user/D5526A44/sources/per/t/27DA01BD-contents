@@ -26,7 +26,7 @@ all_smoky <- whisky %>%
 ui <- fluidPage(
   
   
-  theme = bs_theme(bootswatch = "sketchy"),
+  theme = bs_theme(bootswatch = "morph"),
   
   titlePanel(tags$h1("Whisky Distilleries")),
   

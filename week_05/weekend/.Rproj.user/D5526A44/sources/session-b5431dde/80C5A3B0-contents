@@ -1,0 +1,15 @@
+ui <- fluidPage(
+  #-----input-----
+  fluidRow(
+    selectInput(
+      inputId = "region_in",
+      label = "Which region?",
+      choices = regions
+    )
+  ),
+  
+  #----output-----
+  fluidRow(
+    leafletOutput("distillery_map")
+  )
+)

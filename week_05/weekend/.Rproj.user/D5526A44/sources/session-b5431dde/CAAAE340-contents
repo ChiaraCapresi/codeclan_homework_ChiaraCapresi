@@ -1,0 +1,66 @@
+library(shiny)
+library(tidyverse)
+
+
+students_big <- read_csv("data/students_big.csv")
+
+
+all_ages <- sort(unique(students_big$ageyears))
+
+
+ui <- fluidPage(
+  
+  fluidRow(
+    
+    radioButtons("age_input",
+                 tags$b("Age"),
+                 choices = all_ages,
+                 inline = TRUE)
+    
+  ),
+  
+  fluidRow(
+    
+    column(width = 6,
+           plotOutput("height_plot")),
+    
+    column(width = 6,
+           plotOutput("arm_span_plot"))
+  )
+  
+  
+  
+  
+)
+
+
+server <- function(input, output){
+  
+  filtered_students <- reactive({
+    students_big %>% 
+      filter(ageyears == input$age_input) 
+    })
+  
+  
+  
+  output$height_plot <- renderPlot({
+    filtered_students() %>% 
+      ggplot() +
+      aes(x = height) +
+      geom_histogram()
+  })
+  
+  output$arm_span_plot <- renderPlot({
+    filtered_students() %>% 
+      ggplot() +
+      aes(x = arm_span) +
+      geom_histogram()
+  })
+  
+  
+  
+  
+}
+
+
+shinyApp(ui, server)
