@@ -1,0 +1,407 @@
+---
+title: "Conditional probability"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    df_print: paged
+    css: ../../../styles.css
+  pdf_document: default
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align = 'center')
+```
+
+# Learning Objectives
+
+* Understand the basic theory of conditional probability
+* Understand what makes events dependent upon or independent of each other.
+* Know the multiplication laws for dependent and independent events.
+ 
+**Duration - 60 minutes**
+
+<hr>
+
+# Conditional probability
+
+<br>
+
+We've covered a lot of probability today. So far, all we've looked at though is the probability of one or two events happening totally apart from one another: e.g. two card draws, two coin flips, a coin flip and a dice roll... etc. 
+
+But more iften we'd like to be able to compute the probability of one event **given that** we know another has occurred. For example, what are the chances of selling item X if we've already sold item Y? 
+
+We call this a **conditional probability**, and write $\textrm{prob}(A \mid B)$ for the *"probability of event $A$ occurring given that event $B$ has occurred"*. We could also put this more briefly as the *"probability of $A$ given $B$"*.   
+
+<br>
+<div class='emphasis'>
+In terms of probability theory, the conditional probability is
+
+$$\textrm{prob}(A \mid B) = \frac{\textrm{prob}(A \cap B)}{\textrm{prob}(B)}$$
+
+In plain language: *the probability of event $A$* **given** *event $B$ , equals the probability of $A$* **AND** *$B$ divided by the probability of $B$ alone*. 
+
+</div>
+<br>
+
+
+Let's return to the roll of a single die for an example. Say we ask:
+
+> What is the probability that a 5 was rolled **given that** we know an odd number was rolled?"
+
+
+To answer this, we need to work out what outcomes we have. Reminder from this morning: we know that if an odd number was rolled, the event space contains three outcomes: $\{1,3,5\}$. So now $5$ is one outcome among three, and we'd calculate that: 
+
+$$\textrm{prob}(5 \mid \textrm{odd}) = \frac{1}{3}$$ 
+
+<br>
+<div class='emphasis'>
+Note how the **conditioning event** (i.e. number is odd in this case) **filters down** the space of outcomes we have to consider: this is key to understanding conditional probability. 
+</div>
+<br>
+
+Does the formula above give us the same answer? Let's try it out! We define: 
+
+* event $A$: '$\textrm{5 is rolled}$'
+* event $B$: '$\textrm{odd is rolled}$' 
+
+which gives:
+
+$$\textrm{prob}(5 \mid odd) = \frac{\textrm{prob}(5 \cap odd)}{\textrm{prob}(odd)}$$
+Now, to add in the probabilities.
+
+* The AND combination (the intersection) gives $\textrm{prob}(\textrm{ 5 } \cap \textrm{ odd }) = \frac{1}{6}$
+* The probability of $\textrm{odd}$ is $\textrm{prob}(\textrm{ odd })=\frac{1}{2}$. 
+
+Plugging that into our formula gives:
+
+
+$$\textrm{prob}(5 \mid odd) = \frac{(1/6)}{(1/2)} = \frac{1}{3}$$
+
+
+Yep, it works! Both ways come out as 1/3 = 0.333. 
+
+
+
+<hr>
+
+# Dependent and independent events
+
+Conditional probabilities help us to think about **independent** and **dependent** events. We say that two events $A$ and $B$ are **independent** if 
+
+$$\textrm{prob}(A \mid B) = \textrm{prob}(A),$$
+
+that is, if the probability of event $A$ is **not affected** by whether event $B$ has happened or not. The probability of A given B is the same as the probability of A happening alone. 
+
+Consider rolling two dice. Is the probability of getting a 4 dependent on the event first die is 3? Nope, not in any way: the rolls of the dice are completely **independent** of each other. If you calculate the probability of getting a 4 it's 1/6, regardless of whether the first one was a three or not. 
+
+
+This leads to the probability **multiplication laws**:
+
+
+| Events A and B are...   | Multiplication law              |
+|-----------------------|---------------------------------|
+| dependent             | $\textrm{prob}(A \cap B) = \textrm{prob}(A \mid B) \times \textrm{prob}(B) = \textrm{prob}(B \mid A) \times \textrm{prob}(A)$  |
+| independent           | $\textrm{prob}(A \cap B) = \textrm{prob}(A) \times \textrm{prob}(B)$        |
+
+
+You are not expected to memorise these by any means. What you should take from this is that if you have two events that are dependent on one another, you need to be careful how you calculate probability and which statistical tests you use. 
+
+
+
+# Example: Colour blindness data
+
+Let's investigate a more interesting problem than the roll of a single die. We'll import data set on the occurrence of colour blindness in $10,000$ individuals categorised by their biological sex (i.e. chromosomal variety)
+
+
+```{r, warning = FALSE, echo = FALSE, message = FALSE}
+library(tidyverse)
+```
+
+```{r}
+cb <- read_csv("data/colour_blindness.csv")
+head(cb)
+```
+This is a pretty minimal dataset: we have two variables each of which is categorical with two levels. An interesting way to view such data is with a **contingency table** (also known as a **cross tabulation** or **two-way table**). The best way to understand them is just to see one! We'll use the `tabyl()` function from `janitor` to do this:
+
+```{r, warning = FALSE, echo = FALSE, message = FALSE}
+library(janitor)
+```
+
+
+```{r}
+table <- cb %>%
+  tabyl(bio_sex, cblind)
+
+table
+```
+
+This shows us how many females and males are colourblind or not. 
+
+We can add row and column totals using the `adorn_totals()` function:
+
+```{r}
+
+table <- table %>%
+  adorn_totals(where = c("row", "col"))
+
+table
+```
+
+If we prefer to see this data in terms of relative proportions of the dataset, we can do this using the `adorn_percentages()` function. We pass in `denominator = "all"` to tell the function to calculate proportions with reference to the total number of rows in the dataset ($10,000$ in this case). Let's also add in the title for `cblind`:
+
+```{r}
+table <- table %>%
+  adorn_percentages(denominator = "all") %>%
+  adorn_title()
+
+table
+```
+
+## Marginal probabilities
+
+This table is really useful! The numbers in the `Total` row and column correspond to what are called **marginal probabilities** (because they appear at the table margins).
+
+So, for example $\textrm{prob}(\textrm{female})=0.4$. If we didn't have access to this contingency table, how would we calculate this using a pipe? Like this:
+
+```{r}
+prob_female <- cb %>%
+  summarise(prob = sum(bio_sex == "female") / n())
+prob_female
+```
+
+
+<br>
+<blockquote class="task">
+**Task - 5 mins**
+
+What are the **marginal probabilities** of:
+
+* being male
+* being colour blind
+* not being colour blind? 
+
+Get these probabilities from the contingency table, and also calculate them using pipes. Save each probability in a sensibly named variable, we'll need it later! 
+
+<details>
+<summary>**Solution**</summary>
+
+**being male**
+
+$\textrm{prob}(\textrm{male})=0.6$ from the contingency table
+
+```{r}
+prob_male <- cb %>%
+  summarise(prob = sum(bio_sex == "male") / n())
+prob_male
+```
+
+**being colour blind**
+
+$\textrm{prob}(\textrm{colour blind})=0.0436$ from the contingency table
+
+```{r}
+prob_cb <- cb %>%
+  summarise(prob = sum(cblind) / n())
+prob_cb
+```
+
+**not being colour blind**
+
+$\textrm{prob}(\textrm{not colour blind})=0.9564$ from the contingency table
+
+```{r}
+prob_not_cb <- cb %>%
+  summarise(prob = sum(!cblind) / n())
+prob_not_cb
+```
+</details>
+</blockquote>
+<br>
+
+## Joint probabilities
+
+Now, the probabilities in the main body of the table are called **joint probabilities**, and they correspond to the AND combination of the corresponding levels.
+
+```{r}
+table
+```
+
+For example, the joint probability of being female AND colour blind is $\textrm{prob}(\textrm{female AND colour blind})=0.0016$, we read this from the corresponding row and column of the contingency table. How would we calculate this using a pipe? There are a few different ways to do this:
+
+```{r}
+prob_female_cb <- cb %>%
+  filter(bio_sex == "female", cblind == TRUE) %>%
+  summarise(prob = n() / nrow(cb))
+prob_female_cb
+```
+
+<br>
+<blockquote class="task">
+**Task - 2 mins**
+
+Have a go at this yourself. What is the joint probability of being male AND colour blind? Get this from the contingency table, and then calculate it using a pipe.
+
+<details>
+<summary>**Solution**</summary>
+
+$\textrm{prob}(\textrm{male AND colour blind})=0.0420$ from the contingency table.
+
+```{r}
+prob_male_cb <- cb %>%
+  filter(bio_sex == "male", cblind == TRUE) %>%
+  summarise(prob = n() / nrow(cb))
+prob_male_cb
+```
+
+</details>
+</blockquote>
+<br>
+
+## Dependent and independent events
+
+Now, is the event $\textrm{being female}$ dependent or independent of the event $\textrm{being colour blind}$? They are independent events if:
+
+$$\textrm{prob}(\textrm{female AND colour blind})=\textrm{prob}(\textrm{female}) \times \textrm{prob}(\textrm{colour blind})$$
+
+We calculated the AND combination above:
+
+```{r}
+prob_female_cb
+```
+
+Does this equal the right-hand side?
+
+```{r}
+prob_female * prob_cb
+```
+
+It does not! So this means that the two events $\textrm{being female}$ and $\textrm{being colour blind}$ are **dependent**. 
+
+<br>
+<blockquote class="task">
+**Task - 2 mins**
+
+Try the same thing with the two events $\textrm{being male}$ and $\textrm{being colour blind}$. Are they dependent or independent events?
+
+<details>
+<summary>**Solution**</summary>
+
+What is the joint probability?
+
+```{r}
+prob_male_cb
+```
+
+What is the product of the two marginal probabilities?
+
+```{r}
+prob_male * prob_cb
+```
+
+So, again, the events $\textrm{being male}$ and $\textrm{being colour blind}$ are **dependent**.
+
+</details>
+</blockquote>
+<br>
+
+## Conditional probability
+
+The easiest way to see the dependence of events is by calculating their **conditional probabilities**. In this case we want to know **'What is the probability of a person being colour blind _given_ that we know they are female?'**
+
+$$\textrm{prob}(\textrm{colour blind | female})$$
+
+Or, in other words, **'What proportion of female people are colour blind?'**
+
+To get this from the contingency table we would need to do a little more maths
+
+$$\begin{align}
+\textrm{prob}(\textrm{colour blind | female}) &= \frac{\textrm{prob}(\textrm{colour blind} \cap \textrm{female})}{\textrm{prob}(\textrm{female})} \\
+&= \frac{0.0016}{0.4} \\
+&= 0.004 \\
+&= 0.4 \%
+\end{align}$$
+
+How would we calculate this using a pipe?
+
+```{r}
+prob_cb_given_female = cb %>%
+  filter(bio_sex == "female") %>%
+  summarise(prob = sum(cblind) / n())
+
+prob_cb_given_female
+```
+
+First, we 'filter down' the dataframe to just the conditioning event, and then we calculate the probability in the filtered space.
+
+<br>
+<blockquote class='task'>
+**Task - 5 mins**
+
+Over to you again! Calculate $\textrm{prob}(\textrm{colour blind | male})$ first by using the formula
+
+$$\textrm{prob}(\textrm{colour blind | male}) = \frac{\textrm{prob}(\textrm{colour blind} \cap \textrm{male})}{\textrm{prob}(\textrm{male})}$$
+
+with the probabilities from the contingency table, and then using a pipe in `R`
+
+<details>
+<summary>**Solution**</summary>
+
+$$\begin{align}
+\textrm{prob}(\textrm{colour blind | male}) &= \frac{\textrm{prob}(\textrm{colour blind} \cap \textrm{male})}{\textrm{prob}(\textrm{male})} \\
+&= \frac{0.042}{0.6} \\
+&= 0.07 \\
+&= 7 \%
+\end{align}$$
+
+```{r}
+prob_cb_given_male = cb %>%
+  filter(bio_sex == "male") %>%
+  summarise(prob = sum(cblind) / n())
+
+prob_cb_given_male
+```
+</details>
+</blockquote>
+<br>
+
+So we can see that the probability of an individual being colour blind **depends** upon their biological sex. This is certainly true for this set of $10,000$ individuals in the dataset, but what about more generally? 
+
+If we were using this set of $10,000$ individuals as a **sample of a broader population**, are $\textrm{prob}(\textrm{colour blind | female})$ and $\textrm{prob}(\textrm{colour blind | male})$ sufficiently different in this sample to convince us that this is also likely to be a **real effect in the broader population**? We'll think more about this when we cover statistical testing later this week! 
+
+# Recap
+
+* What is the expression for the conditional probability of event $A$ given that we know event $B$ has occurred?
+<details>
+<summary>**Answer**</summary>
+$$\textrm{prob}(A \mid B) = \frac{\textrm{prob}(A \cap B)}{\textrm{prob}(B)}$$
+</details>
+
+<br>
+
+* Translate this expression into plain language!
+<details>
+<summary>**Answer**</summary>
+"The probability of $A$ given $B$ is the probability of $A$ and $B$ both occurring divided by the probability of $B$".
+</details>
+
+<br>
+
+* How is the independence of two events $A$ and $B$ related to the conditional probability $p(A \mid B)$? 
+<details>
+<summary>**Answer**</summary>
+$A$ is independent of $B$ if $\textrm{prob}(A \mid B) = \textrm{prob}(A)$. <br>
+In plain language: the probability of $A$ doesn't depend on whether $B$ has occurred or not.
+</details>
+
+<br>
+
+* What are the multiplication laws for dependent and independent events?
+<details>
+<summary>**Answer**</summary>
+dependent: $\textrm{prob}(A \cap B) = \textrm{prob}(A \mid B) \times \textrm{prob}(B)$<br>
+independent: $\textrm{prob}(A \cap B) = \textrm{prob}(A) \times \textrm{prob}(B)$        
+</details>

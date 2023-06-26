@@ -1,0 +1,5 @@
+"0","titanic_info <- titanic %>% "
+"0","  mutate(class = if_else(class %in% c(""1st"", ""2nd"", ""3rd""), ""passenger"", ""crew""))"
+"0",""
+"0","titanic_info %>% "
+"0","  distinct(class)"

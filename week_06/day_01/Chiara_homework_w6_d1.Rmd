@@ -1,0 +1,303 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(gtools)
+library(tidyverse)
+library(stringr)
+library(janitor)
+source("prob.R")
+```
+
+#1.1 The Titanic
+
+
+```{r}
+titanic <- read_csv("data/titanic.csv")
+```
+```{r}
+titanic %>% 
+  distinct(class)
+```
+
+```{r}
+titanic_info <- titanic %>% 
+  mutate(class = if_else(class %in% c("1st", "2nd", "3rd"), "passenger", "crew"))
+
+titanic_info %>% 
+  distinct(class)
+```
+
+
+```{r}
+survived_table <- titanic_info %>% 
+  tabyl(class, survived) %>% 
+  adorn_totals(where = c("row", "col")) %>% 
+  adorn_percentages(denominator = "all")
+
+survived_table
+```
+Let's check if the events A (the person is a crew member/passenger) and B(the person is survived are or not dependent)
+
+
+
+```{r}
+p_crew <- 0.4032623
+
+p_survived <- 0.32215677
+
+p_survived_and_crew <- 0.09560489
+
+p_crew * p_survived
+
+
+```
+
+```{r}
+p_pass <- 0.5967377
+
+p_survived <- 0.32215677
+
+p_survived_and_pass <- 0.22655188
+
+p_pass * p_survived
+```
+The events 'be a passenger' / 'be survived' and "be a crew member" / "be survived" are respectively dependent
+
+$$p(survived | crew) = P(survived \cap crew) / p(crew)$$ 
+```{r}
+p_survived_given_crew <- p_survived_and_crew / p_crew
+
+p_survived_given_crew
+```
+
+```{r}
+p_survived_given_pass <- p_survived_and_pass / p_pass
+
+p_survived_given_pass
+```
+The passenger survived are more than the crew members survived!
+
+
+```{r}
+prob_crew <- titanic_info %>% 
+  summarise(prob = sum(class == "crew") / n()) %>% 
+  pull()
+
+prob_crew
+p_crew
+```
+
+
+```{r}
+prob_pass <- titanic_info %>% 
+  summarise(prob = sum(class == "passenger") / n()) %>% 
+  pull()
+
+prob_pass
+p_pass
+```
+
+```{r}
+prob_survived <- titanic_info %>% 
+  summarise(prob = sum(survived == "yes") / n()) %>% 
+  pull()
+
+prob_survived
+p_survived
+```
+```{r}
+prob_survived_and_crew <- titanic_info %>% 
+  filter(class == "crew", survived == "yes") %>% 
+  summarise(prob = n() / nrow(titanic_info)) %>% 
+  pull()
+
+prob_survived_and_crew
+p_survived_and_crew
+```
+```{r}
+prob_survived_and_pass <- titanic_info %>% 
+  filter(class == "passenger", survived == "yes") %>% 
+  summarise(prob = n() / nrow(titanic_info)) %>% 
+  pull()
+
+prob_survived_and_pass
+p_survived_and_pass
+```
+
+```{r}
+prob_survived_given_crew <- prob_survived_and_crew / prob_crew
+
+prob_survived_given_crew
+```
+
+```{r}
+prob_survived_given_pass <- prob_survived_and_pass / prob_pass
+
+prob_survived_given_pass
+```
+
+#1.2 Probability Consolidation Questions
+
+## Question 1
+
+ If I roll a six-sided dice once, what is the probability of getting a number less than 5?
+ 
+ S(roll a six-sided dice once) = {1, 2, 3, 4, 5, 6}
+ 
+ Event A: getting a number less than 5 -> {1, 2, 3, 4}
+ 
+ So, the probability is P(A) = 4 / 6 = 2 / 3 = 0.6666667
+ 
+ 
+ Let's do it with dplyr:
+ 
+```{r}
+space_roll_die <- rolldie(1, 6) 
+
+space_size <- space_roll_die %>% 
+  summarise(space_size = n()) %>% 
+  pull()
+
+num_less_than_5 <- space_roll_die %>% 
+  filter(X1 < 5) %>% 
+  summarise(size_event_space = n()) %>% 
+  pull()
+
+
+prob <- num_less_than_5 / space_size
+prob
+```
+ 
+
+## Question 2:
+
+ How many outcomes are there in the sample space of an experiment in which we toss three dice?
+ 
+```{r}
+6^3
+```
+```{r}
+sample_space <- rolldie(3, 6)
+
+card_sample_space <- sample_space %>% 
+  summarise(card = n()) %>% 
+  pull()
+
+card_sample_space
+```
+ 
+## Question 3:
+
+In an experiment where we roll four dice:
+
+  a) how many outcomes are in the event where the total of the four dice equals 5, 6 or 7)?
+  b) what is the probability of this event?
+  c) what assumptions do we apply in answering part ii?
+  
+
+### a)
+
+A: the total of the four dice is 5, 6 or 7
+
+
+```{r}
+#outcomes A
+outcomes_a <- s_four_dice %>% 
+  filter((X1 + X2 + X3 + X4) %in% c(5, 6, 7)) %>% 
+  summarise(outcomes = n()) %>% 
+  pull()
+
+outcomes_a
+
+```
+There are 34 possible outcomes for the event A
+
+### b)
+
+  
+```{r}
+sample_size <- 6^4
+
+s_four_dice <- rolldie(4, 6)
+
+s_four_dice %>% 
+  summarise(size = n()) %>% 
+  pull() # just for verifying that it's equal to 6^4 and it is!!!
+```
+```{r}
+p_a <- outcomes_a / sample_size
+p_a
+```
+```{r}
+prob_a <- s_four_dice %>% 
+  filter((X1 + X2 + X3 + X4) %in% c(5, 6, 7)) %>% 
+  summarise(prob = n() / nrow(s_four_dice)) %>% 
+  pull()
+
+prob_a
+p_a
+```
+P(A) = 0.02623457
+
+### c) 
+
+We assume that the three events 
+  A_1: the total of the four dice is 5,
+  A_2: the total of the four dice is 6,
+  A_3: the total of the four dice is 7
+are independent.
+
+
+## Question 4:
+
+Five chairs are placed in a row in a room, along with five people of differing height. The people sit down randomly on the chairs. What is the probability that they sit in order of decreasing height, left to right?
+
+
+```{r}
+#p(ordered_chairs) = 1/5!
+p <- 1 / (5*4*3*2)
+p
+```
+
+## Question 5:
+
+I roll six dice:
+
+  -  what is the probability I see the numbers 6, 5, 4, 3, 2 and 1 in order on the dice, left to right?
+  
+```{r}
+sample_size <- 6^6
+
+p <- 1/sample_size
+p
+```
+  
+  -  what is the probability I see one each of the numbers 6, 5, 4, 3, 2 and 1 on the dice regardless of order?
+
+
+```{r}
+p <- (6*5*4*3*2)/sample_size
+p
+```
+
+## Question 6:
+
+ If I draw a single card from a 52-card deck, and it is black, what is the probability that its suit is spades? 
+ 
+```{r}
+p <- 13/ 52
+p
+```
+ 
+
+
+
+
+
+
+
+
+
