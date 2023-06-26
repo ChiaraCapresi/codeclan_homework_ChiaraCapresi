@@ -1,0 +1,22 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(ggplot2)
+library(plotly)
+```
+
+
+```{r}
+p <- ggplot(iris, aes(Sepal.Length, 
+                      Sepal.Width, colour = Species)) +
+  geom_point()
+
+ggplotly(p)
+```
+
+
+
+

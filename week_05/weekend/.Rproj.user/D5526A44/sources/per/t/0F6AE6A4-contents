@@ -1,0 +1,139 @@
+library(shiny)
+library(tidyverse)
+
+students_big <- read_csv("data/students_big.csv")
+
+handed_options <- students_big %>% 
+  distinct(handed) %>% 
+  pull()
+
+all_regions <- students_big %>% 
+  distinct(region) %>% 
+  pull()
+
+
+all_gender <- students_big %>% 
+  distinct(gender) %>% 
+  pull()
+
+
+
+ui <- fluidPage(
+  
+  fluidRow(
+    
+    column(width = 3,
+           
+           radioButtons("handed_input", 
+                        "Handedness",
+                        choices = handed_options,
+                        inline = TRUE)
+    ),
+    
+    column(width = 3,
+           
+           selectInput("region_input",
+                       tags$i("Which region?"),
+                       choices = all_regions)
+    ),
+    
+    column(width = 3,
+           
+           selectInput("gender_input",
+                       tags$i("Which gender?"),
+                       choices = all_gender)
+    ),
+    
+    column(width = 3,
+           selectInput("colour_input",
+                       "Which colour bars?",
+                       choices = c("indian red",
+                                   "dark green")
+           )
+    )
+    
+  ),
+  
+  #action button
+  actionButton(inputId = "update",
+               label = "Update dashboard"),
+  
+  
+  
+  # added in plots
+  
+  fluidRow(
+    column(width = 6,
+           plotOutput("travel_barplot")
+    ),
+    column(width = 6,
+           plotOutput("spoken_barplot")
+    )
+  ),
+  
+  fluidRow(
+    
+    DT::dataTableOutput("table_output")
+    
+  )
+  
+  
+)
+
+
+
+
+
+server <- function(input, output) {
+  
+  #make a filtered_data object and make it reactive
+  #updates with button press
+  
+  filtered_data <- eventReactive(
+    eventExpr = input$update,
+    {
+      students_big %>% 
+        filter(handed == input$handed_input) %>% 
+        filter(region == input$region_input) %>% 
+        filter(gender == input$gender_input)
+    })
+  
+  
+  #simplify table output code
+  
+  output$table_output <- DT::renderDataTable({
+    filtered_data()
+  })
+  
+  #add in code to make plots
+  
+  output$travel_barplot <- renderPlot({
+    
+    filtered_data() %>% 
+      ggplot() +
+      geom_bar(aes(x = travel_to_school), fill = input$colour_input)
+  })
+  
+  
+  output$spoken_barplot <- renderPlot({
+    
+    filtered_data() %>% 
+      ggplot() +
+      geom_bar(aes(x = languages_spoken), fill = input$colour_input)
+  })
+  
+  
+  
+}
+
+
+
+
+shinyApp(ui = ui, server = server)
+
+
+
+
+
+
+
