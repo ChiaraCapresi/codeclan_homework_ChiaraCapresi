@@ -1,0 +1,5 @@
+"0","dice %>% "
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"
+"0","  summarise(prob = (F_x[6] - F_x[3]))"

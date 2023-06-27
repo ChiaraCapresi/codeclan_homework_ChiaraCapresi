@@ -1,0 +1,211 @@
+---
+title: "Distributions_Spread"
+output: html_notebook
+---
+
+Measures of Spread:
+
+*how broad is the spread (/wide/far) is the spread?
+*how o we quantify
+
+*Range
+*Quartiles & inter-quartile range
+*box-plots
+*variance
+standard deviation
+
+
+----
+
+Range: max value - min value
+
+```{r}
+library(tidyverse)
+library(janitor)
+```
+```{r}
+jobs <- read_csv("data/TyrellCorpJobs.csv") %>% 
+  clean_names()
+```
+
+```{r}
+head(jobs)
+```
+
+What's the range of salaries?
+
+```{r}
+jobs %>% 
+  summarise(range_salary = range(salary))
+```
+
+```{r}
+jobs %>% 
+  summarise(range = max(salary) - min(salary))
+```
+
+```{r}
+jobs %>% 
+  ggplot() +
+  aes(x = salary) +
+  geom_histogram(colour = "white",
+                 bins = 25) +
+  facet_wrap(~position)
+```
+
+
+```{r}
+jobs %>% 
+  ggplot() +
+  aes(x = salary) +
+  geom_histogram(colour = "white",
+                 binwidth = 5000)
+```
+
+```{r}
+jobs %>% 
+  group_by(position) %>% 
+  summarise(range = max(salary) - min(salary))
+```
+
+Range: very simple; influenced heavily by outliers
+
+
+----
+Quartiles & Inter-quartile range
+
+Median: the value that splits a distribution into two halves 50% is lower, 50% is higher.
+
+
+"Five-number summary"
+
+Min: lowest value
+Q1: splits the distribution into a lower 25% and an upper 75%
+Q2 = median, 50/50 splitter 
+Q3: splits the distribution into a lower 75% and an upper 25%
+Max: highest value
+
+```{r}
+jobs %>% 
+  group_by(position) %>% 
+  summarise(
+    q1 = quantile(salary, 0.25),
+    q2 = quantile(salary, 0.5),
+    q3 = quantile(salary, 0.75),
+    iqr = q3-q1
+  )
+```
+
+Inter-quartile range ("IQR): Q3 - Q1
+shows the range of values that the 'middle 50%' of the data lies between.
+
+
+skim()
+
+```{r}
+library(skimr)
+
+jobs %>% 
+  select(-x1) %>% 
+  group_by(position) %>% 
+  skim()
+```
+
+```{r}
+
+jobs %>% 
+  ggplot() +
+  aes(x = salary) +
+  geom_histogram(colour = "white",
+                 bins = 25)
+
+jobs %>% 
+  ggplot() +
+  aes(x = salary) +
+  geom_boxplot()
+```
+
+
+
+```{r}
+jobs %>% 
+  ggplot() +
+  aes(x = salary, fill = position) +
+  geom_histogram(colour = "white",
+                 bins = 25)
+
+jobs %>% 
+  ggplot() +
+  aes(x = salary, fill = position) +
+  geom_boxplot()
+```
+Variance: one-number summary of spread
+"how far each value is to the mean?"
+ 
+*little more complicated
+*favoured by statisticians
+
+$$s^2 = \frac{1}{n-1} * \sum_{i} {(x_i - \bar x)}$$
+
+
+```{r}
+jobs %>% 
+  group_by(position) %>% 
+  summarise(var = var(salary))
+```
+Variance comes in units of <our original things> *squared*.
+If we take the square root of the variance, we get back down into our original inits: this is called the "Standard Deviation"
+
+Std. Dev.(SD): often easier to think about and interpret
+
+```{r}
+jobs %>% 
+  group_by(position) %>% 
+  summarise(var = var(salary),
+            sd = sd(salary))
+```
+
+$$sd = \sqrt(\frac{1}{n-1} * \sum_{i} {(x_i - \bar x)})$$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

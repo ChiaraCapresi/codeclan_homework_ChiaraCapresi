@@ -1,0 +1,11 @@
+"0","```r
+dice <- tibble(
+  x = 1:6,
+  f_x = replicate(6, 1/6)) %>% 
+    mutate(F_x = cumsum(f_x))
+
+
+dice
+
+
+```"

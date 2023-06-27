@@ -1,0 +1,19 @@
+"0","punif(q = 10.751, min = 5, max = 22) #cumulative probability"
+"1","[1]"
+"1"," 0.3382941"
+"1","
+"
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"
+"0","punif(q = 10.751, min = 5, max = 22) - punif(q = 8.4, min = 5, max = 22) "
+"1","[1]"
+"1"," 0.1382941"
+"1","
+"
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"

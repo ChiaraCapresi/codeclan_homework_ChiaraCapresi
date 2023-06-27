@@ -1,0 +1,17 @@
+"0","library(tidyverse)"
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"
+"0","library(janitor)"
+"2","
+Caricamento pacchetto: ‘janitor’
+
+"
+"2","I seguenti oggetti sono mascherati da ‘package:stats’:
+
+    chisq.test, fisher.test
+
+"
+"2","Error in exists(cacheKey, where = .rs.WorkingDataEnv, inherits = FALSE) : 
+  invalid first argument
+"

@@ -1,0 +1,12 @@
+"0","```r
+jobs <- read_csv(\"data/TyrellCorpJobs.csv\") %>% 
+  clean_names()
+
+```"
+"1","New names:Rows: 175 Columns: 3── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: \",\"
+chr (1): Position
+dbl (2): ...1, Salary
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"

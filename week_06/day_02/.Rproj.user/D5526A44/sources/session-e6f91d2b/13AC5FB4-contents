@@ -1,0 +1,193 @@
+---
+title: "Distributions"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+source("prob.R")
+```
+
+```{r}
+s_three_coins <- tosscoin(3)
+```
+
+
+Task - 2 mins what is the probability of each of the eight outcomes if all of the coins are unbiased? What does ‘unbiased’ mean here? Why is it important that each of the coins are unbiased in this calculation?
+
+
+
+```{r}
+p <- 1/8
+p
+```
+```{r}
+s_three_coins <- s_three_coins %>% 
+  mutate(label = str_c(toss1, toss2, toss3, sep = ""), prob = 1 / n()) 
+
+s_three_coins %>% 
+  ggplot() +
+  aes(x = label, y = prob) +
+  geom_col() +
+  labs(x = "coin toss result",
+       y = "prob of each outcome")
+  
+```
+
+```{r}
+s_three_coins
+
+s_three_coins <- s_three_coins %>% 
+  mutate(num_heads = rowSums(. == "H"))
+s_three_coins %>% 
+  ggplot() +
+  aes(x = num_heads) +
+  geom_bar()
+```
+
+```{r}
+prob_num_heads <- s_three_coins %>% 
+  group_by(num_heads) %>% 
+  summarise(prob = sum(prob))
+
+prob_num_heads
+```
+
+
+Measures of Centrality: representing the "average" in a number
+
+3 typical ways to represent the average:
+* (arithmetic) Mean
+* Median
+* Mode
+
+```{r}
+drinks <- tibble(
+  subject = 1:11,
+  hot_drinks = c(0, 1, 1, 2, 2, 2, 2, 3, 5, 6, 6)
+)
+```
+
+```{r}
+air_con_sales <- read_csv("data/AirConSales.csv") %>% 
+  janitor::clean_names() %>% 
+  mutate(date = lubridate::mdy(date))
+
+
+air_con_sales
+```
+
+```{r}
+sales_freq_table <- air_con_sales %>% 
+  janitor::tabyl(units_sold)
+```
+```{r}
+sales_freq_table %>% 
+  ggplot() +
+  aes(x = units_sold, y = percent) +
+  geom_col()
+```
+```{r}
+get_mode <- function(data){
+
+  tabled_data <- table(data)
+  table_names <- names(tabled_data)
+  
+  return( table_names[tabled_data == max(tabled_data)] )
+  
+}
+```
+
+```{r}
+air_con_sales %>% 
+  summarise(mean_daily_sales = mean(units_sold),
+            median_daily_sales = median(units_sold),
+            mode_daily_sales = get_mode(units_sold))
+```
+
+```{r}
+drinks
+
+drinks %>% 
+  ggplot() +
+  aes(x = hot_drinks) +
+  geom_bar()
+
+
+drinks %>% 
+  summarise(mean = mean(hot_drinks), 
+            median = median(hot_drinks),
+            mode = get_mode(hot_drinks))
+
+```
+
+Unimodal vs Multi-modal (e.g. Bimodal)
+
+"Unimodal": one mode
+"Multi-modal": more than mode, perhaps indicating distinct groups e.g. "Bimodal": two modes, two "groups".
+
+----
+Skewness
+
+How symmetric (or otherwise) is it?
+
+If it's not symmetric ("asymmetric"), we might say it's "skewed".
+
+```{r}
+library(e1071)
+```
+
+```{r}
+left_skewed <- read_csv("data/leftskew.csv")
+right_skewed <- read_csv("data/rightskew.csv")
+```
+```{r}
+left_skewed %>% 
+  ggplot() +
+  aes(x = x) +
+  geom_density()
+```
+
+```{r}
+left_skewed %>% 
+  summarise(skewness = skewness(x, type = 1))
+```
+
+```{r}
+right_skewed %>% 
+  ggplot() +
+  aes(x = x) +
+  geom_density()
+
+right_skewed %>% 
+  summarise(skewness = skewness(x, type = 1))
+```
+
+```{r}
+right_skewed %>% 
+  ggplot()+
+  aes(x = log(x))+
+  geom_density()
+
+
+right_skewed %>% 
+  summarise(skewness = skewness(log(x), type = 1))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,255 @@
+---
+title: "Common Distributions"
+output: html_notebook
+---
+
+Common distributions:
+
+*we can have discrete or continuous versions of these dstributions depending on what our data is!
+
+Uniform distributions: all values are equally likely
+
+*we can have marginal or cumulative views of probability distributions
+
+
+```{r}
+dice <- tibble(
+  x = 1:6,
+  f_x = replicate(6, 1/6)) %>% 
+    mutate(F_x = cumsum(f_x))
+
+
+dice
+
+
+```
+
+
+* This is a *Discreat* distribution - distinct, labelled containers
+* here we'll choose to look at the *cumulative* version
+
+```{r}
+dice %>% 
+  ggplot() +
+  aes(x = x, y = F_x) +
+  geom_step() +
+  labs(x = "number we roll", y = "probability rolling this number or less") +
+  scale_x_continuous(breaks = 1:6, expand = c(0,0)) +
+  scale_y_continuous(breaks = seq(0, 1, 1/6),
+                     limits = c(0,1),
+                     expand = c(0,0))
+
+?scale_y_continuous
+```
+```{r}
+dice %>% 
+  ggplot() +
+  aes(x = x, y = f_x) +
+  geom_col() +
+  labs(x = "number we roll", y = "probability rolling this number or less") +
+  scale_x_continuous(breaks = 1:6, expand = c(0,0)) +
+  scale_y_continuous(breaks = seq(0, 1, 1/6),
+                     limits = c(0,1),
+                     expand = c(0,0))
+
+```
+
+
+```{r}
+dice %>% 
+  summarise(prob = (F_x[6] - F_x[3]))
+```
+
+Let's look now at a *continuous* version of a Uniform distribution
+
+"The lengths, l, of breaks at CodeClan were monitored for a week and it was found that they were distributed uniformely between 5 & 22 mins".
+
+* What will the probability density function (pdf, f(l)) look like for l?
+
+```{r}
+breaks <- tibble(
+  l = seq(4, 23, 0.001),
+  f_l = dunif(x = l, min = 5, max = 22)
+)
+
+breaks %>% 
+  slice(1000:1500)
+```
+
+```{r}
+breaks %>% 
+  ggplot() +
+  aes(x = l, y = f_l) +
+  geom_line() +
+  ylim(0, 0.075)
+```
+
+What is the probability of a break lasting between 8.4 and 10.751 mins?
+
+F(10.751) - F(8.4)
+
+
+```{r}
+punif(q = 10.751, min = 5, max = 22) #cumulative probability
+
+punif(q = 10.751, min = 5, max = 22) - punif(q = 8.4, min = 5, max = 22) 
+
+
+
+```
+Let's shade that area on our marginal pdf
+
+```{r}
+breaks %>% 
+  ggplot() +
+  aes(x = l, y = f_l) +
+  geom_line() +
+  ylim(0, 0.075) +
+  geom_ribbon(fill = "red", alpha = 0.6) +
+  aes(ymin = 0, ymax = if_else(l >= 8.4 & l <= 10.751, f_l, 0))
+```
+
+
+
+much more complicated than just using the x limits!!
+
+```{r}
+breaks %>% 
+  ggplot(aes(x = l, y = f_l)) +
+  geom_line() +
+  ylim(0, 0.075) +
+  geom_ribbon(aes(xmin = 8.4, xmax = 10.751),
+              fill = "red", alpha = 0.6)
+```
+
+----
+
+Let's look at some *Normal Distributions*
+
+
+```{r}
+three_norms <- tibble(
+  x = seq(0, 20, 0.1),
+  f1_x = dnorm(x = x, mean = 10, sd = 1),
+  f2_x = dnorm(x = x, mean = 10, sd = 2),
+  f3_x = dnorm(x = x, mean = 10, sd = 3)
+)
+
+three_norms %>% 
+  ggplot(col = "black") +
+  aes(x = x, y = f2_x) +
+  geom_line() +
+  geom_line(aes(y = f1_x), col = "blue") +
+  geom_line(aes(y = f3_x), col = "red")
+```
+
+
+Normal distribution is *continuous* and bell-shaped curve symmetric about the mean
+
+
+Fitting a normal distribution to a data set
+
+```{r}
+jobs <- read_csv("data/TyrellCorpJobs.csv") %>% 
+  janitor::clean_names()
+
+jobs %>% 
+  filter(position == "Accounting") %>% 
+  ggplot() +
+  aes(x = salary) +
+  geom_histogram(col = "white")
+
+```
+
+
+```{r}
+accounts_stats <- jobs %>% 
+  filter(position == "Accounting") %>% 
+  summarise(
+    num = n(),
+    mean = mean(salary),
+    sd = sd(salary)
+  )
+```
+
+
+```{r}
+jobs %>% 
+  filter(position == "Accounting") %>% 
+  ggplot() +
+  aes(x = salary) +
+  geom_histogram(aes(y = after_stat(density)), col = "white", bins = 25) +
+  stat_function(
+    fun = dnorm,
+    args = list(
+      mean = accounts_stats$mean, #accounts_stat %>% select(mean)
+      sd = accounts_stats$sd   
+    ),
+    col = "red"
+  )
+
+```
+
+"standard Normal" : N(mean = 0, sd = 1)
+* very nice and convenient property for data to have 
+* we often transform data to be expressed as a N(0,1); this is a type of 'scaling' called "normalisation"/"standard scaling"
+* when data is expressed like this, we call them "z-scores".
+
+```{r}
+standard_scaled <- jobs %>%
+  filter(position == "Management") %>%
+  mutate(z_salary = (salary - mean(salary))/sd(salary),
+         z_salary_scale = scale(salary))
+
+standard_scaled %>% 
+  ggplot() +
+  aes(x = z_salary) +
+  geom_histogram(col = "white")
+```
+The empirical 3-sigma rule:
+
+rule of thumb for how data is spread in a Normal Distribution
+
+1-sigma: roughly 2/3 of or data is contained in the range mean +/- 1sd
+2-sigma: roughly 95%...
+3-sigma: roughly 99.5%...
+
+```{r}
+pnorm(3) - pnorm(-3)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -205,6 +205,8 @@ A: the total of the four dice is 5, 6 or 7
 
 ```{r}
 #outcomes A
+s_four_dice <- rolldie(4, 6)
+
 outcomes_a <- s_four_dice %>% 
   filter((X1 + X2 + X3 + X4) %in% c(5, 6, 7)) %>% 
   summarise(outcomes = n()) %>% 

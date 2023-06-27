@@ -1,0 +1,11 @@
+"0","```r
+library(tidyverse)
+library(janitor)
+```"
+"1","
+Caricamento pacchetto: ‘janitor’
+
+I seguenti oggetti sono mascherati da ‘package:stats’:
+
+    chisq.test, fisher.test
+"

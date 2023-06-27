@@ -1,0 +1,6 @@
+"0","samsung_stat <- phones %>% "
+"0","  filter(brand == ""Samsung"") %>% "
+"0","  summarise("
+"0","    mean = mean(rating),"
+"0","    sd = sd(rating)"
+"0","  )"
