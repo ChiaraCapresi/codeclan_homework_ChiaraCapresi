@@ -1,0 +1,17 @@
+"0","```r
+sample_200 <- telco %>% 
+rep_sample_n(size = 200, reps = 1)
+
+
+#Let's calculate the means and proportion
+
+summary_sample_200 <- sample_200 %>% 
+  ungroup() %>% 
+  summarise(
+    mean_monthly_charges = mean(monthly_charges),
+    mean_tenure = mean(tenure),
+    prop_churn = sum(churn == \"Yes\") / n()
+  )
+
+summary_sample_200
+```"

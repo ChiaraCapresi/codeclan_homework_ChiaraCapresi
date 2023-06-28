@@ -1,0 +1,9 @@
+"0","#200 reps"
+"0",""
+"0","ames_1920_resample_200 <- ames_1920 %>% "
+"0","  specify(response = lot_area) %>% "
+"0","  generate(reps = 200, type = ""bootstrap"") %>% "
+"0","  calculate(stat = ""mean"") "
+"2","Error in t.test.default(response_variable(x)) : 
+  non ci sono abbstanza osservazioni in 'x'
+"

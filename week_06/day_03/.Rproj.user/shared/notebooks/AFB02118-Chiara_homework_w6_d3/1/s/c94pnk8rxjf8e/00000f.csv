@@ -1,0 +1,4 @@
+"0","infer_ci_99 <- bootstrap_resample_ames %>% "
+"0","  get_ci(level = 0.99, type = ""percentile"")"
+"0","#level adjust CI, type adjust type of CI"
+"0","infer_ci_99"

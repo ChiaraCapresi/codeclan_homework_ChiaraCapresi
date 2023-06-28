@@ -1,0 +1,5 @@
+"0","bootstrap_resample_200 <- sample_200 %>% "
+"0","  rep_sample_n(size = 200, reps = 5000, replace = TRUE) %>% "
+"0","  summarise(mean_tenure = mean(tenure))"
+"0",""
+"0","bootstrap_resample_200"

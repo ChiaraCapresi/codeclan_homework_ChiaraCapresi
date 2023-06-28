@@ -1,0 +1,4 @@
+"0","infer_ci_95 <- infer_resample %>% "
+"0","  get_ci(level = 0.95, type = ""percentile"")"
+"0","#level adjust CI, type adjust type of CI"
+"0","infer_ci_95"

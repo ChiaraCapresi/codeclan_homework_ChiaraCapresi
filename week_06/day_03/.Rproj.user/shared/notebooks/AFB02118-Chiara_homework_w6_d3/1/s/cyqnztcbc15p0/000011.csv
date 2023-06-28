@@ -1,0 +1,4 @@
+"0","mean_bootstrap <- bootstrap_resample_ames %>% "
+"0","  summarise(mean = mean(stat))"
+"0",""
+"0","mean_bootstrap"

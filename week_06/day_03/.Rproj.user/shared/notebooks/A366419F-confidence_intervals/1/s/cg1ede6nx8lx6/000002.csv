@@ -1,0 +1,13 @@
+"0","```r
+#population parameter
+
+summary_popn <- telco %>% 
+  ungroup() %>% 
+  summarise(
+    mean_monthly_charges = mean(monthly_charges),
+    mean_tenure = mean(tenure),
+    prop_churn = sum(churn == \"Yes\") / n()
+  )
+
+summary_popn
+```"

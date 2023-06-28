@@ -1,0 +1,5 @@
+"0","mean_99 <- bootstrap_resample_ames %>%"
+"0","  filter(stat >= 9810 & stat <= 10548) %>% "
+"0","  summarise(mean = mean(stat))"
+"0",""
+"0","mean_99"

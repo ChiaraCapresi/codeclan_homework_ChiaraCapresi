@@ -1,4 +1,0 @@
-"0","phones %>% "
-"0","  group_by(brand) %>% "
-"0","  summarise(total_phones = n()) %>% "
-"0","  arrange(desc(total_phones))"

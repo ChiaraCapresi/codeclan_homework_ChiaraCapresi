@@ -1,0 +1,6 @@
+"0","bootstrap_resample_200 %>% "
+"0","  ggplot() +"
+"0","  aes(x = mean_tenure) +"
+"0","  geom_histogram(colour = ""white"", "
+"0","                 fill = ""purple"","
+"0","                 alpha = 0.7)"

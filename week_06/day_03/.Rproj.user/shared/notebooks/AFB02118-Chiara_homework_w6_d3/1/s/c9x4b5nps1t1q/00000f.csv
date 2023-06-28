@@ -1,0 +1,3 @@
+"0","bootstrap_resample_ames %>% "
+"0","  visualise(bins = 30) +"
+"0","  shade_ci(endpoints = infer_ci_99)"

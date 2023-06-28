@@ -1,0 +1,14 @@
+"0","```r
+
+telco <- clean_names(read_csv(\"data/telecomms_churn.csv\"))
+```"
+"1","New names:Rows: 7043 Columns: 22── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: \",\"
+chr (17): customerID, gender, Partner, Dependents, PhoneService, MultipleLines, InternetService, OnlineSecurity, OnlineBackup, Dev...
+dbl  (5): ...1, SeniorCitizen, tenure, MonthlyCharges, TotalCharges
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"0","```r
+  
+```"

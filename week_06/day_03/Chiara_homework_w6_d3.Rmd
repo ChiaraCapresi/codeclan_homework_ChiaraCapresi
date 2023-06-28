@@ -1,0 +1,260 @@
+---
+title: "Chiara homework week 6 day 3"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(infer)
+library(janitor)
+```
+
+
+# 1 MPV
+
+## Task 1:
+
+Load the data again, clean_names(), and re-familiarise yourself with it
+
+
+
+```{r}
+ames <- clean_names(read_csv("data/ames.csv"))
+```
+
+```{r}
+dim(ames)
+names(ames)
+```
+
+## Task 2:
+
+Investigate the distribution of lot_area. Is the distribution roughly normal? If not, what problems do you find?
+
+
+```{r}
+ames %>% 
+  ggplot() +
+  aes(x = lot_area) +
+  geom_histogram(col = "white",
+                 fill = "steelblue")
+```
+
+
+```{r}
+ames %>% 
+  ggplot() +
+  aes(x = lot_area) +
+  geom_boxplot()
+```
+
+Having a first sight both of the histogram and of the boxplot, it seems that the distribution of lot_area is ruoghly right skewed
+
+
+## Task 3:
+
+Compute and visualise a bootstrap sampling distribution for the mean(lot_area) of the sold houses.
+
+```{r}
+bootstrap_resample_ames <- ames %>% 
+  specify(response = lot_area) %>% #specify the variable of interest
+  generate(reps = 5000, type = "bootstrap") %>% #generate the replicate resamples
+  calculate(stat = "mean") # calculate the statistic of interest for each resample
+
+
+bootstrap_resample_ames
+```
+
+I've created a bootstrap sampling distribution for the mean of lot_area.
+
+Now I am going to visualise it.
+
+```{r}
+bootstrap_resample_ames %>% 
+  ggplot() +
+  aes(x = stat) +
+  geom_histogram(colour = "white", 
+                 fill = "purple")
+```
+
+
+As we expected, the distribution seems very similar to the normal distribution!
+
+
+## Task 4:
+
+Use your bootstrap distribution to calculate a 95% CI for mean(lot_area), and visualise it on the distribution
+
+
+```{r}
+infer_ci_95 <- bootstrap_resample_ames %>% 
+  get_ci(level = 0.95, type = "percentile")
+#level adjust CI, type adjust type of CI
+infer_ci_95
+```
+
+```{r}
+bootstrap_resample_ames %>% 
+  visualise(bins = 30) +
+  shade_ci(endpoints = infer_ci_95)
+```
+
+
+```{r}
+mean_bootstrap <- bootstrap_resample_ames %>% 
+  summarise(mean = mean(stat))
+
+mean_bootstrap
+```
+```{r}
+mean_95 <- bootstrap_resample_ames %>%
+  filter(stat >= 9875 & stat <= 10451) %>% 
+  summarise(mean = mean(stat))
+
+mean_95
+```
+
+
+
+
+## Task 5:
+
+You would like to know the mean(lot_area) of the sold houses with higher confidence. Calculate the 99% CI for this variable (you can re-use your bootstrap distribution from above). Is it narrower or broader than the 95% CI? Does that make sense?
+
+```{r}
+infer_ci_99 <- bootstrap_resample_ames %>% 
+  get_ci(level = 0.99, type = "percentile")
+#level adjust CI, type adjust type of CI
+infer_ci_99
+```
+
+
+```{r}
+bootstrap_resample_ames %>% 
+  visualise(bins = 30) +
+  shade_ci(endpoints = infer_ci_99)
+```
+
+```{r}
+mean_99 <- bootstrap_resample_ames %>%
+  filter(stat >= 9810 & stat <= 10548) %>% 
+  summarise(mean = mean(stat))
+
+mean_99
+```
+
+Using the 99% CI we obtain an roughly higher value for the mean of lot_area!
+
+
+## Task 6:
+
+ Calculate the point estimate of the mean(lot_area)
+
+
+```{r}
+mean_bootstrap <- bootstrap_resample_ames %>% 
+  summarise(mean = mean(stat))
+
+mean_bootstrap
+```
+
+# Extension
+
+## Task 1:
+
+Calculate a point estimate and 95% CI for the proportion of houses in the data built before 1920. Does the number of reps you use matter? [Investigate reps from 200 up to 50000, memory of your laptop permitting].
+
+```{r}
+ames_1920 <- ames %>% 
+  filter(yr_sold <= 1920)
+```
+
+
+```{r}
+#200 reps
+
+ames_1920_resample_200 <- ames_1920 %>% 
+  specify(response = lot_area) %>% 
+  generate(reps = 200, type = "bootstrap") %>% 
+  calculate(stat = "mean") 
+
+
+#3000 reps
+ames_1920_resample_3000 <- ames_1920 %>% 
+  specify(response = lot_area) %>% 
+  generate(reps = 3000, type = "bootstrap") %>% 
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

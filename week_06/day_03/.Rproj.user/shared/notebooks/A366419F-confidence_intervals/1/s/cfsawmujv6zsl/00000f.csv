@@ -1,0 +1,6 @@
+"0","sd_error <- bootstrap_resample_200 %>% "
+"0","  summarise("
+"0","    mean_tenure = sd(mean_tenure)"
+"0","  )"
+"0",""
+"0","sd_error"

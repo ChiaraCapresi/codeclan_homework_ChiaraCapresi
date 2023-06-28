@@ -1,4 +1,0 @@
-"0","ratings_within_1 <- samsung_ratings %>%"
-"0","  filter(rating >= samsung_stat$mean - samsung_stat$sd) %>%"
-"0","  filter(rating <= samsung_stat$mean + samsung_stat$sd) %>%"
-"0","  summarise(prop_within_1sd = n() / nrow(samsung_ratings))"
