@@ -68,6 +68,7 @@ For your top brand, plot the distribution of phone ratings as a probability dens
 samsung_stat <- phones %>% 
   filter(brand == "Samsung") %>% 
   summarise(
+    num = n(),
     mean = mean(rating),
     sd = sd(rating)
   )
@@ -79,18 +80,13 @@ samsung_stat <- phones %>%
 ```{r}
 
 samsung_ratings <- phones %>%
-  filter(brand == "Samsung")
-
-phones %>% 
   filter(brand == "Samsung") %>% 
-  tibble(
-  rat = rating,
-  f_x = dunif(x = rat, min = 1, max = 5)
-) %>%
- # mutate(F_x = cumsum(f_x)) %>% 
+  select(rating)
+
+samsung_ratings %>% 
   ggplot() +
-  aes(x = rating, y = f_x) +
-  geom_col() +
+  aes(x = rating, y = after_stat(density)) +
+  geom_histogram(col = "white") +
    stat_function(
     fun = dnorm,
     args = list(

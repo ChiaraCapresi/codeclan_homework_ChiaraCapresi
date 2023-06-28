@@ -1,0 +1,44 @@
+"0","dim(phones) # 792 rows and 9 cols"
+"1","[1]"
+"1"," 792"
+"1","   9"
+"1","
+"
+"0","names(phones) #""asin"",""brand"",""title"",""url"",""image"",""rating"",""review_url"",""total_reviews"",""prices""       "
+"1","[1]"
+"1"," ""asin""         "
+"1"," ""brand""        "
+"1"," ""title""        "
+"1"," ""url""          "
+"1"," ""image""        "
+"1"," ""rating""       "
+"1"," ""review_url""   "
+"1"," ""total_reviews"""
+"1","
+"
+"1","[9]"
+"1"," ""prices""       "
+"1","
+"
+"0","glimpse(phones)"
+"1","Rows: 792"
+"1",""
+"1","
+"
+"1","Columns: 9"
+"1",""
+"1","
+"
+"1","$ asin          [3m[38;5;246m<chr>[39m[23m ""B0000SX2UC"", ""B0009N5L7K"", ""B000SKTZ0S"", ""B00198M12M"", ""B001AO4OUC"", ""B001DCJAJG"", ""B001DZY4KI"", ""B001GQ3DJM…
+$ brand         [3m[38;5;246m<chr>[39m[23m ""Nokia"", ""Motorola"", ""Motorola"", ""Nokia"", ""Motorola"", ""Motorola"", ""Sony"", ""Nokia"", ""Nokia"", ""Samsung"", ""Motor…
+$ title         [3m[38;5;246m<chr>[39m[23m ""Dual-Band / Tri-Mode Sprint PCS Phone w/ Voice Activated Dialing & Bright White Backlit Screen"", ""Motorola I…
+$ url           [3m[38;5;246m<chr>[39m[23m ""https://www.amazon.com/Dual-Band-Tri-Mode-Activated-Dialing-Backlit/dp/B0000SX2UC"", ""https://www.amazon.com/…
+$ image         [3m[38;5;246m<chr>[39m[23m ""https://m.media-amazon.com/images/I/2143EBQ210L._AC_UY218_SEARCH213888_FMwebp_QL75_.jpg"", ""https://m.media-a…
+$ rating        [3m[38;5;246m<dbl>[39m[23m 3.0, 2.9, 2.6, 2.4, 3.3, 3.2, 2.0, 2.7, 3.2, 3.5, 2.9, 2.9, 2.8, 2.8, 2.6, 3.2, 2.9, 2.0, 3.4, 3.5, 3.4, 3.4,…
+$ review_url    [3m[38;5;246m<chr>[39m[23m ""https://www.amazon.com/product-reviews/B0000SX2UC"", ""https://www.amazon.com/product-reviews/B0009N5L7K"", ""ht…
+$ total_reviews [3m[38;5;246m<dbl>[39m[23m 14, 7, 22, 5, 21, 12, 1, 3, 8, 133, 2, 18, 201, 76, 131, 66, 3, 15, 102, 146, 348, 56, 73, 23, 8, 199, 28, 24…
+$ prices        [3m[38;5;246m<chr>[39m[23m NA, ""$49.95"", NA, NA, NA, NA, ""$78.99"", NA, ""$99.99"", ""$59.89"", ""$99.95"", ""$149.95"", NA, NA, NA, NA, ""$79.00""…"
+"1",""
+"1","
+"
+"0","head(phones)"
