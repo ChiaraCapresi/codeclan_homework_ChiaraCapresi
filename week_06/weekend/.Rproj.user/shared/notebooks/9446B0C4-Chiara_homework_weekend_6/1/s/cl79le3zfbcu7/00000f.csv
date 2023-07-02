@@ -1,0 +1,5 @@
+"0","null_dist <- msleep %>% "
+"0","  specify(response = sleep_total) %>% "
+"0","  hypothesise(null = ""point"", mu = 7) %>% "
+"0","  generate(reps = 5000, type = ""bootstrap"") %>% "
+"0","  calculate(stat = ""mean"")"

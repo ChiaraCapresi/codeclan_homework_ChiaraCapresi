@@ -1,0 +1,3 @@
+"0","dom %>% "
+"0","  group_by(domesticate) %>% "
+"0","  summarise(n() / nrow(dom))"

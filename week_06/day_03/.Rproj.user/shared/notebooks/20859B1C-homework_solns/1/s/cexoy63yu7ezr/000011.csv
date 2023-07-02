@@ -1,0 +1,4 @@
+"0",""
+"0","# or"
+"0","bootstrap_distn %>%"
+"0","  summarise(point_est = mean(stat))"

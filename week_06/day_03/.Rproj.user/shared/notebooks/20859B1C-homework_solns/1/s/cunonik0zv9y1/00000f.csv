@@ -1,0 +1,7 @@
+"0","bootstrap_distn <- ames %>%"
+"0","  specify(response = lot_area) %>%"
+"0","  generate(reps = 10000, type = ""bootstrap"") %>%"
+"0","  calculate(stat = ""mean"")"
+"0",""
+"0","bootstrap_distn %>%"
+"0","  visualise(bins = 30)"

@@ -1,0 +1,2 @@
+"0","ames_1920 <- ames %>% "
+"0","  filter(yr_sold <= 1920)"

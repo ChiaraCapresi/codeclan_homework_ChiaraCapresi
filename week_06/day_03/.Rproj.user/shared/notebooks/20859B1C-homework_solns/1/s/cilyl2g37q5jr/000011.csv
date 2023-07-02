@@ -1,0 +1,4 @@
+"0",""
+"0","bootstrap_distn %>%"
+"0","  visualise(bins = 30) +"
+"0","  shade_ci(endpoints = lot_area_ci99)"

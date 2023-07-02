@@ -1,0 +1,3 @@
+"0","dom <- msleep %>% "
+"0","  filter(!is.na(conservation)) %>% "
+"0","  mutate(domesticate = if_else(conservation == ""domesticated"", TRUE, FALSE)) "

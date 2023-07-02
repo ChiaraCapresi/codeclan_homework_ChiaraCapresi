@@ -1,0 +1,2 @@
+"0","ames_before_1920 <- ames %>%"
+"0","  mutate(before_1920 = as.numeric(year_built < 1920))"

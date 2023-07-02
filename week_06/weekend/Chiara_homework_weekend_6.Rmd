@@ -1,0 +1,284 @@
+---
+title: "Chiara weekend homework week 6"
+output: html_notebook
+---
+# MPV
+
+## 1.1 Hypothesis testing - practical
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(infer)
+data(msleep)
+```
+
+### Question 1:
+
+ Explore the dataset and familiarise yourself with it.
+ 
+ 
+```{r}
+msleep <- msleep
+head(msleep)
+```
+ 
+```{r}
+glimpse(msleep)
+```
+ 
+### Question 2:
+
+Jabberwockies sleep for around 7 hours a night, on average. Perform an appropriate statistical test to determine whether the mean sleep_total in the sampled population of animal types differs from the typical value for jabberwockies.
+
+
+We start calculating the observed statistic that represent the total slepp hours of the animal in the dataset
+
+```{r}
+observed_stat <- msleep %>% 
+  summarise(mean_sleep = mean(sleep_total, na.rm = TRUE))
+
+observed_stat
+```
+We then set the hypothesis.
+
+_H0:_ The mean of the total sleep hours of the dataset is = 7
+_H1:_ The mean of the total sleep hours of the dataset is != 7
+
+We set _alpha_ = 0.05
+
+We calculate the null distribution
+
+```{r}
+null_dist <- msleep %>% 
+  specify(response = sleep_total) %>% 
+  hypothesise(null = "point", mu = 7) %>% 
+  generate(reps = 5000, type = "bootstrap") %>% 
+  calculate(stat = "mean")
+```
+
+
+
+```{r}
+null_dist %>% 
+  visualise(bins = 30)
+```
+
+```{r}
+null_dist %>% 
+  visualise(bins = 30) + 
+  shade_p_value(obs_stat = observed_stat$mean_sleep, direction = "left")
+```
+
+```{r}
+p_value <- null_dist %>% 
+  get_p_value(obs_stat = observed_stat$mean_sleep, direction = "left")
+
+p_value
+```
+
+
+### Question 3:
+
+ Perform an appropriate statistical test to determine whether omnivores sleep for significantly longer than herbivores, on average.
+
+```{r}
+omni_herb <- msleep %>% 
+  filter(vore == "omni" | vore == "herbi") %>% 
+  select(vore, sleep_total)
+
+omni_herb
+
+```
+
+```{r}
+omni_herb %>% 
+  ggplot(aes(x = vore, y = sleep_total)) +
+  geom_boxplot()
+```
+
+The two averages seems quite similar
+
+```{r}
+null_dist_2 <- omni_herb %>% 
+  specify(sleep_total ~ vore) %>% 
+  hypothesise(null = "independence") %>% 
+  generate(reps = 1000, type = "permute") %>% 
+  calculate(stat = "diff in means", order = c("herbi", "omni"))
+
+null_dist_2 %>% 
+  visualise(bins = 30)
+  
+```
+
+```{r}
+observed_stat_2 <- omni_herb %>% 
+  specify(sleep_total ~ vore) %>%
+  calculate(stat = "diff in means", order = c("herbi", "omni")) 
+
+observed_stat_2
+```
+
+```{r}
+null_dist_2 %>%
+  visualise() +
+  shade_p_value(obs_stat = observed_stat_2, direction = "both")
+```
+
+
+
+```{r}
+p_value <- null_dist_2 %>%
+  get_p_value(obs_stat = observed_stat_2, direction = "both")
+
+p_value
+```
+
+p > alpha -> not significant!
+
+
+### Question 4:
+
+Perform an appropriate statistical test to determine whether the proportion of domesticated animal types in the population of animal types is greater than 5%. 
+
+```{r}
+msleep_1 <- msleep %>% 
+    filter(!is.na(conservation)) 
+
+  
+msleep_1 %>% 
+  group_by(conservation) %>% 
+  summarise(prop = n() / nrow(msleep_1)) %>% 
+  filter(conservation == "domesticated")
+```
+
+```{r}
+dom <- msleep %>% 
+  filter(!is.na(conservation)) %>% 
+  mutate(domesticate = if_else(conservation == "domesticated", TRUE, FALSE)) 
+```
+ 
+```{r}
+dom %>% 
+  group_by(domesticate) %>% 
+  summarise(n() / nrow(dom))
+```
+ 
+```{r}
+null_dist_3 <- dom %>% 
+  specify(response = domesticate, success = "TRUE") %>% 
+  hypothesise(null = "point", p = 0.05) %>% 
+  generate(reps = 5000, type = "draw") %>%
+  calculate(stat = "prop") 
+
+null_dist_3 %>% 
+  visualise(bins = 10)
+```
+
+ 
+```{r}
+observed_stat_3 <- dom %>% 
+  specify(response = domesticate, success = "TRUE") %>% 
+  calculate(stat = "prop")
+
+observed_stat_3
+```
+```{r}
+null_dist_3 %>% 
+  visualise(bins = 10) +
+  shade_p_value(obs_stat = observed_stat_3, direction = "left")
+```
+ 
+```{r}
+p_value <- null_dist_3 %>%
+  get_p_value(obs_stat = observed_stat_3, direction = "left")
+
+p_value
+```
+## 1.2 Hypothesis testing - Defining hypothesis
+ 
+ 
+ For the following three business problems write out:
+
+  a) What kind of test you would use
+  b) H0 and Ha in both mathematical notation and in words.
+  c) Also state the method you would use to generate the null distribution (bootstrap, permutation or draw).
+ 
+### Question 1:
+
+You work for a independent coffee shop. The boss tells you that she thinks that around 40% of people in the town (population 30,000) know of the coffee shop, but you are skeptical of the estimate and think that the actual percentage is higher. You conduct a random survey of 200 people in the town, asking if respondents are aware of your coffee shop. You want to use the sample to test the hypothesis that more than 40% of the town’s population have heard of the coffee shop.
+
+
+a) 1 sample test proportion
+
+b) _H0:_ the proportion of people in town aware of the coffee shop is 40% or less
+   _H1:_ the proportion of people in town aware of the coffee shop is greater than 40%
+   
+   
+   _H0:_ prop(people_aware) <= 0.40
+   _H1:_ prop(people_aware) > 0.40
+   
+c) I would use "draw"
+
+
+
+### Question 2: 
+
+You work for a website design company and have performed an A/B test on the position of a banner on a website promoting a particular item. 
+
+You selected five days at random last month and then randomly selected 200 of each sampled day’s users into group A and another 200 of that day’s users into group B. Group A continued to be shown the banner at the right hand side of the webpage (its usual position) while group B was shown the banner at the top of the page. You monitored each sampled user’s interactions with the website, in particular the ‘click through rate’ (CTR) on the banner, i.e. what proportion of sampled users clicked on the banner. You want to use the sampled data to test the hypothesis that website users overall are more likely to click on the banner if positioned at the top of the page
+
+
+a) 2 sample test proportion
+
+b) _H0:_ users are equally likely to click 0n the banner both if it is positioned on the left or at the top of the page.
+   _H1:_ users are more likely to click on the banner if positioned at the top of the page.
+   
+   
+   _H0:_ prop(click_right) = prop(click_top)
+   _H1:_ prop(click_right) < prop(click_top)
+   
+c) "permute"
+
+
+### Question 3:
+
+You work as an analyst for a car manufacturing company - they have specific standards they must meet for standards and regulation purposes. You have been asked to check the quality control of the manufacture of a particular car part. You have been given data on a sample of 200 parts produced over the period of a week (the sampled parts were pulled at random from the production line and measured: the factory produced a lot more than 200 parts that week). The specification of the part stipulates a width of 145mm, and the manufacturing process is said to have ‘drifted’ if the mean width of parts differs significantly from 145mm. You want to use the sampled measurements to test whether the process overall has drifted.
+
+
+a) 1 sample test mean
+
+b) _H0:_ the mean width of parts is almost 145mm
+   _H1:_ the mean width of parts is significantly different from 145mm
+   
+   _H0:_ mean(width) = 145mm
+   _H1:_ mean(width) != 145mm
+   
+c) "bootstrap"
+
+
+## 1.3 Hypothesis testing - Interpreting results
+
+For the 3 business problems stated above, imagine we performed you got the following p-values (with the given significance levels) write out your interpretation of the results.
+
+
+### Question 1: Coffee shop problem. Significance level: 0.05, calculated p-value: 0.07
+
+p > alpha ---> not significant!
+
+### Question 2: Website company problem. Significance level: 0.01, p-value: 0.006
+
+p < alpha ----> significant!
+
+### Question 3: Manufacturing company problem. Significance level: 0.05, p-value: 0.55
+
+p ~ alpha ----> ............
+
+
+
+
+
+
+
+
+ 

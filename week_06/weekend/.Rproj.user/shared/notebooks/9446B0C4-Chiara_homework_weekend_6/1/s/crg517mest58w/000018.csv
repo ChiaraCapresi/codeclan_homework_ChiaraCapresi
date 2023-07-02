@@ -1,0 +1,8 @@
+"0","msleep_1 <- msleep %>% "
+"0","    filter(!is.na(conservation)) "
+"0",""
+"0","  "
+"0","msleep_1 %>% "
+"0","  group_by(conservation) %>% "
+"0","  summarise(prop = n() / nrow(msleep_1)) %>% "
+"0","  filter(conservation == ""domesticated"")"

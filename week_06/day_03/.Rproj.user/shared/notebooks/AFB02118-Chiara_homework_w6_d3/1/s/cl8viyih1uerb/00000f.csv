@@ -1,0 +1,3 @@
+"0","point_est <- bootstrap_distn_50000 %>%"
+"0","  summarise(point_est = mean(stat))"
+"0","point_est"

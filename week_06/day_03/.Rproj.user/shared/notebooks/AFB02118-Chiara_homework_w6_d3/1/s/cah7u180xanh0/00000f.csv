@@ -1,0 +1,5 @@
+"0","ames %>% "
+"0","  ggplot() +"
+"0","  aes(x = lot_area) +"
+"0","  geom_histogram(col = ""white"","
+"0","                 fill = ""steelblue"")"

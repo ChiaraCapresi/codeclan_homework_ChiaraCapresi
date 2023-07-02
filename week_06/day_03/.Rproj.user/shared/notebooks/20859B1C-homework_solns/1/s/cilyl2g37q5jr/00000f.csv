@@ -1,0 +1,3 @@
+"0","lot_area_ci99 <- bootstrap_distn %>%"
+"0","  get_ci(level = 0.99, type = ""percentile"")"
+"0","lot_area_ci99"

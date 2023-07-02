@@ -1,0 +1,9 @@
+"0","observed_stat_2 <- omni_herb %>% "
+"0","  specify(sleep_total ~ vore) %>%"
+"0","  calculate(stat = ""diff in means"", order = c(""herbi"", ""omni"")) "
+"0",""
+"0","observed_stat_2"
+"1","Response: sleep_total (numeric)
+Explanatory: vore (factor)"
+"1","
+"

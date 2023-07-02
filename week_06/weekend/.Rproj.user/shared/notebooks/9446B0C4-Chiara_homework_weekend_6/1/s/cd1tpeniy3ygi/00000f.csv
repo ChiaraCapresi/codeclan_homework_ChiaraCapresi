@@ -1,0 +1,8 @@
+"0","observed_stat_3 <- dom %>% "
+"0","  specify(response = domesticate, success = ""TRUE"") %>% "
+"0","  calculate(stat = ""prop"")"
+"0",""
+"0","observed_stat_3"
+"1","Response: domesticate (factor)"
+"1","
+"

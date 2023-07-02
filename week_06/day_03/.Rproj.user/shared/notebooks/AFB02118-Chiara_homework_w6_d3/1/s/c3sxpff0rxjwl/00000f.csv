@@ -1,0 +1,9 @@
+"0","ames <- clean_names(read_csv(""data/ames.csv""))"
+"2","[1mRows: [22m[34m2930[39m [1mColumns: [22m[34m82[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m (43): MS.Zoning, Street, Alley, Lot.Shape, Land.Contour, Utilities, Lot.Config, Land.Slope, Neighborhood, Condition.1, Condi...
+[32mdbl[39m (39): Order, PID, MS.SubClass, Lot.Frontage, Lot.Area, Overall.Qual, Overall.Cond, Year.Built, Year.Remod.Add, Mas.Vnr.Area,..."
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."

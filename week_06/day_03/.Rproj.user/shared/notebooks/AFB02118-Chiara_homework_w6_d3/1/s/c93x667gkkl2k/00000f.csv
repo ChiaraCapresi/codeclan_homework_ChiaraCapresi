@@ -1,0 +1,3 @@
+"0","bootstrap_distn_200 %>%"
+"0","  visualise(bins = 30) +"
+"0","  shade_ci(endpoints = before_1920_ci95_200)"
