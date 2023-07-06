@@ -1,4 +1,0 @@
-"0","p_value <- null_dist_2 %>%"
-"0","  get_p_value(obs_stat = observed_stat_2, direction = ""both"")"
-"0",""
-"0","p_value"

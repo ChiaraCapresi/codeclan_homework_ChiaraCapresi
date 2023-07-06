@@ -57,6 +57,13 @@ null_dist <- msleep %>%
   calculate(stat = "mean")
 ```
 
+```{r}
+observed_stat <- msleep %>%
+  specify(response = sleep_total) %>%
+  calculate(stat = "mean")
+
+observed_stat
+```
 
 
 ```{r}
@@ -67,12 +74,27 @@ null_dist %>%
 ```{r}
 null_dist %>% 
   visualise(bins = 30) + 
-  shade_p_value(obs_stat = observed_stat$mean_sleep, direction = "left")
+  shade_p_value(obs_stat = observed_stat$mean_sleep, direction = "both")
 ```
+
+
+
+```{r}
+null_dist %>% 
+  visualise(bins = 30) + 
+  shade_p_value(obs_stat = observed_stat, direction = "both")
+```
+```{r}
+p_value <- null_dist %>% 
+  get_p_value(obs_stat = observed_stat, direction = "both")
+
+p_value
+```
+
 
 ```{r}
 p_value <- null_dist %>% 
-  get_p_value(obs_stat = observed_stat$mean_sleep, direction = "left")
+  get_p_value(obs_stat = observed_stat$mean_sleep, direction = "both")
 
 p_value
 ```
@@ -81,6 +103,13 @@ p_value
 ### Question 3:
 
  Perform an appropriate statistical test to determine whether omnivores sleep for significantly longer than herbivores, on average.
+ 
+ 
+ 
+ 
+ H0: μsleep_total(omni)−μsleep_total(herbi)=0
+Ha: μsleep_total(omni)−μsleep_total(herbi)>0
+α=0.05
 
 ```{r}
 omni_herb <- msleep %>% 
@@ -103,7 +132,7 @@ The two averages seems quite similar
 null_dist_2 <- omni_herb %>% 
   specify(sleep_total ~ vore) %>% 
   hypothesise(null = "independence") %>% 
-  generate(reps = 1000, type = "permute") %>% 
+  generate(reps = 10000, type = "permute") %>% 
   calculate(stat = "diff in means", order = c("herbi", "omni"))
 
 null_dist_2 %>% 
@@ -122,14 +151,14 @@ observed_stat_2
 ```{r}
 null_dist_2 %>%
   visualise() +
-  shade_p_value(obs_stat = observed_stat_2, direction = "both")
+  shade_p_value(obs_stat = observed_stat_2, direction = "right")
 ```
 
 
 
 ```{r}
 p_value <- null_dist_2 %>%
-  get_p_value(obs_stat = observed_stat_2, direction = "both")
+  get_p_value(obs_stat = observed_stat_2, direction = "right")
 
 p_value
 ```
@@ -140,6 +169,10 @@ p > alpha -> not significant!
 ### Question 4:
 
 Perform an appropriate statistical test to determine whether the proportion of domesticated animal types in the population of animal types is greater than 5%. 
+
+H0: πdomesticated=0.05
+Ha: πdomesticated>0.05
+α=0.05
 
 ```{r}
 msleep_1 <- msleep %>% 
@@ -186,12 +219,12 @@ observed_stat_3
 ```{r}
 null_dist_3 %>% 
   visualise(bins = 10) +
-  shade_p_value(obs_stat = observed_stat_3, direction = "left")
+  shade_p_value(obs_stat = observed_stat_3, direction = "right")
 ```
  
 ```{r}
 p_value <- null_dist_3 %>%
-  get_p_value(obs_stat = observed_stat_3, direction = "left")
+  get_p_value(obs_stat = observed_stat_3, direction = "right")
 
 p_value
 ```

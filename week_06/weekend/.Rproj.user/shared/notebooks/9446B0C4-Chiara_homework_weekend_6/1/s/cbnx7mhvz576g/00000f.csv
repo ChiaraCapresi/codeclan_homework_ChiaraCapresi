@@ -1,0 +1,3 @@
+"0","null_dist_3 %>% "
+"0","  visualise(bins = 10) +"
+"0","  shade_p_value(obs_stat = observed_stat_3, direction = ""right"")"

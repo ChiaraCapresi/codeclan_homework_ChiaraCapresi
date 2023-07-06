@@ -1,0 +1,8 @@
+"0","null_dist_3 <- dom %>% "
+"0","  specify(response = domesticate, success = ""TRUE"") %>% "
+"0","  hypothesise(null = ""point"", p = 0.05) %>% "
+"0","  generate(reps = 5000, type = ""draw"") %>%"
+"0","  calculate(stat = ""prop"") "
+"0",""
+"0","null_dist_3 %>% "
+"0","  visualise(bins = 10)"

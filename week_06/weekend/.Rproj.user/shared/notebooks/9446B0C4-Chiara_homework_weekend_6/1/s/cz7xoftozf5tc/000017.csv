@@ -1,0 +1,8 @@
+"0","observed_stat <- msleep %>%"
+"0","  specify(response = sleep_total) %>%"
+"0","  calculate(stat = ""mean"")"
+"0",""
+"0","observed_stat"
+"1","Response: sleep_total (numeric)"
+"1","
+"
