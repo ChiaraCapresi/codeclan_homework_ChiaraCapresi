@@ -1,0 +1,284 @@
+---
+title: "Regression"
+output: html_notebook
+---
+
+# Learning objective
+
+1. Understand the concept of regression
+2. Understand how the leastquares best fit line is calculated
+3. Be able to calculate regression using data !
+4. Look how 'lm()' function and formula works in R
+5. Residuals and predicted values!
+
+
+
+```{r}
+library(tidyverse)
+```
+
+With the regression, we can make a model of the dataset that allows us to make predictions!
+
+
+```{r}
+height <- c(176, 164, 181, 168, 195, 185, 166, 180, 188, 174)
+weight <- c(82, 65, 85, 76, 90, 92, 68, 83, 94, 74 )
+sample <- tibble(
+  weight,
+  height
+)
+
+sample %>%
+  ggplot(aes(x = weight, y = height)) +
+  geom_point()
+```
+
+```{r}
+line <- function(x, b0, b1)
+  return(b0 + x * b1)
+
+
+#default paramethers
+b0 = 95
+b1 = 1
+
+sample <- sample %>%
+  mutate(fit_height = line(weight, b0 = 95, b1 = 1))
+
+sample %>%
+  ggplot(aes(x = weight, y = height)) +
+  geom_point() +
+  geom_point(aes(y = fit_height), shape = 1) +
+  geom_abline(slope = 1, intercept = 95, col = "red") +
+  geom_segment(aes(xend = weight, yend = fit_height), alpha = 0.5)
+```
+
+
+# Least square method!
+
+```{r}
+sample <- sample %>% 
+  mutate(residual = height - fit_height)
+
+sample
+```
+
+```{r}
+sample %>% 
+  summarise(sq_residuals = residual^2)
+```
+# lm()
+
+
+```{r}
+model <- lm(formula = height ~ weight, data = sample)
+
+model
+```
+
+```{r}
+fitted(model)
+```
+```{r}
+predict_at <- data.frame(weight = c(78))
+
+predict(model, newdata = predict_at)
+```
+
+# modelr
+
+```{r}
+library(modelr)
+```
+
+```{r}
+# add_predictions() -> add predicted values
+
+# add_residuals() -> adds residuals
+
+sample <- sample %>% 
+  select(-c(fit_height, residual)) 
+
+sample <- sample %>% 
+  add_predictions(model) %>% 
+  add_residuals(model)
+
+sample
+```
+
+# Regression diagnostics
+
+Learning objectives:
+
+Finding how to get detailed output from your lm() model.
+
+
+#summary()
+
+```{r}
+summary(model)
+```
+
+```{r}
+library(broom)
+```
+
+
+
+#glance()
+
+```{r}
+glance(model)
+```
+
+
+#tidy
+
+```{r}
+tidy(model)
+```
+
+```{r}
+library(janitor)
+glance_output <- clean_names(glance(model))
+
+glance_output
+```
+
+Task - 2 mins
+We saw above that r2 should be equal to the square of r (the correlation coefficient) for simple linear regression. Test this out in the current case.
+
+Hint
+Remember the cor() function
+
+
+
+```{r}
+sample %>%
+summarise(correlation = cor(height,weight))
+
+0.9236505^2
+```
+# Diagnostic plots
+
+
+```{r}
+library(ggfortify)
+```
+```{r}
+autoplot(model)
+```
+
+Task - 15 mins
+We provide two data sets: distribution_1.csv and distribution_2.csv. Fitting a simple linear regression to each of these distributions leads to problems with the residuals for two different reasons. See if you can identify the problem in each case!
+
+   - Load the data set.
+   -Fit a simple linear regression taking y as the outcome and x as the explanatory variable, saving the model object.
+  - Check the diagnostic plots for the model object and identify the main problem you see with the residuals (use the autoplot() function).
+  -  Finally, plot the data and overlay the best fit line (use add_predictions() to add a pred column to the data set, and then plot via geom_point() and geom_line()). Does this plot help you interpret the problem you found in the residuals?
+
+
+```{r}
+dist_1 <- read_csv("data/distribution_1.csv")
+
+dist_2 <- read_csv("data/distribution_2.csv")
+
+
+model_1 <- lm(formula = y ~ x, data = dist_1)
+
+model_1
+
+
+model_2 <- lm(formula = y ~ x, data = dist_2)
+
+model_2
+
+
+autoplot(model_1)
+
+autoplot(model_2)
+
+
+dist_1 <- dist_1 %>% 
+  add_predictions(model_1) %>% 
+  add_residuals(model_1)
+
+dist_2 <- dist_2 %>% 
+  add_predictions(model_2) %>% 
+  add_residuals(model_2) 
+
+
+dist_1 %>% 
+  ggplot(aes(x, y)) +
+  geom_point() 
+  
+
+```
+
+
+```{r}
+library(performance)
+library(see)
+```
+
+```{r}
+check_model(model_2)
+```
+
+```{r}
+check_model(model_1)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

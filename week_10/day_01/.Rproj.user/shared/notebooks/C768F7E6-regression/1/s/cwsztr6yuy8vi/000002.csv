@@ -1,0 +1,19 @@
+"0","```r
+line <- function(x, b0, b1)
+  return(b0 + x * b1)
+
+
+#default paramethers
+b0 = 95
+b1 = 1
+
+sample <- sample %>%
+  mutate(fit_height = line(weight, b0 = 95, b1 = 1))
+
+sample %>%
+  ggplot(aes(x = weight, y = height)) +
+  geom_point() +
+  geom_point(aes(y = fit_height), shape = 1) +
+  geom_abline(slope = 1, intercept = 95, col = \"red\") +
+  geom_segment(aes(xend = weight, yend = fit_height), alpha = 0.5)
+```"

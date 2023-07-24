@@ -1,0 +1,261 @@
+---
+title: "Correlation"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+```
+
+
+Now , let's check out some data.
+
+```{r}
+mtcars %>% 
+  select(wt, mpg) %>% 
+  glimpse()
+```
+
+We call this data **bivariate** - which is a fancy way of saving that it has 2 variables we're interested in.
+
+Let's plot it:
+
+```{r}
+mtcars %>% 
+  ggplot(aes(x = wt, y = mpg)) +
+  geom_point()
+```
+## Pearson correlation coefficient - denoted by 'r'
+
+Similar to when we had a number to describe how skewed a dataset was, the correlation coefficient is a single number to describe the correlation of variables.
+
+- r has no units (it's just a number)
+- It takes bounded values (between -1 and 1)
+  - approaches r = 1 when variables are strongly positively correlated
+  - approaches r = -1 when variables are strongly negatively correlated
+  - approaches r = 0 when variables are not correlated.
+  
+  
+We can calculate r using the 'cor()' function (where Pearson r is the default)
+
+
+```{r}
+noisy_bivariate <- function(noise = 1, gradient = 1){
+  x <- runif(n = 200, min = 0, max = 10)
+  y <- gradient * x + 10
+  y_scatter <- noise * 4 * rnorm(n = 200)
+  y <- y + y_scatter
+  data = tibble(x, y)
+
+  r <- round(cor(x, y), 4)
+  title <- paste(
+    "noise = ", noise,
+    ", gradient = ", gradient,
+    ", r = ", r
+  )
+  
+  data %>%
+    ggplot(aes(x = x, y = y)) +
+    geom_point() +
+    xlim(0, 10) +
+    ylim(min(c(min(y), 0)), max(c(max(y), 10))) +
+    ggtitle(title)
+}
+
+
+
+```
+
+
+
+```{r}
+noisy_bivariate(noise = 0.5, gradient = 1)
+```
+
+r is 'defined' by combination of how steep the slop is and how noisy the data is
+
+The magnitude of r:
+
+  0 - no correlation
+  0.01 - 0.19 - very weak
+  0.2 - 0.39 - weak
+  0.4 - 0.59 - moderate
+  0.6 - 0.79 - strong
+  0.8 - 0.99 - very strong
+  1 - perfect correlation!
+  
+  Let's calculate the correlation coefficient for 'wt' and 'mpg' in 'mtcars':
+  
+```{r}
+mtcars %>% 
+  summarise(correlation = cor(wt, mpg))
+
+#other of variables in 'cor()' doesn't matter
+
+
+mtcars %>% 
+  summarise(correlation = cor(mpg, wt))
+```
+  
+
+Very strong negative correlation!
+
+## word of warning
+
+The correlation coefficient is a blunt instrument - we can run 'cor()' on any bivariate dataset and get a number out - regardless of any real trend in the data (if any exists).
+
+
+```{r}
+anscombe
+```
+
+
+
+```{r}
+anscombe_long <- anscombe %>%
+  pivot_longer(
+    everything(),
+    cols_vary = "slowest",
+    names_to = c(".value", "set"),
+    names_pattern = "(.)(.)"
+  )
+```
+
+Anscomb's quartet
+was constructed in 1963 by statistician Francis Anscombe to illustrate the importance of plotting data before you analyse and build your model.
+
+```{r}
+anscombe_long %>% 
+  ggplot(aes(x,y)) +
+  geom_point() +
+  facet_wrap(~set, ncol = 2)
+```
+
+```{r}
+anscombe_long %>% 
+  group_by(set) %>% 
+  summarise(mean_x = mean(x, na.rm = TRUE), sd_y = sd(y, na.rm = TRUE), cor_x_y = cor(x,y))
+```
+
+
+VISUALISE THE DATA FIRST!!!
+
+```{r}
+library(datasauRus)
+datasaurus_dozen %>% 
+  group_by(dataset) %>% 
+  summarize(mean_x = mean(x),
+            mean_y = mean(y),
+            std_dev_x = sd(x),
+            std_dev_y = sd(y),
+            correlation  = cor(x, y))
+```
+
+
+```{r}
+datasaurus_dozen %>% 
+ggplot(aes(x = x, y = y, colour = dataset)) +
+  geom_point(size = 0.2) +
+  theme_void() +
+  theme(legend.position = "none") +
+  facet_wrap(~ dataset, ncol = 3)
+```
+
+## The most famous phrase in statistics!
+
+**Correlation is not causation**
+
+Just because 2 variables are **correlated** doesn't mean that one of them **causes** the change in the other.
+
+Consider 'sunglasses_sold' and the amount of 'ice_cream_sold' at a beach store in one week
+ - there's a good change these will be correlated
+ - but does this mean that the amount of sunglasses sold **causes** the amount of ice cream sold to increase?? NO! We don't have a strong enough basis to make this conclusion.
+ 
+## the 'third variable' problem
+ 
+ The simplest realistic model might be that **both** these variables are themselves causally related with a third **hidden variable**
+ 
+ e.g. temperature, number_of_sunny_days
+ 
+ AKA **confounding variable**
+
+
+## The 'directionality' problem
+
+Even if two variables **are** causally related, there is nothing in the statistics to indicate the **directionality** of causation.
+
+
+e.g. we measure 'amount_of_exercise' in a given week and 'happiness' in a given week
+
+we discover a positive correlation between these
+
+we might be tempted to say that more exercise leads to happier people - but maybe happier people exercise more!
+
+## How do we prove causation?
+
+Ideally, with a randomised controlled experiment.
+
+
+(See image in notes)
+
+These give us the basis to say whether or not our 'intervention' variable **causes** any change we find in the 'outcome' variable.
+
+Longitudinal studies are also very helpful.
+
+
+## Two extra plots we'll look at from the 'GGally' and 'GGfortify' package
+
+
+```{r}
+library(GGally)
+```
+
+```{r}
+iris %>% 
+  select(-Species) %>% 
+  ggcorr(label = TRUE)
+```
+
+```{r}
+library(ggfortify)
+```
+
+```{r}
+iris %>% 
+ggpairs()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,12 @@
+"0","```r
+model
+
+```"
+"1","
+Call:
+lm(formula = height ~ weight, data = sample)
+
+Coefficients:
+(Intercept)       weight  
+   102.1758       0.9336  
+"

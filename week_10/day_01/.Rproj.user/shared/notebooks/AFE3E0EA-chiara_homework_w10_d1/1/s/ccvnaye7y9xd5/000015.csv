@@ -1,0 +1,6 @@
+"0","project <- project %>% "
+"0","  select(-x1) %>% "
+"0","  add_predictions(model) %>% "
+"0","  add_residuals(model)"
+"0",""
+"0","project"

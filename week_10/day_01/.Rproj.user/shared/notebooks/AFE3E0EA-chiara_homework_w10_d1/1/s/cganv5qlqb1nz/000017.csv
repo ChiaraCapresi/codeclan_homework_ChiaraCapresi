@@ -1,0 +1,2 @@
+"0","glance_output <- clean_names(glance(model))"
+"0","glance_output"

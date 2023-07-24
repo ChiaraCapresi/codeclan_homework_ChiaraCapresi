@@ -1,0 +1,6 @@
+"0","```r
+sample <- sample %>% 
+  mutate(residual = height - fit_height)
+
+sample
+```"

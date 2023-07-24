@@ -1,0 +1,8 @@
+"0","```r
+predict_at <- data.frame(weight = c(78))
+
+predict(model, newdata = predict_at)
+```"
+"1","       1 
+174.9927 
+"

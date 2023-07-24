@@ -1,0 +1,12 @@
+"0","```r
+height <- c(176, 164, 181, 168, 195, 185, 166, 180, 188, 174)
+weight <- c(82, 65, 85, 76, 90, 92, 68, 83, 94, 74 )
+sample <- tibble(
+  weight,
+  height
+)
+
+sample %>%
+  ggplot(aes(x = weight, y = height)) +
+  geom_point()
+```"

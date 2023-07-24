@@ -1,0 +1,26 @@
+"0","```r
+noisy_bivariate <- function(noise = 1, gradient = 1){
+  x <- runif(n = 200, min = 0, max = 10)
+  y <- gradient * x + 10
+  y_scatter <- noise * 4 * rnorm(n = 200)
+  y <- y + y_scatter
+  data = tibble(x, y)
+
+  r <- round(cor(x, y), 4)
+  title <- paste(
+    \"noise = \", noise,
+    \", gradient = \", gradient,
+    \", r = \", r
+  )
+  
+  data %>%
+    ggplot(aes(x = x, y = y)) +
+    geom_point() +
+    xlim(0, 10) +
+    ylim(min(c(min(y), 0)), max(c(max(y), 10))) +
+    ggtitle(title)
+}
+
+
+
+```"
