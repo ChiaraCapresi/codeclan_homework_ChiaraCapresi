@@ -1,0 +1,2 @@
+"0","assignment_mean <- mean(grades$assignment)"
+"0","assignment_sd <- sd(grades$assignment)"

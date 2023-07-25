@@ -1,0 +1,204 @@
+---
+title: "Chiara homework week 10 day 2"
+output: html_notebook
+---
+
+# MPV
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(GGally)
+```
+
+
+## 1. Load the housing_prices.csv data set and undertake an initial exploration of the data. You will find details on the data set on the relevant Kaggle page
+
+
+```{r}
+housing_prices <- read_csv("data/housing_prices.csv") %>% 
+  clean_names()
+```
+
+```{r}
+glimpse(housing_prices)
+```
+
+##2. We expect the total_rooms of houses to be strongly correlated with total_bedrooms. Use ggpairs() to investigate correlations between these two variables.
+
+
+```{r}
+housing_prices %>% 
+  select(total_rooms, total_bedrooms) %>% 
+ggpairs(housing_prices, progress = FALSE)
+```
+
+Both from the correlation number and from the scatter plot we can deduce that the two variables are strongly correlated.
+
+
+## 3. So, we do find significant correlations. Let’s drop total_bedrooms from the dataset, and use only total_rooms going forward.
+
+
+```{r}
+housing_prices <- housing_prices %>% 
+  select(-total_bedrooms)
+
+housing_prices
+```
+
+
+## 4. We are interested in developing a regression model for the median_house_value of a house in terms of the possible predictor variables in the dataset.
+
+  -  Use ggpairs() to investigate correlations between median_house_value and the predictors (this may take a while to run, don’t worry, make coffee or something).
+  
+  
+  
+```{r}
+ggpairs(housing_prices, progress = FALSE)
+```
+
+  It seems that there is a medium correlation between 'median_house_value' and 'median_income'.
+  
+
+  -  Perform further ggplot visualisations of any significant correlations you find.
+  
+```{r}
+housing_prices %>% 
+  ggplot(aes(x = median_house_value, y = median_income))+
+  geom_point()+
+  geom_smooth(method = 'lm')
+```
+
+
+```{r}
+housing_prices %>% 
+  select(median_house_value, ocean_proximity) %>% 
+  ggpairs(housing_prices, progress = FALSE)
+```
+
+
+
+
+## 5. Shortly we may try a regression model to fit the categorical predictor ocean_proximity. Investigate the level of ocean_proximity predictors. How many dummy variables do you expect to get from it?
+
+```{r}
+housing_prices %>% 
+  distinct(ocean_proximity)
+```
+We expect 5 dummy variables!
+
+
+## 6. Start with simple linear regression. Regress median_house_value on median_income and check the regression diagnostics.
+
+
+```{r}
+model <- lm(median_house_value ~ median_income, housing_prices)
+
+model
+```
+
+```{r}
+library(modelr)
+
+sample <- housing_prices %>%
+  add_predictions(model) %>%
+  add_residuals(model)
+sample
+```
+
+```{r}
+sample %>%
+  ggplot(aes(x = median_income)) +
+  geom_point(aes(y = median_house_value)) +
+  geom_line(aes(y = pred), col = "red")
+```
+
+
+```{r}
+autoplot(model)
+```
+
+
+
+
+
+## 7. Add another predictor of your choice. Check your assumptions, diagnostics, and interpret the model.
+
+```{r}
+model_2 <- lm(median_house_value ~ median_income + ocean_proximity, housing_prices)
+
+model_2
+```
+
+
+
+
+```{r}
+autoplot(model_2)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

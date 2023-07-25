@@ -1,0 +1,9 @@
+"0","```r
+grades_subject_dummy2 %>% 
+  mutate(final_grade = case_when(
+    final < 50 ~ \"FAIL\",
+    final < 60 ~ \"C\",
+    final < 70 ~ \"B\",
+    final >= 70 ~ \"A\"
+  ), .after = final)
+```"

@@ -1,0 +1,10 @@
+"0","housing_prices <- read_csv(""data/housing_prices.csv"") %>% "
+"0","  clean_names()"
+"2","[1mRows: [22m[34m19675[39m [1mColumns: [22m[34m10[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m (1): ocean_proximity
+[32mdbl[39m (9): longitude, latitude, housing_median_age, total_rooms, total_bedrooms, population, households, median_income, median_house_value"
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."

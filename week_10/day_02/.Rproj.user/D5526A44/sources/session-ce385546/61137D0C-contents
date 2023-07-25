@@ -1,0 +1,717 @@
+---
+title: "Supervised vs Unsupervised learning"
+output: html_notebook
+---
+
+## Supervided vs unsupervised learning
+
+
+### Learning objectives
+
+ -   Become aware of the types of problem ML can be used for
+ -  Know the difference between supervised and unsupervised algorithms
+
+
+### 3 types of problems
+
+- Regression
+  - supervised
+  
+- Classification
+  - supervised
+  
+- Clustering
+  - unsupervised
+  
+  
+  > What does supervised means?
+  
+  for each 'x' we know the corresponding 'y'
+  
+  for each cat picture, we know that it is indeed a cat (or not)!
+  
+  
+  We have a label for each individual.... which we can use to verify the models conclusions
+  
+  > unsupervised means there are no labels.
+  
+  These methods shouldn't be thought of in isolation
+  
+  Maybe:
+  
+  cluster => identify groups (i.e. labels)
+          => regression
+  
+  
+  
+  
+```{r}
+library(tidyverse)
+library(fastDummies) # making dummy variables
+library(mosaicData)
+library(tidyverse)
+library(janitor)
+library(GGally)
+library(ggfortify)
+library(mosaic)
+```
+  
+  
+```{r}
+grades <- read_csv("supervised_vs_unsupervised/data/grades.csv")
+```
+  ### Learning Objectives
+
+  - Understand what variable engineering is
+  - Understand what dummy variables are
+
+   -  how to create and use them
+
+   - Understand the difference between raw and derived variables
+   - Know what feature scaling is and how to use it
+   
+   
+  > ‘The features you use influence more than everything else the result. No algorithm alone, to my knowledge, can supplement the information gain given by correct feature engineering‘. - Luca Massaron (Data Scientist & author)
+  
+> ‘Much of the success of machine learning is actually success in engineering features that a learner (MODEL) can understand’ - Scott Locklin (Physicist)
+
+> ? ’Applied machine learning” is basically feature engineering. - Andrew Ng (Computer Scientist)
+  
+  
+```{r}
+grades
+```
+  
+  
+  
+### Missing values
+
+Could drop them - __Meh__
+
+  - rows
+  - col
+
+Could impute - better, but be careful
+
+Could ignore them
+  
+when do we do this...
+
+
+#### Task 1 - 5 mins
+Replace the NA values in our dataset by _imputing_ the mean value of the appropriate columns. Refer to the summary above to see which columns need work.
+
+
+
+```{r}
+summary(grades)
+```
+
+```{r}
+grades %>% 
+  summarise(across(.col = everything(), .fns = ~sum(is.na(.x))))
+```
+
+```{r}
+grades %>% 
+  mutate(final = coalesce(final, mean(final, na.rm = TRUE)),
+         take_home, mean(take_home, na.rm = TRUE))  
+  
+grades <- grades %>% 
+  mutate(across(where(is.numeric), ~ coalesce(., mean(., na.rm = TRUE))))
+
+grades
+```
+
+```{r}
+skimr::skim(grades)
+```
+
+## Outliers
+
+__BE CAREFUL__ what you consider an outlier!!!
+
+
+Let's not say "outlier"
+
+Let's say __extreme values__
+
+
+## transformations
+
+For some models we may need or _data_ to follow a normal distribution and real data may not be normal!
+
+There is no assumption that data must be normal (neither predictors or response).
+
+What __should be normal__ is the models errors.
+
+Very common transformations
+
+- log
+- sqrt
+
+
+## Dummy variables
+
+something we do with categorical data
+
+Most models don't work with _words_
+
+
+__Nominal__ data
+
+bio = 1
+eng = 2
+fre = 3
+math = 4
+phys = 5
+
+
+__Ordinal__ data
+
+low = 1
+med = 2
+heigh = 3
+
+
+```{r}
+grades %>% 
+  #select(subject) %>% # for demo purposes
+  mutate(subject_bio = as.integer(subject == 'biology'),
+         subject_eng = as.integer(subject == 'english'),
+         subject_fre = as.integer(subject == 'french'),
+         subject_math = as.integer(subject == 'maths'),
+         subject_phy = as.integer(subject == 'physics')
+         ) %>% 
+  select(-subject_bio, -subject)
+```
+
+If we leave all the __dummy__ columns in the data set, we have a redundant column.
+
+This is important because it will lead to a problem called __multicolinearity__.
+
+
+This is called the __dummy variable trap__
+
+The take home is: 
+If we have n categories, we need (n-1) columns.
+
+In ML often called one-hot encoding.
+
+Don't need to do this manually...
+(Don't actually need to do it all... unless)
+
+Let's do it with a package
+
+```{r}
+grades_subject_dummy2 <- grades %>% 
+  fastDummies::dummy_cols(select_columns = 'subject', 
+                          remove_selected_columns = TRUE, # we remove the 'subject' column!
+                          remove_first_dummy = TRUE) # remove the column 'subject_biology'
+```
+
+Could combine more than one level into a single category
+
+
+categorical variable
+
+Infants.      10
+Kids          14
+Tweens.       36
+Teens.        40
+Adults.       46
+
+
+## Binning 
+
+Turning a continuous variable into a discrete variable
+Discretises(?) a continuous variable
+EG 
+
+>= 70 = A
+>= 60 = B
+>= 50 = C
+< 50 = FAIL
+
+```{r}
+grades_subject_dummy2 %>% 
+  mutate(final_grade = case_when(
+    final < 50 ~ "FAIL",
+    final < 60 ~ "C",
+    final < 70 ~ "B",
+    final >= 70 ~ "A"
+  ), .after = final)
+```
+
+
+
+
+```{r}
+grades %>% 
+  mutate(final_grade = case_when(final >= 70 ~ "A",
+                                 final >= 60 ~ "B",
+                                 final >= 50 ~ "C",
+                                 final < 50 ~ "F",
+                                 )) %>% 
+  fastDummies::dummy_cols(select_columns = "final_grade",
+                          remove_selected_columns = TRUE,
+                         remove_first_dummy = FALSE
+                          ) %>% 
+  select(-final_grade_F)
+```
+
+
+## Raw vs derived variables
+
+Derived variables derives from row variables.
+
+## Variable scaling
+
+- Standardisation
+
+```{r}
+CodeClanData::tyrell_corp_jobs %>% 
+  ggplot(aes(Salary, fill = Position))+
+  geom_histogram(position = "dodge")
+```
+
+There's 2 step
+
+1. shift the distribution (e.g. shift in such a way that they have both the same center)
+
+2. Rescale
+ - put them on a common scale (e.g. common unit)
+ 
+- Standardisation
+ - shift them to be centred over 0
+ - make the zero point represent the mean
+ - think in terms of SD...(We divide by the SD)
+ - our "unit" is SD
+ 
+```{r}
+CodeClanData::tyrell_corp_jobs %>% 
+  mutate(salary = scale(Salary), .by = Position) #calculate the SD with respect of the Position
+```
+
+
+```{r}
+assignment_mean <- mean(grades$assignment)
+assignment_sd <- sd(grades$assignment)
+```
+
+```{r}
+ass_sc <- grades %>% 
+  select(assignment) %>% 
+  mutate(assignment_scaled = (assignment - assignment_mean)/assignment_sd)
+ass_sc
+```
+
+
+```{r}
+ass_sc %>% 
+  ggplot(aes(assignment))+
+  geom_density()+
+  geom_vline(xintercept = assignment_mean, size = 1, colour = 2)+
+  labs(title = "Raw data")
+
+
+
+ass_sc %>% 
+  ggplot(aes(assignment_scaled))+
+  geom_density()+
+  geom_vline(xintercept = mean(ass_sc$assignment_scaled), size = 1, colour = 2)+
+  labs(title = "Raw data")
+```
+
+
+```{r}
+grades %>% 
+  select(assignment) %>% 
+  mutate(sc_ass_TT = scale(assignment),
+         sc_ass_FT = scale(assignment, scale = F, center = T),
+         sc_ass_TF = scale(assignment, scale = T, center = F))
+```
+
+# Multiple linear regression
+
+
+### Learning Objectives
+
+
+
+ -    Understand and be able to _build upon_ simple linear regression by _adding predictors_ (continuous and categorical).
+ -    Understand and be able to use _forumla notation_
+
+      -   the +, * and : operators
+      -   (they mean something different in a formula)
+
+  -   Have _seen_ a _parallel slopes_ model
+  -   Be able to _add interactions_ between predictors and _interpret their effects_
+  -   Understand that multiple continuous predictors lead to _‘planes of best fit’_
+  -   Be able to use _conditional plots_ to _investigate interactions_ between continuous predictors
+
+
+Multiple linear regression
+
+  - could be continuous
+  - could be categorical
+  - could be ..........
+  
+  
+```{r}
+# comes from mosaic Data package
+RailTrail
+```
+  
+  
+## Variable engineering
+  
+```{r}
+railtrail_clean <- RailTrail %>%
+  clean_names() %>%
+  mutate(across(spring:fall, as.logical))
+
+railtrail_clean
+```
+
+```{r}
+railtrail_trim <- railtrail_clean %>% 
+  select(-c(hightemp, lowtemp, fall, day_type))
+```
+  
+  
+```{r}
+mod1 <- lm(volume ~ ., railtrail_clean)
+
+alias(mod1)
+```
+
+```{r}
+# GGally
+ggpairs(railtrail_trim, progress = FALSE)
+```
+
+  
+```{r}
+railtrail_trim %>% 
+  ggplot(aes(x = avgtemp, y = volume))+
+  geom_point()+
+  geom_smooth(method = 'lm') #method = 'lm', se = FALSE if you don't want  grey strip
+```
+
+  
+```{r}
+mod1 <- lm(volume ~ avgtemp, railtrail_trim)
+
+autoplot(mod1)+ 
+  theme_minimal()
+
+  hist(mod1$residuals)
+
+```
+  
+  
+
+  
+ 
+
+----
+  
+the p-val is the probability of getting a value _as extreme_ or _more_ extreme than we observed _IF THE NULL WAS TRUE_.
+
+
+The observed value depends on the _DATA_
+
+If the data are weird....
+...they don't conform with the NULL hypothesis
+
+> How does _H0_ relate to the p-val
+> What does the NULL mean with respect to p
+
+
+> What is the null hypothesis?
+
+- how we expect the world to be
+
+> How do we test hypothesis?
+
+We collect some data and we see if it fits our belief of how the world is
+Specifically how the null hypothesis world is
+
+> How do we measure the conformity of the data compared with the NULL world?
+
+That's what the p-value is for.
+
+> How does the p-value helps with this?
+
+the p-value measures how usual our data are compared to the NULL world
+
+Or...
+
+How well the observed stat we take from the data, conforms to our NULL stat
+
+> Yeah, but how?
+
+A very small p-value would mean that there was a little chance of getting those data _if the NULL was true_.
+Or...
+The chance of getting such an extreme observed stat, was unlikely
+
+A large p-value, suggest the data are consistent with the NULL-world
+
+
+> But it's just a threshold?
+
+yes!
+
+----
+
+From the first plot we can assume that this is not alinear modul.
+  
+```{r}
+summary(mod1)
+
+fivenum(mod1$residuals)
+```
+
+
+ What does the _Estimate_ column tell us?
+  - Tell point estimate
+  - Gradient of the line
+  - every unit increase in x = 4.8 in y
+  - every extra degree in temp = an extra 5 trail users
+  - Effect size <=> estimate
+  - _H0:_ => emp has no effect 
+  
+'If' the _null hypothesis_ was true, we would expect a slope of around 0
+Our slope is actually ~4.8 - so it is different from H0
+But is it really?
+
+
+
+
+
+
+```{r}
+sd(mod1$residuals)
+railtrail_trim %>% 
+  ggplot(aes(y = volume))+
+  geom_boxplot()
+```
+
+
+
+## Step-wise regression
+
+1. Start with a NULL model
+  - a model with no predictors
+
+2. Add the predictor that gives the lowest p-value
+  - we had to test each and everyone - one a time
+  
+3. examine the residuals again
+
+4. Repeat step 2
+
+5. Repeat step 3
+
+
+
+## Parallel slopes model
+
+H0: 'weekday' has no effect on volume
+H1: Being a weekend matters
+
+
+Task: Try plotting an appropriate visualisation to determine whether user volume is associated with the weekday predictor.
+
+```{r}
+railtrail_trim %>% 
+  ggplot(aes(x = weekday, y = volume)) +
+  geom_boxplot()
+```
+
+
+```{r}
+summarise(railtrail_trim, cor = cor(weekday, volume))
+```
+
+Weak negative correlation!
+
+
+
+"Formula language"
+ - aka "patsy"
+ - Wilkinson notation (also wilkinson-Rodgers)
+
+```{r}
+mod2 <- lm(volume ~ avgtemp + weekday, railtrail_trim)
+
+autoplot(mod1) + theme_minimal()
+autoplot(mod2) + theme_minimal()
+```
+
+
+
+```{r}
+summary(mod2)
+```
+
+The reason we remove one of our dummies is...
+The one that is removed becomes our reference class.
+
+```{r}
+summary(mod2)
+
+coefficients(mod2)
+
+# mosaic package
+plotModel(mod2)
+```
+
+
+163 - 70 the other interception
+
+The dummy encoding thing removes the variables that comes first in the alphabet
+
+
+Which of these would you prefer to be you reference class
+
+Low
+Medium
+High
+
+
+Task: Try adding the summer categorical predictor to the existing model with avgtemp and weekday.
+
+
+```{r}
+mod3 <- lm(volume ~ avgtemp + weekday + summer, railtrail_trim)
+
+autoplot(mod3)
+```
+    How many lines do you expect to see in this model?
+    Is this a parallel slopes model? [Hint try plotModel() on the model object]
+    Is the addition of this predictor justified [Hint what is the p-value of summer]?
+
+
+```{r}
+plotModel(mod3)
+```
+
+
+
+```{r}
+summary(mod3)
+```
+
+weekday false come first in the alphabet, so it is our intercept
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

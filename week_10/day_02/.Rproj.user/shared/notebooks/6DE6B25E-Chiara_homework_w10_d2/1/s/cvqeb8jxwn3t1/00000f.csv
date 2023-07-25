@@ -1,0 +1,4 @@
+"0","sample %>%"
+"0","  ggplot(aes(x = median_income)) +"
+"0","  geom_point(aes(y = median_house_value)) +"
+"0","  geom_line(aes(y = pred), col = ""red"")"
