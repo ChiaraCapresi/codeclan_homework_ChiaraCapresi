@@ -1,0 +1,4 @@
+"0","project %>% "
+"0","  ggplot(aes(x = estimated_length))+"
+"0","  geom_point(aes(y = actual_length))+"
+"0","  geom_line(aes(y = pred), colour = ""red"")"

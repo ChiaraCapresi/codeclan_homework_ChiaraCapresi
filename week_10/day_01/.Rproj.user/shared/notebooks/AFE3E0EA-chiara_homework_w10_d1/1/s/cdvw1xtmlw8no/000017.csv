@@ -1,0 +1,5 @@
+"0","project <- add_case(project, actual_length = 3000, estimated_length = 100)"
+"0",""
+"0","model_1 <- lm(formula = actual_length ~ estimated_length, data = project)"
+"0",""
+"0","plot(model_1, which = c(2, 3, 5))"

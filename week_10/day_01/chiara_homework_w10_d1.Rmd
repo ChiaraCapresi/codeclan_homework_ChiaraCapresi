@@ -49,6 +49,17 @@ model <- lm(formula = actual_length ~ estimated_length, data = project)
 model
 ```
 
+
+
+```{r}
+summary(model)
+```
+
+
+
+
+
+
 ```{r}
 project <- project %>% 
   select(-x1) %>% 
@@ -100,8 +111,22 @@ This says that the 64,7% of the variation of actual_length is explained by varia
 autoplot(model)
 ```
 
+1. That relationship is actually linear.
+2. The residuals should be normally distributed!!!
+3. Homosscedastic errors
+   - Constant variance
+   
+   
+   
+   
+   
+```{r}
+par(mfrow = c(2,3))
+plot(model)
+hist(model$residuals)
+plot(model, which = 5)
 
-
+```
 
 
 
@@ -113,11 +138,27 @@ tidy_output
 
 
 
+### orrection:
+
+Aside from outliers (certainly point 5, and perhaps point 18
+
+), the diagnostic plots looks reasonable. The ‘Residuals vs Fitted’ plot reveals independent residuals, the ‘Normal Q-Q’ plot looks fine, and there is no systematic upward or downward trend in the the ‘Scale-Location’ plot.
+
+The relationship is statistically significant, as the p
+-value of the slope is much less than a typical α of 0.05.
 
 
 
 
+```{r}
+project <- add_case(project, actual_length = 3000, estimated_length = 100)
 
+model_1 <- lm(formula = actual_length ~ estimated_length, data = project)
+
+plot(model_1, which = c(2, 3, 5))
+
+
+```
 
 
 
