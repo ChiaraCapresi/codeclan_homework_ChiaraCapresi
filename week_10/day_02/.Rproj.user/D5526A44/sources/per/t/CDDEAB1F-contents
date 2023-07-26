@@ -64,10 +64,27 @@ ggpairs(housing_prices, progress = FALSE)
   
 ```{r}
 housing_prices %>% 
-  ggplot(aes(x = median_house_value, y = median_income))+
+  ggplot(aes(x = median_income, y = median_house_value))+
   geom_point()+
   geom_smooth(method = 'lm')
 ```
+
+
+
+```{r}
+housing_prices %>% 
+  ggplot(aes(x = total_rooms, y = median_house_value))+
+  geom_point()+
+  geom_smooth(method = 'lm', se = FALSE)
+```
+
+
+
+
+
+
+
+
 
 
 ```{r}
@@ -97,6 +114,20 @@ model <- lm(median_house_value ~ median_income, housing_prices)
 model
 ```
 
+
+
+```{r}
+par(mfrow = c(2,2))
+plot(model)
+```
+
+```{r}
+summary(model)
+```
+
+
+
+
 ```{r}
 library(modelr)
 
@@ -114,9 +145,7 @@ sample %>%
 ```
 
 
-```{r}
-autoplot(model)
-```
+
 
 
 
@@ -129,6 +158,9 @@ model_2 <- lm(median_house_value ~ median_income + ocean_proximity, housing_pric
 
 model_2
 ```
+```{r}
+summary(model_2)
+```
 
 
 
@@ -139,7 +171,9 @@ autoplot(model_2)
 
 
 
+## Correction:
 
+The predictors median income and ocean_proximity explains 55% of the variation in the median_house_value. In addition, these predictors are also significant. For every increase in median income by 1 unit, the median house price increases by 35118.0 if all other predictors remain the same. If the house is on an island, the median house price increases by 200,480.2 if all other predictors remain the same.
 
 
 

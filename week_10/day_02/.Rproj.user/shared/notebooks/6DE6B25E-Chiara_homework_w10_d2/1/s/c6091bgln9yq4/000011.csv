@@ -1,0 +1,4 @@
+"0","housing_prices %>% "
+"0","  ggplot(aes(x = total_rooms, y = median_house_value))+"
+"0","  geom_point()+"
+"0","  geom_smooth(method = 'lm', se = FALSE)"

@@ -1,19 +1,5 @@
 "0","library(modelr)"
 "2","Avvertimento: il pacchetto ‘modelr’ è stato creato con R versione 4.3.1"
-"2","
-Caricamento pacchetto: ‘modelr’
-
-"
-"2","Il seguente oggetto è mascherato da ‘package:mosaic’:
-
-    resample
-
-"
-"2","Il seguente oggetto è mascherato da ‘package:ggformula’:
-
-    na.warn
-
-"
 "0","sample <- housing_prices %>%"
 "0","  add_predictions(model) %>%"
 "0","  add_residuals(model)"

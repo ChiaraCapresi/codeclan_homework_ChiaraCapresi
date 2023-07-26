@@ -1,0 +1,4 @@
+"0","housing_prices <- housing_prices %>% "
+"0","  select(-total_bedrooms)"
+"0",""
+"0","housing_prices"
