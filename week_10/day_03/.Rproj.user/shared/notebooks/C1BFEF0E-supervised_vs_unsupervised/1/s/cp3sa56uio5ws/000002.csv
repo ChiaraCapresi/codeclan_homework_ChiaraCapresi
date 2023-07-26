@@ -1,0 +1,7 @@
+"0","```r
+railtrail_clean <- RailTrail %>%
+  clean_names() %>%
+  mutate(across(spring:fall, as.logical))
+
+railtrail_clean
+```"

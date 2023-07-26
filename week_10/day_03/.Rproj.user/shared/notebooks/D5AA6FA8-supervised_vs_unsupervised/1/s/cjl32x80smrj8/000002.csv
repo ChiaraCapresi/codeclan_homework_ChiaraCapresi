@@ -1,0 +1,28 @@
+"0","```r
+summary(mod1)
+```"
+"1","
+Call:
+lm(formula = prestige ~ education, data = Prestige)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-26.0397  -6.5228   0.6611   6.7430  18.1636 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  -10.732      3.677  -2.919  0.00434 ** 
+education      5.361      0.332  16.148  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 9.103 on 100 degrees of freedom
+Multiple R-squared:  0.7228,	Adjusted R-squared:   0.72 
+F-statistic: 260.8 on 1 and 100 DF,  p-value: < 2.2e-16
+"
+"0","```r
+anova(mod1, mod2)
+```"
+"1","Error in anova.lmlist(object, ...) : 
+  i modelli sono stati stimati per differenti ampiezze campaionarie
+"

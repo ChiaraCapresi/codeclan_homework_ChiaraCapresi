@@ -1,0 +1,28 @@
+"0","library(tidyverse)"
+"0","library(car)"
+"2","Avvertimento: il pacchetto ‘car’ è stato creato con R versione 4.3.1"
+"2","Caricamento del pacchetto richiesto: carData
+"
+"2","Avvertimento: il pacchetto ‘carData’ è stato creato con R versione 4.3.1"
+"2","
+Caricamento pacchetto: ‘car’
+
+"
+"2","I seguenti oggetti sono mascherati da ‘package:mosaic’:
+
+    deltaMethod, logit
+
+"
+"2","Il seguente oggetto è mascherato da ‘package:dplyr’:
+
+    recode
+
+"
+"2","Il seguente oggetto è mascherato da ‘package:purrr’:
+
+    some
+
+"
+"0","library(modelr)"
+"0","library(GGally)"
+"0","library(ggfortify)"

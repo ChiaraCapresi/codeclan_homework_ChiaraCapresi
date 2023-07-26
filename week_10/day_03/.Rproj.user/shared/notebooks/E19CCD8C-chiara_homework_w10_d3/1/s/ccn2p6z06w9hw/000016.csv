@@ -1,0 +1,2 @@
+"0","housing_prices_trim <- housing_prices_trim %>% "
+"0","  mutate(renovated = if_else(yr_renovated == 0, FALSE, TRUE))"

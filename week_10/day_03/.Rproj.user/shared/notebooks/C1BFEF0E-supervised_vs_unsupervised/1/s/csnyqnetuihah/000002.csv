@@ -1,0 +1,13 @@
+"0","```r
+grades %>% 
+  mutate(final_grade = case_when(final >= 70 ~ \"A\",
+                                 final >= 60 ~ \"B\",
+                                 final >= 50 ~ \"C\",
+                                 final < 50 ~ \"F\",
+                                 )) %>% 
+  fastDummies::dummy_cols(select_columns = \"final_grade\",
+                          remove_selected_columns = TRUE,
+                         remove_first_dummy = FALSE
+                          ) %>% 
+  select(-final_grade_F)
+```"

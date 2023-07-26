@@ -1,0 +1,219 @@
+---
+title: "Chiara homework week 10 day 3"
+output: html_notebook
+---
+
+
+# MPV
+
+```{r}
+library(tidyverse)
+library(modelr)
+
+# visualisation packages
+library(GGally)
+library(ggfortify)
+```
+
+
+## 1. You are given a set of data on housing sale prices for the last few years in King County (near Seattle) between May 2014 and May 2015.
+
+```{r}
+housing_prices <- read_csv("data/kc_house_data.csv")
+
+housing_prices
+```
+
+
+```{r}
+glimpse(housing_prices)
+```
+
+```{r}
+skimr::skim(housing_prices)
+```
+
+```{r}
+housing_prices %>% 
+  summarise(across(.col = everything(), .fns = ~sum(is.na(.x))))
+```
+There are no missing values!
+
+## 2. Tidy up the data ready for regression:
+
+
+- I am going to remove all of `date`, `id`, `sqft_living15`, `sqft_lot15` and `zipcode`. I would also remove `sqft_above` and `sqft_basement`, because I think they are not relevant if we already have `sqft_living` and `sqft_lot`.
+
+
+```{r}
+housing_prices_trim <- housing_prices %>% 
+  select(-c("date", "id", "sqft_living15", "sqft_lot15", "zipcode", "sqft_above", "sqft_basement"))
+
+housing_prices_trim
+```
+
+
+- the variable `waterfront` seems to be a categorical indicator, so it would be better to convert its type from "double" to "logical"
+
+
+```{r}
+housing_prices_trim <- housing_prices_trim %>% 
+  mutate(waterfront = as.logical(waterfront))
+```
+
+
+
+- It could be useful to convert `yr_renovated` into a `renovated` logical variable, indicating whether the property had ever been renovated.
+
+
+```{r}
+housing_prices_trim <- housing_prices_trim %>% 
+  mutate(renovated = if_else(yr_renovated == 0, FALSE, TRUE))
+```
+
+
+
+- The columns `view`, `condition` and `grade` are categorical ordinal data types. Furthermore, the variable `grade` can be divided into three categories.
+
+```{r}
+housing_prices_trim <- housing_prices_trim %>% 
+  mutate(grade_slot = as.factor(case_when(
+    grade >=1 & grade <= 3 ~ "low quality",
+    grade >3 & grade <= 7 ~ "medium quality",
+    grade > 7 ~ "high quality"
+  ))) %>% 
+  mutate(across(.col = c("view", "condition"), .fns = ~as.factor(.x)))
+```
+
+
+# 3. Check for aliased variables using the alias() function (this takes in a formula object and a data set). [Hint - formula price ~ . says ‘price varying with all predictors’, this is a suitable input to alias()]. Remove variables that lead to an alias. Check the ‘Elements of multiple regression’ lesson for a dropdown containing further information on finding aliased variables in a dataset.
+
+
+```{r}
+alias(price ~., housing_prices_trim)
+```
+
+There are no `aliased variables` in the dataset.
+
+
+## 3. Systematically build a regression model containing up to four main effects (remember, a main effect is just a single predictor with coefficient), testing the regression diagnostics as you go * splitting datasets into numeric and non-numeric columns might help ggpairs() run in manageable time, although you will need to add either a price or resid column to the non-numeric dataframe in order to see its correlations with the non-numeric predictors.
+
+
+```{r}
+houses_tidy_numeric <- housing_prices_trim %>%
+  select_if(is.numeric)
+
+houses_tidy_nonnumeric <- housing_prices_trim %>%
+  select_if(function(x) !is.numeric(x)) 
+
+
+houses_tidy_nonnumeric <- houses_tidy_nonnumeric$price <- housing_prices_trim$price
+
+ggpairs(houses_tidy_numeric, progress = FALSE)
+ggpairs(houses_tidy_nonnumeric, progress = FALSE)
+```
+
+
+
+```{r}
+model <- lm(price ~ )
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

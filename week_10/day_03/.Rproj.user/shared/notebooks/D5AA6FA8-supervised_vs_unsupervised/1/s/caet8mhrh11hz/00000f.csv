@@ -1,0 +1,23 @@
+"0","pnorm"
+"1","function (q, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE) 
+"
+"1",".Call(C_pnorm, q, mean, sd, lower.tail, log.p)
+"
+"1","<bytecode: 0x0000025a10c868f0>
+"
+"1","<environment: namespace:stats>
+"
+"0","qnorm"
+"1","function (p, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE) 
+"
+"1",".Call(C_qnorm, p, mean, sd, lower.tail, log.p)
+"
+"1","<bytecode: 0x0000025a15e7d520>
+"
+"1","<environment: namespace:stats>
+"
+"0","pt(3.898, 86, lower.tail = FALSE)*2 # 86 degrees of freedom"
+"1","[1]"
+"1"," 0.0001915855"
+"1","
+"

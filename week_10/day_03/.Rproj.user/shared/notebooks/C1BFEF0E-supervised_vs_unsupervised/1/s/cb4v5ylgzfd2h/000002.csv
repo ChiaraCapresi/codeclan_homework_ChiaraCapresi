@@ -1,0 +1,15 @@
+"0","```r
+mod1 <- lm(volume ~ ., railtrail_clean)
+
+alias(mod1)
+```"
+"1","Model :
+volume ~ hightemp + lowtemp + avgtemp + spring + summer + fall + 
+    cloudcover + precip + weekday + day_type
+
+Complete :
+                (Intercept) hightemp lowtemp springTRUE summerTRUE cloudcover precip weekdayTRUE
+avgtemp           0         1/2      1/2       0          0          0          0      0        
+fallTRUE          1           0        0      -1         -1          0          0      0        
+day_typeweekend   1           0        0       0          0          0          0     -1        
+"

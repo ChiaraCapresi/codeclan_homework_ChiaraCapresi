@@ -1,0 +1,13 @@
+"0","alias(price ~., housing_prices_trim)"
+"1","Model"
+"1"," "
+"1",":
+"
+"1","price ~ bedrooms + bathrooms + sqft_living + sqft_lot + floors + 
+"
+"1","    waterfront + view + condition + grade + yr_built + yr_renovated + 
+"
+"1","    lat + long + renovated + grade_slot
+"
+"1","
+"

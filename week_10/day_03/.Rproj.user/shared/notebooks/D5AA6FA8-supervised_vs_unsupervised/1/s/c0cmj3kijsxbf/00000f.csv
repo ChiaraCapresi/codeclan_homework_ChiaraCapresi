@@ -1,0 +1,2 @@
+"0","railtrail_trim <- railtrail_clean %>% "
+"0","  select(-c(hightemp, lowtemp, fall, day_type))"

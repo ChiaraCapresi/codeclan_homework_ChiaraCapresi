@@ -1,0 +1,9 @@
+"0","grades <- read_csv(""supervised_vs_unsupervised/data/grades.csv"")"
+"2","[1mRows: [22m[34m99[39m [1mColumns: [22m[34m6[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m (1): subject
+[32mdbl[39m (5): assignment, tutorial, midterm, take_home, final"
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."

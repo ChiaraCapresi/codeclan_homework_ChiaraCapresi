@@ -1,0 +1,7 @@
+"0","```r
+library(tidyverse)
+library(car)
+library(modelr)
+library(GGally)
+library(ggfortify)
+```"

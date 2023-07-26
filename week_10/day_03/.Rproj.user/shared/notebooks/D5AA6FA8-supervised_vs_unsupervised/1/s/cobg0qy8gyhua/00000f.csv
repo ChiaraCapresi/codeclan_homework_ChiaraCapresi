@@ -1,0 +1,3 @@
+"0","mod3 <- lm(volume ~ avgtemp + weekday + summer, railtrail_trim)"
+"0",""
+"0","autoplot(mod3)"

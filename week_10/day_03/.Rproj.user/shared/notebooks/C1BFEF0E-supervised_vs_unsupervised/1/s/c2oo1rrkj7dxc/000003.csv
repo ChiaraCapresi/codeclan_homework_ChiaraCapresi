@@ -1,0 +1,7 @@
+"0","```r
+  
+grades <- grades %>% 
+  mutate(across(where(is.numeric), ~ coalesce(., mean(., na.rm = TRUE))))
+
+grades
+```"

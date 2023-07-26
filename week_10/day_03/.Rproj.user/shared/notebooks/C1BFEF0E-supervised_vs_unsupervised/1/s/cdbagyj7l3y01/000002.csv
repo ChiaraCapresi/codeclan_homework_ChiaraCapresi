@@ -1,0 +1,10 @@
+"0","```r
+library(tidyverse)
+library(fastDummies) # making dummy variables
+library(mosaicData)
+library(tidyverse)
+library(janitor)
+library(GGally)
+library(ggfortify)
+library(mosaic)
+```"
