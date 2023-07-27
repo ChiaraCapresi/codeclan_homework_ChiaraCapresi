@@ -1,0 +1,8 @@
+"0","houses_tidy <- houses %>%"
+"0","  select(-c(""id"", ""date"", ""sqft_living15"", ""sqft_lot15"", ""zipcode"")) %>%"
+"0","  mutate(waterfront = as.logical(waterfront)) %>%"
+"0","  mutate(renovated = yr_renovated != 0) %>%"
+"0","  select(-""yr_renovated"") %>%"
+"0","  mutate(view = as_factor(view)) %>% "
+"0","  mutate(condition = as_factor(condition)) %>%"
+"0","  mutate(grade = as_factor(grade))"

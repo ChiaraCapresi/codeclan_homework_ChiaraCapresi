@@ -110,6 +110,9 @@ houses_tidy_nonnumeric <- housing_prices_trim %>%
 houses_tidy_nonnumeric$price <- housing_prices_trim$price
 
 ggpairs(houses_tidy_numeric, progress = FALSE)
+
+ggsave("ggpairs_num.png", width = 15, height = 15)
+
 ggpairs(houses_tidy_nonnumeric, progress = FALSE)
 ```
 
@@ -125,21 +128,177 @@ model <- lm(price ~ waterfront + sqft_living + grade + view, housing_prices_trim
 summary(model)
 ```
 
+# Correction and recap
+
+## 1. What does 1 row represent?
+
+1 house sold
+
+## 2. understand the data
+
+for example using a 'skim()' function
+
+
+```{r}
+houses <- read_csv("data/kc_house_data.csv")
+
+houses
+
+skimr::skim(housing_prices)
+```
+
+
+## 3. Featuring engineering
+
+Taking the row materials we have and making them more useful (for example using a transformation).
+
+It seems that the variables are positive distributed. This means that we could use a 'log' transformation in order to make them have a more 'normal' distribution form.
+
+
+
+```{r}
+houses %>% 
+  ggplot(aes(x = price))+
+  geom_histogram()+
+  scale_x_continuous(trans = "log10")
+
+houses_logged <- houses %>% 
+  mutate(ln_house_price = log(price))
+```
+
+For regression problems is not rare to have positive skewness, so the log transformation is often useful.
+
+
+```{r}
+houses %>% 
+  ggplot(aes(y = price, x = grade))+
+  geom_point()
+```
 
 
 
 
 
+```{r}
+houses_tidy <- houses %>%
+  select(-c("id", "date", "sqft_living15", "sqft_lot15", "zipcode")) %>%
+  mutate(waterfront = as.logical(waterfront)) %>%
+  mutate(renovated = yr_renovated != 0) %>%
+  select(-"yr_renovated") %>%
+  mutate(view = as_factor(view)) %>% 
+  mutate(condition = as_factor(condition)) %>%
+  mutate(grade = as_factor(grade))
+```
+
+
+```{r}
+houses %>% 
+  ggplot(aes(y = price, x = as.factor(grade)))+
+  geom_boxplot()
+```
+
+
+```{r}
+summary(lm(price ~ grade, houses_tidy))
+summary(lm(price ~ as.factor(grade), houses_tidy))
+```
+We note that the first group of grades is not statistically significant. Actually we said that also from the box plot. One possible thing to do could be that of grouping these first grades together and analyse the difference between that group and the other grades, which instead seems to be statistically significant.
+
+
+## 4. ggpairs
+
+```{r}
+houses_tidy_numeric <- houses_tidy %>%
+  select_if(is.numeric)
+
+houses_tidy_nonnumeric <- houses_tidy %>%
+  select_if(function(x) !is.numeric(x))
+
+houses_tidy_nonnumeric$price <- houses_tidy$price
+
+ggpairs(houses_tidy_numeric, progress = F)
+ggpairs(houses_tidy_nonnumeric, progress = F)
+```
+
+
+- we can `ggsave()` our `ggpairs` plots for seeing better them.
+
+
+#### For the first grades' factors which are not statistically significant, we could:
+- group them together and compare them with the others
+- `anova` test.
+   - all or none
+
+
+```{r}
+mod1 <- lm(price ~ grade, houses_tidy)
+
+mod2 <- lm(price ~ sqft_above + grade, houses_tidy)
+
+houses_tidy %>%   
+  mutate(grade_grouped = as.factor(if_else(as.numeric(grade) < 8, 7, as.numeric(grade))))
+
+anova(mod1, mod2)
+```
 
 
 
 
 
+```{r}
+plot(mod2)
+```
+
+
+Questions:
+
+1. Is the model ready? From the first plot NO
+2. Is the right model? I don't know
 
 
 
+Our first diagnostic plot is not ok!
+
+Let's have a look of the second: the QQ-plot.
+
+(Alternative way. Plot residuals and see if they are normally distributed).
+
+there is a symmetry but it seems right skeewed.
+
+Third diagnostic plot:
+
+how wrong are we? by our guess!
+
+we want to be wrong of the same amount regardless of what we guess.
 
 
+
+```{r}
+# HOW TO ADD RESIDUALS
+
+#library(modelr)
+
+#mod2$residuals
+
+houses_model <- houses_tidy %>% 
+  mutate(resid = mod2$residuals)
+
+houses_model
+
+
+houses_model <- houses_tidy %>% 
+  add_residuals(mod2)
+
+houses_model
+```
+
+
+
+```{r}
+summary(mod2)
+```
+
+# So what? What now?
 
 
 

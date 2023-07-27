@@ -1,0 +1,6 @@
+"0","mod1 <- lm(price ~ grade, houses_tidy)"
+"0",""
+"0","mod2 <- lm(price ~ sqft_above + grade, houses_tidy)"
+"0",""
+"0","houses_tidy %>%   "
+"0","  mutate(grade_grouped = as.factor(if_else(as.numeric(grade) < 8, 7, as.numeric(grade))))"

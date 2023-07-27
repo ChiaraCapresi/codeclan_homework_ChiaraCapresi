@@ -1,0 +1,3 @@
+"0",""
+"0","houses_logged <- houses %>% "
+"0","  mutate(ln_house_price = log(price))"

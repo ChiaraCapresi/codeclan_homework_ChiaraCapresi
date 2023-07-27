@@ -1,0 +1,26 @@
+"0",""
+"0","skimr::skim(housing_prices)"
+"1","── Data Summary ────────────────────────
+"
+"1","                           Values        
+"
+"1","Name                       housing_prices
+"
+"1","Number of rows             21613         
+"
+"1","Number of columns          21            
+"
+"1","_______________________                  
+"
+"1","Column type frequency:                   
+"
+"1","  character                1             
+"
+"1","  numeric                  19            
+"
+"1","  POSIXct                  1             
+"
+"1","________________________                 
+"
+"1","Group variables            None          
+"

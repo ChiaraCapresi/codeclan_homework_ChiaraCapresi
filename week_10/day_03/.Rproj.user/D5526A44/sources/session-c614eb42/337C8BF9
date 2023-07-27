@@ -1,0 +1,28 @@
+{
+    "id": "337C8BF9",
+    "path": null,
+    "project_path": null,
+    "type": "object_explorer",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1690452576596.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "id": "eec737692331465a905c67df8538c406",
+        "name": "mod2",
+        "title": "mod2",
+        "language": "R",
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 846494289679584,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1690452576596,
+    "read_only": false,
+    "read_only_alternatives": []
+}
