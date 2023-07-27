@@ -1,4 +1,0 @@
-"0","housing_prices_trim <- housing_prices %>% "
-"0","  select(-c(""date"", ""id"", ""sqft_living15"", ""sqft_lot15"", ""zipcode"", ""sqft_above"", ""sqft_basement""))"
-"0",""
-"0","housing_prices_trim"

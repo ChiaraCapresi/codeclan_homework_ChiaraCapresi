@@ -1,2 +1,0 @@
-"0","housing_prices_trim <- housing_prices_trim %>% "
-"0","  mutate(waterfront = as.logical(waterfront))"

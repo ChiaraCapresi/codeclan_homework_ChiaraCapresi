@@ -1,0 +1,2 @@
+"0","housing_prices %>% "
+"0","  summarise(across(.col = everything(), .fns = ~sum(is.na(.x))))"

@@ -107,7 +107,7 @@ houses_tidy_nonnumeric <- housing_prices_trim %>%
   select_if(function(x) !is.numeric(x)) 
 
 
-houses_tidy_nonnumeric <- houses_tidy_nonnumeric$price <- housing_prices_trim$price
+houses_tidy_nonnumeric$price <- housing_prices_trim$price
 
 ggpairs(houses_tidy_numeric, progress = FALSE)
 ggpairs(houses_tidy_nonnumeric, progress = FALSE)
@@ -116,11 +116,14 @@ ggpairs(houses_tidy_nonnumeric, progress = FALSE)
 
 
 ```{r}
-model <- lm(price ~ )
+model <- lm(price ~ waterfront + sqft_living + grade + view, housing_prices_trim)
 ```
 
 
 
+```{r}
+summary(model)
+```
 
 
 

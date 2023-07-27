@@ -1,7 +1,0 @@
-"0","housing_prices_trim <- housing_prices_trim %>% "
-"0","  mutate(grade_slot = as.factor(case_when("
-"0","    grade >=1 & grade <= 3 ~ ""low quality"","
-"0","    grade >3 & grade <= 7 ~ ""medium quality"","
-"0","    grade > 7 ~ ""high quality"""
-"0","  ))) %>% "
-"0","  mutate(across(.col = c(""view"", ""condition""), .fns = ~as.factor(.x)))"
