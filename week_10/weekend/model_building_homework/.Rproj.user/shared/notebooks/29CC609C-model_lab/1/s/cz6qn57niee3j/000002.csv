@@ -1,0 +1,7 @@
+"0","```r
+prestige_trim <- Prestige %>% 
+  drop_na(type) %>% 
+  select(-census)
+
+prestige_trim
+```"

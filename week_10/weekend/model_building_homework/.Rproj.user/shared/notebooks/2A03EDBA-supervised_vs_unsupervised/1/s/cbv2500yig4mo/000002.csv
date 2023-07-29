@@ -1,0 +1,24 @@
+"0","```r
+summary(mod3)
+```"
+"1","
+Call:
+lm(formula = volume ~ avgtemp + weekday + summer, data = railtrail_trim)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-236.165  -75.448    6.184   68.496  252.680 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   71.376     90.336   0.790 0.431630    
+avgtemp        6.387      1.639   3.898 0.000192 ***
+weekdayTRUE  -66.958     25.505  -2.625 0.010244 *  
+summerTRUE   -59.977     41.052  -1.461 0.147662    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 111.1 on 86 degrees of freedom
+Multiple R-squared:  0.2659,	Adjusted R-squared:  0.2402 
+F-statistic: 10.38 on 3 and 86 DF,  p-value: 6.714e-06
+"

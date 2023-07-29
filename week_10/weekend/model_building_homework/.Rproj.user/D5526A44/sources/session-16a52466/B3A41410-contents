@@ -1,0 +1,86 @@
+---
+title: "Quiz homework"
+output: html_notebook
+---
+
+# Answer to the following questions:
+
+  1.  I want to predict how well 6 year-olds are going to do in their final school exams. Using the following variables am I likely under-fitting, fitting well or over-fitting? Postcode, gender, reading level, score in maths test, date of birth, family income.
+  
+  
+ - I think here we risk over-fitting In fact, we are not able to make predictions from this model since, on the one hand we have too many features to describe the situation which could have as a result a model with very high r^2, on the other, the variables used doesn't give informations about how well these children are going to do in their final school exams (only the variable `score in maths test` gives this information!)
+  
+  
+  2.  If I have two models, one with an AIC score of 34,902 and the other with an AIC score of 33,559 which model should I use?
+  
+ - In this case, I would use the second model. In fact, if we use the AIC indicator, than the lowest is the value of AIC, the better the model is.
+
+  3.  I have two models, the first with: r-squared: 0.44, adjusted r-squared: 0.43. The second with: r-squared: 0.47, adjusted r-squared: 0.41. Which one should I use?
+  
+  - Both r^2 and adjusted r^2 are both goodness-of-fit metrics that mean a model to be better as much as their value is higher. In this case, r^2 is lower in the first model and higher in the second and the converse holds for adjusted r^2. There is not so much difference between the values, so I think that generally speaking there is not so much difference between the two models. However, since we have to choose one, than I would choose the one with higher adjusted r^2; so the first one. In fact the r^2 value can be misleading: also increasing the number of parameters can increase r^2, but this could also imply over-fitting. Instead, adjusted R^2 adjusts the statistic based on the number of predictors in the model. 
+
+  4.  I have a model with the following errors: RMSE error on test set: 10.3, RMSE error on training data: 10.4. Do you think this model is over-fitting?
+  
+  - I think yes, this model could be over-fitting. In fact, generally, what we would expect is that the RMSE is lower on the training data than in the test (which is the opposite of what instead happens here); we’ve used the training data to construct the model so, we expect our model to work better on the training data.
+
+  5.  How does k-fold validation work?
+  
+  - k-fold validation can be defined as a generalisation of the process of splitting the data into training and test set. In particular, k-fold validation slit the data into k parts, then it creates k models. Each of these models trains on (k-1) folds and test over 1. Each of the k part will be the test set for one of the k models (the other k-1 will be the training set). Finally, the average the error across all the k test folds, will give an accurate measure of the model.
+
+  6.  What is a validation set? When do you need one?
+  
+  - The validation set is often used for models that have hyperparameters. In this case the validation set is used to produce an unbiased evaluation of a model.
+
+  7.  Describe how backwards selection works.
+  
+  If we use this process, then we start with a model that contains all the possible predictors. At each step we remove the predictor with lowest r^2 or adjusted r^2. The process stops either when you obtain a suitable model, or when the predictors end.
+
+  8.  Describe how best subset selection works.
+  
+  - Differently from the forwards and backwards selections, where each predictor is added or removed only once during the process, ending with a non optimal model, in the best subset selection, are checked all the possible combinations of predictors for each size, choosing the one with higher r^2.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,4 @@
+"0","ass_sc <- grades %>% "
+"0","  select(assignment) %>% "
+"0","  mutate(assignment_scaled = (assignment - assignment_mean)/assignment_sd)"
+"0","ass_sc"

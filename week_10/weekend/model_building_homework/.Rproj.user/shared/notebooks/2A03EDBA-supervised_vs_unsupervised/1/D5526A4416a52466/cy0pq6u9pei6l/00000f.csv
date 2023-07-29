@@ -1,0 +1,3 @@
+"0","grades %>% "
+"0","  mutate(final = coalesce(final, mean(final, na.rm = TRUE)),"
+"0","         take_home, mean(take_home, na.rm = TRUE))  "

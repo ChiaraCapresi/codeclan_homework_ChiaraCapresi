@@ -1,0 +1,4 @@
+"0","```r
+CodeClanData::tyrell_corp_jobs %>% 
+  mutate(salary = scale(Salary), .by = Position) #calculate the SD with respect of the Position
+```"

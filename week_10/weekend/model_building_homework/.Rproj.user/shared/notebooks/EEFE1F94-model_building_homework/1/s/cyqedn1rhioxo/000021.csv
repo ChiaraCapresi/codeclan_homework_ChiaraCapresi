@@ -1,0 +1,1 @@
+"0","ggpairs(wines_num, progress = FALSE, aes(colour = wine, alpha = 0.5))"

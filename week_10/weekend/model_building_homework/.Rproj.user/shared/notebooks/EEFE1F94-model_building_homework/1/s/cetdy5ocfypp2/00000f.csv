@@ -1,0 +1,8 @@
+"0","wines_num <- wines %>% "
+"0","  select_if(is.numeric)"
+"0",""
+"0","wines_cat <- wines %>% "
+"0","  select_if(function(x) !is.numeric(x))"
+"0",""
+"0",""
+"0","wines_cat$quality <- wines$quality"

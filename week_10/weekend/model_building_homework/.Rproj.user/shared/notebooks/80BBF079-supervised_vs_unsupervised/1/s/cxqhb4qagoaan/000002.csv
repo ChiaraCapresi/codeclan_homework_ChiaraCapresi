@@ -1,0 +1,5 @@
+"0","```r
+CodeClanData::tyrell_corp_jobs %>% 
+  ggplot(aes(Salary, fill = Position))+
+  geom_histogram(position = \"dodge\")
+```"

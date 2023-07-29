@@ -1,0 +1,9 @@
+"0","```r
+prestige_remaining_resid <- prestige_trim %>% 
+    add_residuals(mod1) %>% 
+  select(-prestige, -education)
+
+prestige_remaining_resid
+
+  
+```"

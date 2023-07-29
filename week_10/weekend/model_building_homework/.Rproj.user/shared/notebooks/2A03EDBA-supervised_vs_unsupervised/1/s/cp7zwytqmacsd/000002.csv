@@ -1,0 +1,24 @@
+"0","```r
+mod2
+```"
+"1","
+Call:
+lm(formula = volume ~ avgtemp + weekday, data = railtrail_trim)
+
+Coefficients:
+(Intercept)      avgtemp  weekdayTRUE  
+    163.022        4.541      -70.320  
+"
+"0","```r
+#Call:
+#lm(formula = volume ~ avgtemp + weekday, data = railtrail_trim)
+
+#Coefficients:
+#(Intercept)      avgtemp  weekdayTRUE  
+#    163.022        4.541      -70.320  
+
+
+if x = 40
+```"
+"1","Error: unexpected symbol in \"if x\"
+"

@@ -1,0 +1,4 @@
+"0","```r
+mod3a <- lm(prestige ~ education + income + women, prestige_trim)
+mod3b <- lm(prestige ~ education + income + type, prestige_trim)
+```"

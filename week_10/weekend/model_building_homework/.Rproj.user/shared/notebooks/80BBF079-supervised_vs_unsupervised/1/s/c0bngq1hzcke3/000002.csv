@@ -1,0 +1,10 @@
+"0","```r
+ggplot(railtrail_trim, aes(avgtemp, volume, colour = weekday))+
+  geom_point()+
+  geom_smooth(method = 'lm', se = FALSE)+
+  geom_point(x = mean(railtrail_trim$avgtemp),
+                      y = mean(railtrail_trim$volume),
+             colour = 2, size = 4)+
+  geom_point(x = 50, y = 99.602 + 4.802 * 50,
+             colour = 4, size = 4)
+```"

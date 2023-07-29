@@ -1,0 +1,7 @@
+"0","```r
+ass_sc %>% 
+  ggplot(aes(assignment_scaled))+
+  geom_density()+
+  geom_vline(xintercept = mean(ass_sc$assignment_scaled), size = 1, colour = 2)+
+  labs(title = \"Raw data\")
+```"

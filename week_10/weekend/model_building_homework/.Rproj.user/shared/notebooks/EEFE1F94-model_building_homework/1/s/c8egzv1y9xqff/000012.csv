@@ -1,0 +1,23 @@
+"0","skimr::skim(wines)"
+"1","── Data Summary ────────────────────────
+"
+"1","                           Values
+"
+"1","Name                       wines 
+"
+"1","Number of rows             6497  
+"
+"1","Number of columns          15    
+"
+"1","_______________________          
+"
+"1","Column type frequency:           
+"
+"1","  character                2     
+"
+"1","  numeric                  13    
+"
+"1","________________________         
+"
+"1","Group variables            None  
+"

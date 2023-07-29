@@ -1,0 +1,23 @@
+"0","skimr::skim(grades)"
+"1","── Data Summary ────────────────────────
+"
+"1","                           Values
+"
+"1","Name                       grades
+"
+"1","Number of rows             99    
+"
+"1","Number of columns          6     
+"
+"1","_______________________          
+"
+"1","Column type frequency:           
+"
+"1","  character                1     
+"
+"1","  numeric                  5     
+"
+"1","________________________         
+"
+"1","Group variables            None  
+"

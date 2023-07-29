@@ -1,0 +1,6 @@
+"0","```r
+mod1 <- lm(volume ~ avgtemp, railtrail_trim)
+
+autoplot(mod1)+ 
+  theme_minimal()
+```"

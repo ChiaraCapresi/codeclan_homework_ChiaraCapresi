@@ -1,0 +1,367 @@
+---
+title: "Automated models"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(CodeClanData)
+library(modelr)
+```
+
+
+
+- Forward stepwise
+
+- Backwards stepwise
+
+- Best subsets / Exhaustive Search
+
+
+```{r}
+library(leaps)
+
+insurance
+```
+
+
+```{r}
+regsubsets_forward <- regsubsets(charges ~ .,
+                                 data = insurance,
+                                 nvmax = 8,
+                                 method = "forward")
+
+regsubsets_forward
+
+summary(regsubsets_forward)
+```
+
+
+```{r}
+plot(regsubsets_forward, scale = "adjr2")
+```
+
+
+```{r}
+plot(regsubsets_forward, scale = "bic") #lowest values are better here!
+```
+
+
+
+```{r}
+plot(summary(regsubsets_forward)$rsq, type = "b") #in the x there are the number of variables
+```
+
+
+```{r}
+plot(summary(regsubsets_forward)$bic, type = "b")
+```
+
+Task - 10 mins
+
+  -  Re-run the analyses above using the backward selection and exhaustive search variable selection methods [Hint - look at the regsubsets() docs to see how to do this]
+  -  Compare the tables (or plots, whichever you find easier) showing which predictors are included for forward selection, backward selection and exhaustive search. Do you find any differences? Use adjusted R-squared as your measure of fit.
+
+
+```{r}
+?regsubsets
+```
+
+
+```{r}
+regsubsets_backward <- regsubsets(charges ~ .,
+                                 data = insurance,
+                                 nvmax = 8,
+                                 method = "backward")
+
+regsubsets_backward
+
+summary(regsubsets_backward)
+```
+
+
+```{r}
+regsubsets_exh <- regsubsets(charges ~ .,
+                                 data = insurance,
+                                 nvmax = 8,
+                                 method = "exhaustive")
+
+regsubsets_exh
+
+summary(regsubsets_exh)
+```
+
+```{r}
+plot(regsubsets_backward, scale = "adjr2")
+plot(regsubsets_exh, scale = "adjr2")
+
+plot(regsubsets_backward, scale = "bic")
+plot(regsubsets_exh, scale = "bic")
+
+
+```
+
+```{r}
+plot(summary(regsubsets_backward)$rsq, type = "b")
+
+
+
+plot(summary(regsubsets_exh)$rsq, type = "b")
+plot(summary(regsubsets_backward)$bic, type = "b")
+
+plot(summary(regsubsets_exh)$bic, type = "b")
+```
+
+
+```{r}
+mod4 <- lm(charges ~ smoker + age + bmi + children,
+   data = insurance)
+mod5 <- lm(charges ~ smoker + age + bmi + children + region,
+   data = insurance)
+```
+
+
+
+```{r}
+anova(mod4, mod5)
+```
+
+```{r}
+skimr::skim(insurance)
+```
+
+```{r}
+insurance %>% GGally::ggpairs(aes(fill = smoker, alpha = 0.4), progress = FALSE)
+
+
+insurance %>% 
+ggplot(aes(x = age, y = charges, colour = sex))+
+  geom_point(alpha = 0.4)+
+  geom_smooth(method = 'lm')+
+  facet_wrap(~smoker)
+```
+
+
+
+
+#Feature engineering: transformations, rates, ratios, differences!
+
+- sex and age - no
+- sex and smokers - yes
+- ln(charges)
+- ln(children)
+
+
+```{r}
+insurance %>% 
+ggplot(aes(x = bmi/age, y = charges, colour = sex))+
+  geom_point(alpha = 0.4)+
+  geom_smooth(method = 'lm')+
+  facet_wrap(~smoker)
+```
+
+
+### FEs
+
+```{r}
+insurance_fe <- insurance %>% 
+  mutate(ln_charges = log(charges),
+         ln_children = log(1 + children),
+         children_yn = children > 0,
+         children_fac = factor(children),
+         north_south = if_else(region %in% c("northesast", "northwest"), "north", "south"),
+         east_west = if_else(region %in% c("northesast", "northest"), "east", "west")                       
+         )
+
+```
+
+
+
+```{r}
+mod <- lm(ln_charges ~ age + bmi + smoker + children, insurance_fe)
+
+mod1 <- lm(ln_charges ~ age + bmi + smoker + children + ln_children + children_yn + children_fac + sex:smoker + bmi:sex:smoker, insurance_fe)
+
+
+anova(mod, mod1)
+```
+
+```{r}
+summary(mod1)
+```
+
+
+
+```{r}
+mod1 <- lm(ln_charges ~ age + bmi + smoker + ln_children + children_yn + children_fac + sex:smoker + bmi:sex:smoker, insurance_fe)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,2 @@
+"0","ggpairs(prestige_trim, progress = FALSE, aes(colour = type, alpha = 0.5))"
+"0",""

@@ -1,0 +1,4 @@
+"0","```r
+grades %>% 
+  summarise(across(.col = everything(), .fns = ~sum(is.na(.x))))
+```"

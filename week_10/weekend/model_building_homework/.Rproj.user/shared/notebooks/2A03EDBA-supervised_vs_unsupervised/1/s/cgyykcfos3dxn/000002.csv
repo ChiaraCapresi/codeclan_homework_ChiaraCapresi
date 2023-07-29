@@ -1,0 +1,10 @@
+"0","```r
+sd(mod1$residuals)
+```"
+"1","[1] 115.2671
+"
+"0","```r
+railtrail_trim %>% 
+  ggplot(aes(y = volume))+
+  geom_boxplot()
+```"

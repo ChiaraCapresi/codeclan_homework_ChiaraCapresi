@@ -1,0 +1,4 @@
+"0","```r
+# GGally
+ggpairs(railtrail_trim, progress = FALSE)
+```"

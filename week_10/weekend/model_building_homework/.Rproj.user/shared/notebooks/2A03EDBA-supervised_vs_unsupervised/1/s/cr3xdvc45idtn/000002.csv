@@ -1,0 +1,15 @@
+"0","```r
+skimr::skim(grades)
+```"
+"1","── Data Summary ────────────────────────
+                           Values
+Name                       grades
+Number of rows             99    
+Number of columns          6     
+_______________________          
+Column type frequency:           
+  character                1     
+  numeric                  5     
+________________________         
+Group variables            None  
+"

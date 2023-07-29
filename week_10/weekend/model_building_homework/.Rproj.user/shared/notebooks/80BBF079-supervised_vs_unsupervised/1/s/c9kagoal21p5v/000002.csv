@@ -1,0 +1,21 @@
+"0","```r
+pnorm
+```"
+"1","function (q, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE) 
+.Call(C_pnorm, q, mean, sd, lower.tail, log.p)
+<bytecode: 0x0000025a10c868f0>
+<environment: namespace:stats>
+"
+"0","```r
+qnorm
+```"
+"1","function (p, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE) 
+.Call(C_qnorm, p, mean, sd, lower.tail, log.p)
+<bytecode: 0x0000025a15e7d520>
+<environment: namespace:stats>
+"
+"0","```r
+pt(3.898, 86, lower.tail = FALSE)*2 # 86 degrees of freedom
+```"
+"1","[1] 0.0001915855
+"

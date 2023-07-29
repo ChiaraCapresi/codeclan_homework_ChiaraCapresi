@@ -1,0 +1,10 @@
+"0","```r
+grades_subject_dummy2 <- grades %>% 
+  fastDummies::dummy_cols(select_columns = 'subject', 
+                          remove_selected_columns = TRUE, # we remove the 'subject' column!
+                          remove_first_dummy = TRUE) # remove the column 'subject_biology'
+```"
+"1","Registered S3 method overwritten by 'data.table':
+  method           from
+  print.data.table     
+"

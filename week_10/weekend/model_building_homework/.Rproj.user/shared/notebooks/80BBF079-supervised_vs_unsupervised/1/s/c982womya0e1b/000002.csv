@@ -1,0 +1,6 @@
+"0","```r
+railtrail_trim %>% 
+  ggplot(aes(x = avgtemp, y = volume))+
+  geom_point()+
+  geom_smooth(method = 'lm') #method = 'lm', se = FALSE if you don't want  grey strip
+```"

@@ -1,0 +1,2 @@
+"0","wines <- wines %>% "
+"0","  select(-wine_id)"

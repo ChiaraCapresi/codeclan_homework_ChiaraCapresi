@@ -1,0 +1,310 @@
+---
+title: "Model building: red and white wine"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(modelr)
+library(GGally)
+```
+
+Let's start analysing the data-sets
+
+
+```{r}
+red_wines <- read_csv("data/wine_quality_red.csv")
+
+white_wines <- read_csv("data/wine_quality_white.csv")
+```
+
+
+
+```{r}
+glimpse(red_wines)
+glimpse(white_wines)
+
+```
+## Familiarising ourselves with the data and the problem:
+
+Each row of the dataset contains informations about a single wine.
+
+Because both the data-sets has the same column, as a first thing I will create a unique data-set adding them together.
+
+
+```{r}
+wine_r <- rep("red_wine", nrow(red_wines))
+
+red_wines <- red_wines %>% 
+  bind_cols(wine = wine_r)
+
+
+wine_w <- rep("white_wine", nrow(white_wines))
+
+white_wines <- white_wines %>% 
+  bind_cols(wine = wine_w)
+
+
+wines <- bind_rows(red_wines, white_wines)
+```
+
+
+Our aim is to create an explanatory model for the quality of the wines!
+
+
+```{r}
+names(wines)
+```
+```{r}
+skimr::skim(wines)
+```
+
+- Most of the variables of type double seems to be right skewed, which means that could be useful to apply some sort of transformation (like logarithm or square roots) to them. However, there are also variables like `p_h`, `alcohol` and `quality` that seems to be quite normally distributed.
+
+- There are no missing values in any of the variables.
+
+
+## Prepare the data for Analysis
+
+There are a few columns that are of type double, but should instead be categorical: such as "wine_id", "p_h". I am going to change their type in 'factor'.
+
+```{r}
+wines <- wines %>% 
+  mutate(wine_id, wine_id = as.factor(wine_id)) 
+```
+
+The 'wine_id' column identyfy the specific wine. It seems not to be interesting for determining its quality, so I will remove it.
+
+```{r}
+wines <- wines %>% 
+  select(-wine_id)
+```
+
+
+
+Let's have a look of the `region` column.
+
+```{r}
+wines %>% 
+  distinct(region)
+```
+
+There are 5 regions involved, which would produce 4 dummy variables. I will analyse the 'ggpair' before deciding what to do with this column.
+
+```{r}
+wines <- wines %>% 
+  mutate(p_h = case_when(
+    p_h < 3 ~ "2-3",
+    p_h < 4 ~ "3-4",
+    p_h >= 4 ~ "4+"
+  )) 
+```
+
+
+```{r}
+wines <- wines %>% 
+  mutate(fixed_acidity = case_when(
+    fixed_acidity < 5 ~ "less 5",
+    fixed_acidity < 10 ~ "5-10",
+    fixed_acidity >= 10 ~ "10-16"
+  ))
+```
+
+```{r}
+wines <- wines %>% 
+  mutate(volatile_acidity = case_when(
+    volatile_acidity < 0.5 ~ "less 0.5",
+    volatile_acidity < 1 ~ "0.5-1",
+    volatile_acidity >= 1 ~ "more 1"
+  ))
+```
+
+
+
+I am going to create a train and test set
+
+```{r}
+test_index <- sample(1:nrow(wines), size = nrow(wines)*0.2)
+
+# Use the test index to create test and training datasets
+test  <- slice(wines, test_index)
+train <- slice(wines, -test_index)
+```
+
+
+
+
+```{r}
+wines_num <- wines %>% 
+  select_if(is.numeric)
+
+wines_cat <- wines %>% 
+  select_if(function(x) !is.numeric(x))
+
+wines_num$wine <- wines$wine
+
+wines_cat$quality <- wines$quality
+```
+
+```{r}
+ggpairs(wines_num, progress = FALSE)
+ggpairs(wines_cat, progress = FALSE)
+```
+
+
+
+
+```{r}
+ggpairs(wines_num, progress = FALSE, aes(colour = wine, alpha = 0.5))
+ggpairs(wines_cat, progress = FALSE, aes(colour = wine, alpha = 0.5))
+```
+
+
+
+- For the categorical variables it seems that the `volatile_acidity` present significant variation for one of the three categoeries with respect to the others.
+ - I wouldn't consider the `region` feature since it produce 4 dummy variables and it doesn't seems to give too much significance to the analysis.
+ 
+ - For the continuous variables, I would consider the `alcohol` which seems to be strongly correlated.
+ 
+ - Furthermore, I would consider the `wine` feature, since it seems there is a significant difference between red and white wines.
+ 
+ 
+```{r}
+model <- lm(quality ~ alcohol + wine + volatile_acidity, train)
+```
+ 
+
+```{r}
+predictions_test <- test %>%
+  add_predictions(model) %>%
+  select(quality, pred)
+```
+
+```{r}
+mse_test <- mean((predictions_test$pred - test$quality)**2)
+mse_test
+```
+It seems from the error that the model is well proportioned.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

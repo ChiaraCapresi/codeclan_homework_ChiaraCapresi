@@ -1,0 +1,11 @@
+"0","```r
+grades %>% 
+  #select(subject) %>% # for demo purposes
+  mutate(subject_bio = as.integer(subject == 'biology'),
+         subject_eng = as.integer(subject == 'english'),
+         subject_fre = as.integer(subject == 'french'),
+         subject_math = as.integer(subject == 'maths'),
+         subject_phy = as.integer(subject == 'physics')
+         ) %>% 
+  select(-subject_bio, -subject)
+```"

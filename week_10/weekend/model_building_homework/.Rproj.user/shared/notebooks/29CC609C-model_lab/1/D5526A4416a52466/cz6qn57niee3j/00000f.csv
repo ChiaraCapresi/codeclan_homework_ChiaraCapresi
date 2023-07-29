@@ -1,0 +1,5 @@
+"0","prestige_trim <- Prestige %>% "
+"0","  drop_na(type) %>% "
+"0","  select(-census)"
+"0",""
+"0","prestige_trim"

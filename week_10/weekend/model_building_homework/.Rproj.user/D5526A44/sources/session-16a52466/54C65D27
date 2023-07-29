@@ -1,0 +1,27 @@
+{
+    "id": "54C65D27",
+    "path": "C:/Users/chiar/codeclan/codeclan_work/week_10/day_03/model_lab.Rmd",
+    "project_path": null,
+    "type": "r_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": true,
+    "created": 1690642736689.0,
+    "source_on_save": false,
+    "relative_order": 6,
+    "properties": {
+        "chunk_output_type": "inline",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "72,73",
+        "scrollLine": "68"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1690386525,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1690386525,
+    "read_only": false,
+    "read_only_alternatives": []
+}

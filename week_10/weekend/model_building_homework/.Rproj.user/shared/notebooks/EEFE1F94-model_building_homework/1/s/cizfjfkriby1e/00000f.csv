@@ -1,0 +1,4 @@
+"0","model <- lm(quality, alcohol + wine + volatile_acidity, train)
+"
+"2","Error in eval(mf, parent.frame()) : object 'quality' not found
+"

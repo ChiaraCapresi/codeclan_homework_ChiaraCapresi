@@ -1,0 +1,10 @@
+"0","```r
+grades <- read_csv(\"supervised_vs_unsupervised/data/grades.csv\")
+```"
+"1","Rows: 99 Columns: 6── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: \",\"
+chr (1): subject
+dbl (5): assignment, tutorial, midterm, take_home, final
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"

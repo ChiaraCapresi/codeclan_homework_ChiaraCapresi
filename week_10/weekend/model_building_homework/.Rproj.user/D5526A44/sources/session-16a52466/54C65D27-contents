@@ -1,0 +1,346 @@
+---
+title: "Model Lab"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(car)
+library(modelr)
+library(GGally)
+library(ggfortify)
+```
+
+
+#1
+
+
+```{r}
+data(Prestige)
+prestige <- Prestige
+```
+
+
+# 2
+
+```{r}
+glimpse(Prestige)
+```
+
+
+Let's have a look at the NAs:
+
+```{r}
+Prestige %>% 
+  summarise(across(.col = everything(), .fns = ~sum(is.na(.x))))
+```
+
+It seems that there are only 4 NAs in the 'type' column!
+
+
+```{r}
+?Prestige
+```
+
+# 3.
+
+```{r}
+prestige_trim <- Prestige %>% 
+  drop_na(type) %>% 
+  select(-census)
+
+prestige_trim
+```
+
+The aim is to build a regression model for the prestige response variable in terms of the multiple potential predictors held in the data frame.
+
+# 3.2 First predictor
+
+##3.2.1
+
+```{r}
+ggpairs(prestige_trim, progress = FALSE)
+```
+
+
+- It seems that 'prestige' has a strong positive correlation both with 'education' and 'income'.
+
+- also the two predictors 'education' and 'income' seems to be highly correlated.
+
+- does there appear to be any dependence on type? 
+
+```{r}
+ggpairs(prestige_trim, progress = FALSE, aes(colour = type, alpha = 0.5))
+
+```
+
+It seems that there is not much relation with 'type' in the relation between 'prestige' and 'education', but it seems to be relation with 'type' in the relation between 'prestige' and 'income' and also between 'income' and 'education'.
+
+
+## 3.2.2
+
+```{r}
+mod1 <- lm(prestige ~ education, prestige_trim)
+mod2 <- lm(prestige ~ type, prestige_trim)
+```
+
+
+```{r}
+summary(mod1)
+summary(mod2)
+```
+
+
+- r^2:
+_mod1_:  0.7508
+_mod2_: 0.6976
+
+- Residual standard error
+_mod1_: 8.578 on 96 degrees of freedom
+_mod2_: 9.499 on 95 degrees of freedom
+
+- whether or not the diagnostics are passed
+
+```{r}
+autoplot(mod1)
+autoplot(mod2)
+```
+
+yes
+
+
+- whether or not including the predictor makes a statistically significant difference to the model
+
+no
+```{r}
+anova(mod1,mod2)
+```
+
+
+
+
+##3.2.3
+
+Decide what should be the first predictor in the model for prestige and write down the equation for your current model. It will be of the form below. Fill in the values for the first term coefficient (b1) and the intercept (b0) using your model summary.
+
+prestige=b0+b1×your_predictor
+
+Interpret this
+
+
+
+- I would prefer 'education'
+
+$$prestige = -10.732 + 5.361 * education$$
+
+# 3.3 Second predictor
+
+
+## 3.3.1
+
+Create a new dataset: prestige_remaining_resid by adding the residuals as a column to the prestige_trim data. Remember to remove the prestige and education variables (as they are accounted for already in the model). You should have a dataset with 4 columns.
+
+
+```{r}
+prestige_remaining_resid <- prestige_trim %>% 
+    add_residuals(mod1) %>% 
+  select(-prestige, -education)
+
+prestige_remaining_resid
+
+  
+```
+
+## 3.3.2.
+
+Examine the associations between the remaining predictors and the residuals by creating another pairs plot - this time using prestige_remaining_resid. Write down what you see.
+
+
+```{r}
+ggpairs(prestige_remaining_resid, progress = FALSE)
+```
+
+
+it seems that the residuals have a strong positive correlation with 'income' and a negative correlation with the percentage of incumbents who are women. It seems also that there is variation depending on 'type'.
+
+
+```{r}
+mod2a <- lm(prestige ~ education + income, prestige_trim)
+mod2b <- lm(prestige ~ education + type, prestige_trim)
+```
+
+```{r}
+summary(mod2a)
+summary(mod2b)
+```
+
+- r^2
+
+_mod2a_: 0.814
+_mod2b_: 0.7975
+
+- Residual standard error
+_mod2a_: 7.45 on 95 degrees of freedom
+_mod2b_: 7.814 on 94 degrees of freedom
+
+
+
+The 'income' plus model (mod2a) seems better!
+
+```{r}
+autoplot(mod2a)
+autoplot(mod2b)
+```
+Passed!
+
+```{r}
+anova(mod2a, mod2b)
+```
+
+no
+
+```{r}
+summary(mod2a)
+```
+
+
+
+$$prestige = -7.6210352 + 4.2921076 * education + 0.0012415 * income$$
+
+
+#3.4 Third predictor
+
+## 3.4.1
+
+```{r}
+prestige_remaining_resid <- prestige_trim %>% 
+    add_residuals(mod2b) %>% 
+  select(-prestige, -education, -type)
+
+prestige_remaining_resid
+```
+
+
+
+```{r}
+ggpairs(prestige_remaining_resid, progress = FALSE)
+```
+
+There is a strong negative correlation between 'women' and 'income'.
+
+```{r}
+mod3a <- lm(prestige ~ education + income + women, prestige_trim)
+mod3b <- lm(prestige ~ education + income + type, prestige_trim)
+```
+
+
+```{r}
+summary(mod3a)
+summary(mod3b)
+```
+
+
+- r^2
+_mod3a_: 0.8144
+_mod3b_: 0.8349
+
+- Residual standard error:
+_mod3a_: 7.482 on 94 degrees of freedom
+_mod3b_: 7.095 on 93 degrees of freedom
+
+
+```{r}
+autoplot(mod3a)
+autoplot(mod3b)
+```
+
+
+
+```{r}
+anova(mod3a, mod3b)
+```
+
+```{r}
+summary(mod3b)
+```
+
+
+
+$$prestige = -0.6229292 + 3.6731661 * education + 0.0010132 * income + c(6.0389707, -2.7372307)' * type$$
+
+
+
+Formula
+> prestige = -0.62 + 3.67 * education + 0.001 * income + 6.04 * typeprof - 2.74 * type wc
+
+Or:
+
+If type is bc:
+
+> prestige = -0.62 + 3.67 * education + 0.001 * income
+
+If type is prof:
+
+> prestige = 5.42 + 3.67 * education + 0.001 * income
+
+If type is wc:
+
+> prestige = -3.36 + 3.67 * education + 0.001 * income
+
+These are 3 parallel planes of best fit, with intercept shifted by type.Again, for every additional average years of education, prestige score increases by 3.7 units, and for every additional 1,000 CAD in income, prestige scores increases by 1 unit.
+
+Overall, professional type occupations have higher prestige (highest intercept, so the highest line) when all other factors are the same.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,66 @@
+"0","```r
+library(tidyverse)
+library(fastDummies) # making dummy variables
+```"
+"1","Avvertimento: il pacchetto ‘fastDummies’ è stato creato con R versione 4.3.1Thank you for using fastDummies!
+To acknowledge our work, please cite the package:
+Kaplan, J. & Schlegel, B. (2023). fastDummies: Fast Creation of Dummy (Binary) Columns and Rows from Categorical Variables. Version 1.7.1. URL: https://github.com/jacobkap/fastDummies, https://jacobkap.github.io/fastDummies/.
+"
+"0","```r
+library(mosaicData)
+```"
+"1","Avvertimento: il pacchetto ‘mosaicData’ è stato creato con R versione 4.3.1
+"
+"0","```r
+library(tidyverse)
+library(janitor)
+```"
+"1","
+Caricamento pacchetto: ‘janitor’
+
+I seguenti oggetti sono mascherati da ‘package:stats’:
+
+    chisq.test, fisher.test
+"
+"0","```r
+library(GGally)
+library(ggfortify)
+library(mosaic)
+```"
+"1","Avvertimento: il pacchetto ‘mosaic’ è stato creato con R versione 4.3.1Registered S3 method overwritten by 'mosaic':
+  method                           from   
+  fortify.SpatialPolygonsDataFrame ggplot2
+
+The 'mosaic' package masks several functions from core packages in order to add 
+additional features.  The original behavior of these functions should not be affected by this.
+
+Caricamento pacchetto: ‘mosaic’
+
+Il seguente oggetto è mascherato da ‘package:Matrix’:
+
+    mean
+
+Il seguente oggetto è mascherato da ‘package:modelr’:
+
+    resample
+
+I seguenti oggetti sono mascherati da ‘package:dplyr’:
+
+    count, do, tally
+
+Il seguente oggetto è mascherato da ‘package:purrr’:
+
+    cross
+
+Il seguente oggetto è mascherato da ‘package:ggplot2’:
+
+    stat
+
+I seguenti oggetti sono mascherati da ‘package:stats’:
+
+    binom.test, cor, cor.test, cov, fivenum, IQR, median, prop.test, quantile, sd, t.test, var
+
+I seguenti oggetti sono mascherati da ‘package:base’:
+
+    max, mean, min, prod, range, sample, sum
+"

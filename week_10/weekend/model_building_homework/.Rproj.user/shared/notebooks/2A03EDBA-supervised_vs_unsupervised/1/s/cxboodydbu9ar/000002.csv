@@ -1,0 +1,5 @@
+"0","```r
+mod3 <- lm(volume ~ avgtemp + weekday + summer, railtrail_trim)
+
+autoplot(mod3)
+```"

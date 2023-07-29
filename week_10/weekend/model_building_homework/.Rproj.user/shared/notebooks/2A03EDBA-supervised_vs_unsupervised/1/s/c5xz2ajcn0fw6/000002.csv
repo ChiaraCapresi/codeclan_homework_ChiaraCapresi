@@ -1,0 +1,61 @@
+"0","```r
+grades2 <- grades %>% 
+  mutate(subject2 = as.factor(subject), .after = subject,
+         subject3 = relevel(subject2, 'english'))
+
+lm4 <- lm(final ~ assignment + subject2, grades2)
+lm5 <- lm(final ~ assignment + subject3, grades2)
+summary(lm4)
+```"
+"1","
+Call:
+lm(formula = final ~ assignment + subject2, data = grades2)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-40.190 -13.363   2.462  13.929  31.073 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)  
+(Intercept)     25.35994   16.55210   1.532   0.1289  
+assignment       0.36349    0.14626   2.485   0.0147 *
+subject2english -0.09005   16.36062  -0.006   0.9956  
+subject2french   7.04466   12.06922   0.584   0.5608  
+subject2maths   16.51321   10.67927   1.546   0.1254  
+subject2physics 10.92820   10.54515   1.036   0.3027  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 17.73 on 93 degrees of freedom
+Multiple R-squared:  0.1294,	Adjusted R-squared:  0.08256 
+F-statistic: 2.764 on 5 and 93 DF,  p-value: 0.02256
+"
+"0","```r
+summary(lm5)
+```"
+"1","
+Call:
+lm(formula = final ~ assignment + subject3, data = grades2)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-40.190 -13.363   2.462  13.929  31.073 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)  
+(Intercept)     25.26989   16.43096   1.538   0.1275  
+assignment       0.36349    0.14626   2.485   0.0147 *
+subject3biology  0.09005   16.36062   0.006   0.9956  
+subject3french   7.13472   14.06258   0.507   0.6131  
+subject3maths   16.60326   13.10096   1.267   0.2082  
+subject3physics 11.01825   12.89988   0.854   0.3952  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 17.73 on 93 degrees of freedom
+Multiple R-squared:  0.1294,	Adjusted R-squared:  0.08256 
+F-statistic: 2.764 on 5 and 93 DF,  p-value: 0.02256
+"
+"0","```r
+fastDummies::dummy_columns(grades, remove_first_dummy = FALSE)
+```"

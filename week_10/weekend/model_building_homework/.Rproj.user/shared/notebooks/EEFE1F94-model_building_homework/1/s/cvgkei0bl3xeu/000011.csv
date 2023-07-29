@@ -1,0 +1,6 @@
+"0","wines <- wines %>% "
+"0","  mutate(volatile_acidity = case_when("
+"0","    volatile_acidity < 0.5 ~ ""less 0.5"","
+"0","    volatile_acidity < 1 ~ ""0.5-1"","
+"0","    volatile_acidity >= 1 ~ ""more 1"""
+"0","  ))"

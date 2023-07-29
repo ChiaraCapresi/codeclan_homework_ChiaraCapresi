@@ -1,0 +1,5 @@
+"0","prestige_remaining_resid <- prestige_trim %>% "
+"0","    add_residuals(mod2b) %>% "
+"0","  select(-prestige, -education, -type)"
+"0",""
+"0","prestige_remaining_resid"

@@ -1,0 +1,28 @@
+"0","```r
+summary(mod1)
+```"
+"1","
+Call:
+lm(formula = volume ~ avgtemp, data = railtrail_trim)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-237.53  -80.00    8.49   55.14  326.67 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   99.602     63.474   1.569     0.12    
+avgtemp        4.802      1.084   4.428 2.72e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 115.9 on 88 degrees of freedom
+Multiple R-squared:  0.1822,	Adjusted R-squared:  0.1729 
+F-statistic: 19.61 on 1 and 88 DF,  p-value: 2.723e-05
+"
+"0","```r
+fivenum(mod1$residuals)
+```"
+"1","         27          65          36          59          34 
+-237.527311  -81.360109    8.493188   55.883963  326.665514 
+"

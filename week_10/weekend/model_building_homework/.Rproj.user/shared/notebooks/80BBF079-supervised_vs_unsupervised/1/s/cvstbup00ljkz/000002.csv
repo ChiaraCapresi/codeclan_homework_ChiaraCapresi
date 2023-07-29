@@ -1,0 +1,5 @@
+"0","```r
+railtrail_trim %>% 
+  ggplot(aes(x = weekday, y = volume)) +
+  geom_boxplot()
+```"
