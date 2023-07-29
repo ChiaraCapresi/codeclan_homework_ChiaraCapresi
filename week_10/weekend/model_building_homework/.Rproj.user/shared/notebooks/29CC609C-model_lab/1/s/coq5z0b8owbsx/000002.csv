@@ -1,4 +1,0 @@
-"0","```r
-mod2a <- lm(prestige ~ education + income, prestige_trim)
-mod2b <- lm(prestige ~ education + type, prestige_trim)
-```"

@@ -186,15 +186,60 @@ mse_test
 ```
 It seems from the error that the model is well proportioned.
 
+```{r}
+summary(model)
+```
 
 
+```{r}
+wines %>% 
+  distinct(wine)
+```
+
+```{r}
+model_2 <- lm(quality ~ alcohol * wine + volatile_acidity * wine, train)
+
+```
 
 
+```{r}
+predictions_test_2 <- test %>%
+  add_predictions(model_2) %>%
+  select(quality, pred)
+```
+
+```{r}
+mse_test <- mean((predictions_test_2$pred - test$quality)**2)
+mse_test
+```
 
 
+```{r}
+summary(model_2)
+```
+The fact that the wine is red or white it seems not statistically significant since the number of white wines analysed here is significantly higher than the number of red wines.
 
 
+```{r}
+model_3 <- lm(quality ~ alcohol + volatile_acidity, train)
+```
 
+
+```{r}
+predictions_test_3 <- test %>%
+  add_predictions(model_3) %>%
+  select(quality, pred)
+```
+
+```{r}
+mse_test <- mean((predictions_test_3$pred - test$quality)**2)
+mse_test
+```
+
+
+```{r}
+summary(model_3)
+```
 
 
 

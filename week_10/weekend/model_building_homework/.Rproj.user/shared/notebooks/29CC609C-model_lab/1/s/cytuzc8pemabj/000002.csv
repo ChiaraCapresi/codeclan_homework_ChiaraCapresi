@@ -1,3 +1,0 @@
-"0","```r
-ggpairs(prestige_trim, progress = FALSE)
-```"

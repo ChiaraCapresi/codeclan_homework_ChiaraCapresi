@@ -1,4 +1,0 @@
-"0","```r
-Prestige %>% 
-  summarise(across(.col = everything(), .fns = ~sum(is.na(.x))))
-```"

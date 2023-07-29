@@ -1,0 +1,3 @@
+"0","predictions_test_2 <- test %>%"
+"0","  add_predictions(model_2) %>%"
+"0","  select(quality, pred)"

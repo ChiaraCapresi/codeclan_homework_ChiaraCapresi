@@ -1,4 +1,0 @@
-"0","```r
-ggpairs(prestige_trim, progress = FALSE, aes(colour = type, alpha = 0.5))
-
-```"

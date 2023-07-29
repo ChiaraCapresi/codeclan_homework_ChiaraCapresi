@@ -3,9 +3,9 @@
     "path": "C:/Users/chiar/codeclan/codeclan_work/week_10/day_03/model_lab.Rmd",
     "project_path": null,
     "type": "r_markdown",
-    "hash": "0",
+    "hash": "2054188582",
     "contents": "",
-    "dirty": true,
+    "dirty": false,
     "created": 1690642736689.0,
     "source_on_save": false,
     "relative_order": 6,
@@ -17,11 +17,11 @@
         "scrollLine": "68"
     },
     "folds": "",
-    "lastKnownWriteTime": 1690386525,
+    "lastKnownWriteTime": 1690657769,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1690386525,
+    "last_content_update": 1690657769943,
     "read_only": false,
     "read_only_alternatives": []
 }

@@ -1,0 +1,1 @@
+"0","model_3 <- lm(quality ~ alcohol + volatile_acidity, train)"

@@ -1,0 +1,6 @@
+"0","mse_test <- mean((predictions_test_3$pred - test$quality)**2)"
+"0","mse_test"
+"1","[1]"
+"1"," 0.6640319"
+"1","
+"
