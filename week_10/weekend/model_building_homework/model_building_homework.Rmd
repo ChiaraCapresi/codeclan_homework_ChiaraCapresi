@@ -242,7 +242,7 @@ summary(model_3)
 ```
 
 
-
+This model seems to be the best. The p-value is acceptable, so it is statistically significant and the adjusted r^2 is less.
 
 
 

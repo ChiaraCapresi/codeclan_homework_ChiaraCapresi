@@ -3,7 +3,7 @@
     "path": "C:/Users/chiar/codeclan/codeclan_homework_ChiaraCapresi/week_10/weekend/model_building_homework/model_building_homework.Rmd",
     "project_path": "model_building_homework.Rmd",
     "type": "r_markdown",
-    "hash": "1327201770",
+    "hash": "3072971907",
     "contents": "",
     "dirty": false,
     "created": 1690626752008.0,
@@ -14,15 +14,15 @@
         "chunk_output_type": "inline",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "221,0",
-        "scrollLine": "219"
+        "cursorPosition": "244,124",
+        "scrollLine": "242"
     },
     "folds": "",
-    "lastKnownWriteTime": 1690656863,
+    "lastKnownWriteTime": 1690790766,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1690790639718,
+    "last_content_update": 1690790766255,
     "read_only": false,
     "read_only_alternatives": []
 }
