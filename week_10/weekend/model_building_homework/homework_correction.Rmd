@@ -1,0 +1,256 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(modelr)
+library(GGally)
+```
+
+
+
+```{r}
+red <- read_csv("data/wine_quality_red.csv")
+
+white <- read_csv("data/wine_quality_white.csv")
+
+# what goodness of fit measure? adj-r2, AIC, BIC:parsimonious measure
+# test-train split? yes; 90:10
+# k fold CV? yes - to prevent over-fitting
+# model? or models? red/white separately
+
+#white model first
+
+n_data_white <- nrow(white)
+test_prop <- 0.1
+
+test_index_white <- sample(1:n_data_white, size = n_data_white*test_prop)
+test_white <- slice(white, test_index_white)
+train_white <- slice(white, -test_index_white)
+
+# explore the data
+# what does one row represent? a wine, with technical measurements and summarised average quality rating
+#what transformations might make sense? log transform opportunities
+# what variables do we have, real world process etc.
+# what influences target (wine quality)
+# what transformations might make sense
+```
+
+```{r}
+skimr::skim(train_white)
+```
+
+
+```{r}
+train_white %>% 
+  select(quality, 2:7) %>% 
+  ggpairs(progress = FALSE)
+```
+
+
+```{r}
+train_white %>% 
+  select(quality, 8:14) %>% 
+  ggpairs(progress = FALSE)
+```
+
+Here we used the ggpairs for analysing relationships between features, so there are no residuals.
+
+# Transformations
+
+```{r}
+train_white_fe <- train_white %>% 
+  mutate(across(where(is.numeric), .fns = ~log(1 + .x),
+                .names = "log_{.col}")) %>% 
+  mutate(chlorides_diff_to_mean = chlorides - mean(chlorides), .after = chlorides) %>% 
+  mutate(chlorides_ads_diff_to_mean = abs(chlorides_diff_to_mean), .after = chlorides_diff_to_mean)
+
+train_white_fe
+```
+
+
+```{r}
+ggplot(train_white_fe)+
+  aes(x = chlorides_ads_diff_to_mean, y = quality)+
+  geom_point()+
+  geom_smooth(method = 'lm')
+```
+It is better to put the targer variable at the end of the selection in such a way to have that on the y axis.
+
+```{r}
+train_white_fe %>% 
+  select(quality, starts_with("log")) %>% 
+  select(1:8) %>% 
+  select(starts_with("log"), quality) %>% 
+  ggpairs(progress = FALSE)
+```
+
+```{r}
+mod1 <- lm(quality ~ alcohol, data = train_white_fe)
+
+summary(mod1)
+```
+
+
+```{r}
+train_white_fe %>% 
+  add_predictions(mod1) %>% 
+  add_residuals(mod1) %>% 
+  select(1:6, resid) %>% 
+  ggpairs(progress = FALSE)
+```
+
+```{r}
+summary(mod1)
+```
+
+
+```{r}
+mod2 <- lm(quality ~ alcohol + volatile_acidity, data = train_white_fe)
+
+summary(mod2)
+```
+
+
+
+```{r}
+plot(mod2)
+```
+
+
+```{r}
+mod2 <- lm(quality ~ alcohol + volatile_acidity + log_volatile_acidity, data = train_white_fe)
+
+summary(mod2)
+```
+Adding the log in this case would make the unlog-one no more statistically significant!
+
+
+```{r}
+library(caret)
+```
+
+
+
+```{r}
+white_wine_cv_10_fold <- trainControl(method = "cv", # cross-validation
+                           number = 10, # 10-fold
+                           savePredictions = TRUE) # save all predictions
+
+train_control <- train(quality ~ ., 
+                       data = train_white,
+                       trControl = white_wine_cv_10_fold,
+                       method = 'lm')
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,28 +1,25 @@
 {
-    "id": "B3A41410",
-    "path": "C:/Users/chiar/codeclan/codeclan_homework_ChiaraCapresi/week_10/weekend/quiz_homework/quiz_homework.Rmd",
+    "id": "0C7E66E3",
+    "path": "C:/Users/chiar/codeclan/codeclan_work/week_10/day_04/automated_models/automated_models.Rmd",
     "project_path": null,
     "type": "r_markdown",
-    "hash": "0",
+    "hash": "2877573801",
     "contents": "",
     "dirty": false,
-    "created": 1690627005725.0,
+    "created": 1690641131557.0,
     "source_on_save": false,
     "relative_order": 8,
     "properties": {
-        "tempName": "Untitled1",
         "chunk_output_type": "inline",
         "source_window_id": "",
-        "Source": "Source",
-        "cursorPosition": "31,160",
-        "scrollLine": "20"
+        "Source": "Source"
     },
     "folds": "",
-    "lastKnownWriteTime": 1690791461,
+    "lastKnownWriteTime": 1690471614,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1690791461062,
+    "last_content_update": 1690471614,
     "read_only": false,
     "read_only_alternatives": []
 }

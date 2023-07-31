@@ -1,0 +1,24 @@
+"0","skimr::skim(train_white)
+"
+"1","── Data Summary ────────────────────────
+"
+"1","                           Values     
+"
+"1","Name                       train_white
+"
+"1","Number of rows             4409       
+"
+"1","Number of columns          14         
+"
+"1","_______________________               
+"
+"1","Column type frequency:                
+"
+"1","  character                1          
+"
+"1","  numeric                  13         
+"
+"1","________________________              
+"
+"1","Group variables            None       
+"

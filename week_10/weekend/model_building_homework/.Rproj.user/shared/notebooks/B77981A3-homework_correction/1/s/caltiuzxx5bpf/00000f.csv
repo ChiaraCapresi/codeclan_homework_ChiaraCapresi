@@ -1,0 +1,18 @@
+"0","library(caret)
+"
+"2","Avvertimento: il pacchetto ‘caret’ è stato creato con R versione 4.3.1"
+"2","Caricamento del pacchetto richiesto: lattice
+"
+"2","Registered S3 method overwritten by 'data.table':
+  method           from
+  print.data.table     
+"
+"2","
+Caricamento pacchetto: ‘caret’
+
+"
+"2","Il seguente oggetto è mascherato da ‘package:purrr’:
+
+    lift
+
+"

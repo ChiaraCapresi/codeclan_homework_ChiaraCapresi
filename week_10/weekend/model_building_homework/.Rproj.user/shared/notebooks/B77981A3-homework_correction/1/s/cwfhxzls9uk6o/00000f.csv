@@ -1,0 +1,28 @@
+"0","red <- read_csv(""data/wine_quality_red.csv"")"
+"2","[1mRows: [22m[34m1599[39m [1mColumns: [22m[34m14[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m  (1): region
+[32mdbl[39m (13): wine_id, fixed_acidity, volatile_acidity, citric_acid, residual_sugar, chlorides, free_sulfur_dioxide, total_sulfur_dioxide, den..."
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."
+"0","white <- read_csv(""data/wine_quality_white.csv"")"
+"2","[1mRows: [22m[34m4898[39m [1mColumns: [22m[34m14[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m  (1): region
+[32mdbl[39m (13): wine_id, fixed_acidity, volatile_acidity, citric_acid, residual_sugar, chlorides, free_sulfur_dioxide, total_sulfur_dioxide, den..."
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."
+"0","# what goodness of fit measure? adj-r2, AIC, BIC:parsimonious measure"
+"0","# test-train split? yes; 90:10"
+"0","# k fold CV? yes - to prevent over-fitting"
+"0","# model? or models? red/white separately"
+"0",""
+"0","#white model first"
+"0",""
+"0","n_data_white <- nrow(white_wine)"
+"2","Error: object 'white_wine' not found
+"
