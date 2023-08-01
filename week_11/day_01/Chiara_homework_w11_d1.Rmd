@@ -1,22 +1,34 @@
 ---
-title: "Chiara homework week 11 day 1"
+title: "Neural Networks"
 output: html_notebook
 ---
 
 
+```{r}
 # Classification vs Clustering
 
-Both *Classification* and *Clustering* are method of pattern identification. The main difference between the two is that:
+#Both *Classification* and *Clustering* are method of pattern identification. The main difference between the two is that:
 
-- the first is a form of `Supervised learning`, meaning that the labels are predefined, already assigned; it is used to predict whether or not any new data point belongs to one of the original group of labels.
-- the second is instead a form of `Unsupervised learning`, meaning that identify itself similarities among objects dividing them into groups, which are known as `clusters`.
-
+#- the first is a form of `Supervised learning`, meaning that the labels are predefined, already assigned; it is used to predict whether or not any new data point belongs to one of the original group of labels.
+#- the second is instead a form of `Unsupervised learning`, meaning that identify itself similarities among objects dividing them into groups, which are known as `clusters`.
 
 ## Neural networks
+
+```
+
+
+
 
 `Neural Network` (also called 'artificial neural networks or simulated neural networks) is an algorithm that try to mimic the brain.
 
 It have been widely used in 80s and early 90s, its popularity diminisced in late 90s, but recently is again widely popular and used in many applications.
+
+### suitable areas of application
+
+ANNs are often used to classify and cluster data at a high velocity. i.e. speech recognition or image recognition.
+
+The most famous example is `Google’s search algorithm`.
+
 
 ### How does (ANNs) works
 
@@ -40,12 +52,12 @@ All inputs are then multiplied by their respective weights and then summed. Then
 
 $$g(w_1x_1 + w_2x_2 +...+ w_ix_i + threshould)$$
 
-if $$sum_{w_ix_i} > threshould$$, than the node is activated and the information pass.
+if $$\sum_{i}{w_ix_i} > threshould$$, than the node is activated and the information pass.
 
 For example:
 
 ```{r}
-library(magick)
+#library(magick)
 
 img <- magick::image_read('ann_2.png')
 plot(img) #www.coursera.com
@@ -68,11 +80,6 @@ plot(img) #www.coursera.com
 
 - high computational requirements
 
-### suitable areas of application
-
-ANNs are often used to classify and cluster data at a high velocity. i.e. speech recognition or image recognition.
-
-The most famous example is `Google’s search algorithm`.
 
 
 
