@@ -1,0 +1,4 @@
+"0","specificity <- titanic_pred %>%"
+"0"," specificity(truth = survived_flag, estimate = pred)"
+"0",""
+"0","specificity "

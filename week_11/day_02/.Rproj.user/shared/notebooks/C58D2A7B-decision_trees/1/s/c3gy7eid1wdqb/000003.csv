@@ -1,0 +1,7 @@
+"0","```r
+
+
+thrones <- thrones %>% 
+  rename_with(.cols = starts_with(\"dth\"), .fn = ~str_replace(.x, \"dth\", \"met_dog\"))
+
+```"

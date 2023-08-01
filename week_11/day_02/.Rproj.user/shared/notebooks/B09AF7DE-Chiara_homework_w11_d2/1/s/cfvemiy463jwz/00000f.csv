@@ -1,0 +1,4 @@
+"0","sensitivity <- titanic_pred %>%"
+"0"," sensitivity(truth = survived_flag, estimate = pred)"
+"0",""
+"0","sensitivity "

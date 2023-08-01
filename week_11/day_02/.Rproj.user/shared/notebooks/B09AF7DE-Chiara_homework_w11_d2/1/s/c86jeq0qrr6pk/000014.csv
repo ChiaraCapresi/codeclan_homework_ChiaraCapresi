@@ -1,0 +1,2 @@
+"0","titanic_clean <- titanic_set %>% "
+"0","  filter(!is.na(survived))"

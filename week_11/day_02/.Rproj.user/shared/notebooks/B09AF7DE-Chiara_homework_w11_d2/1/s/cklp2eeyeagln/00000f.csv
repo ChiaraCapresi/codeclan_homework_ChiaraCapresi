@@ -1,0 +1,9 @@
+"0","accuracy <- titanic_pred %>%"
+"2","Warning message:
+"
+"2","In formals(fun) :"
+"2"," argument is not a function
+"
+"0"," accuracy(truth = survived_flag, estimate = pred)"
+"0",""
+"0","accuracy "

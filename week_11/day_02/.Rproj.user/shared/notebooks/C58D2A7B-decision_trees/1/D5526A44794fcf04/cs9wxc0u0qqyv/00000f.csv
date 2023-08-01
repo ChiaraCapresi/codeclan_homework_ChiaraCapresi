@@ -1,0 +1,16 @@
+"0","library(yardstick)"
+"2","Avvertimento: il pacchetto ‘yardstick’ è stato creato con R versione 4.3.1"
+"2","
+Caricamento pacchetto: ‘yardstick’
+
+"
+"2","I seguenti oggetti sono mascherati da ‘package:modelr’:
+
+    mae, mape, rmse
+
+"
+"2","Il seguente oggetto è mascherato da ‘package:readr’:
+
+    spec
+
+"

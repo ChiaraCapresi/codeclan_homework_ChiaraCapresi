@@ -1,0 +1,14 @@
+"0","```r
+thrones <- read_csv(\"data/character_data_S01-S08.csv\")
+```"
+"1","New names:Rows: 359 Columns: 41── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: \",\"
+chr  (8): name, dth_description, icd10_dx_code, icd10_dx_text, icd10_cause_code, icd10_cause_text, icd10_place_code, icd10_place_text
+dbl (27): id, sex, religion, occupation, social_status, allegiance_last, allegiance_switched, intro_season, intro_episode, intro_time_sec...
+lgl  (6): ...36, ...37, ...38, ...39, ...40, ...41
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"0","```r
+head(thrones)
+```"

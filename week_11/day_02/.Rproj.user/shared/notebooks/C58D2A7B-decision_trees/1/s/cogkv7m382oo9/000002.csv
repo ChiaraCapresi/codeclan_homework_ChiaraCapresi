@@ -1,0 +1,8 @@
+"0","```r
+thrones_test %>% 
+  janitor::tabyl(met_dog_flag)
+```"
+"1","      met_dog_flag  n   percent
+ Didn't meet a dog 27 0.3913043
+         Met a dog 42 0.6086957
+"

@@ -1,0 +1,18 @@
+"0","titanic_pred %>%
+              conf_mat(truth = survived_flag, estimate = pred)
+"
+"1","          Truth
+"
+"1","Prediction"
+"1"," No"
+"1"," Yes"
+"1","
+       No "
+"1"," 40"
+"1","   9"
+"1","
+       Yes"
+"1","  3"
+"1","  19"
+"1","
+"

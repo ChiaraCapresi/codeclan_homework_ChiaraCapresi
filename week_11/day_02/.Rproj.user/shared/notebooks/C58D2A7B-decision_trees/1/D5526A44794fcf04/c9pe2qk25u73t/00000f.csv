@@ -1,0 +1,4 @@
+"0","accuracy_rf <- thrones_test_pred_rf %>% "
+"0","  accuracy(truth = met_dog_flag, estimate = pred)"
+"0",""
+"0","accuracy"

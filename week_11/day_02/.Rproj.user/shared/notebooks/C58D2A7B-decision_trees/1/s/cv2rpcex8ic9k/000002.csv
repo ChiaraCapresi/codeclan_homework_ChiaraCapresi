@@ -1,0 +1,21 @@
+"0","```r
+# 1. make tree model
+
+thrones_fit <- rpart(
+  formula = met_dog_flag ~., #include all variables
+  data = thrones_train,
+  method = \"class\" # for a categorical predictor
+)
+
+# 2. plot tree model
+
+rpart.plot(thrones_fit,
+           yesno = 2, # this writes yes/no at all splits
+           type = 2, #dictates where our conditions lie at each node
+           fallen.leaves = TRUE,
+           faclen = 6,
+           digits = 2,
+           split.border.col = 1
+           )
+
+```"

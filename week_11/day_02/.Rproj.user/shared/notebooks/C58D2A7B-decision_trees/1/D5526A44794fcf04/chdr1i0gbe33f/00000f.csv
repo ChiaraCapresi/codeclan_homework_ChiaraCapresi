@@ -1,0 +1,4 @@
+"0","specificity <- thrones_test_pred %>% "
+"0","  specificity(truth = met_dog_flag, estimate = pred)"
+"0",""
+"0","specificity"

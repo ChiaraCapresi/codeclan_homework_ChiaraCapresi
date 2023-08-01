@@ -1,0 +1,8 @@
+"0","rpart.plot(thrones_fit,"
+"0","           yesno = 2,"
+"0","           type = 2,"
+"0","           fallen.leaves = TRUE,"
+"0","           faclen = 6,"
+"0","           digits = 2,"
+"0","           extra = 101 # displays the number and % of observations in the node"
+"0","           )"
