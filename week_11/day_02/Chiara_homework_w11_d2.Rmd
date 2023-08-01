@@ -211,7 +211,7 @@ accuracy <- titanic_pred %>%
 accuracy 
 ```
 
-
+The .estimate column in the output shows the probability of correctly predicting whether a character in the test set died or not, it is 83%, which is good!
 
 ```{r}
 sensitivity <- titanic_pred %>%
