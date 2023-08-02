@@ -1,0 +1,6 @@
+"0","```r
+edu_data <- edu_data %>% 
+  select(c(home_school, state_school))
+
+edu_data
+```"

@@ -1,0 +1,6 @@
+"0","```r
+edu_clustered_h2 <- edu_data_scale %>% 
+  mutate(school_cluster = cutree(clusters, 4))
+
+head(edu_clustered_h2)
+```"

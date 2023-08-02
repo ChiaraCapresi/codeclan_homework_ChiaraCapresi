@@ -1,0 +1,8 @@
+"0","```r
+#tidy(clustered_stu,
+ #    col.names = colnames(students_imp))
+
+students_grouped <- augment(clustered_stu, students)
+
+students_grouped
+```"

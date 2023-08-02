@@ -1,0 +1,320 @@
+---
+title: "Segmentation a nd Clustering"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(cluster)
+library(factoextra)
+library(dendextend)
+library(corrplot)
+```
+
+```{r}
+edu_data <- read_csv("data/school_data.csv")
+
+edu_data
+```
+
+
+```{r}
+edu_data <- edu_data %>% 
+  column_to_rownames("X1")
+
+head(edu_data)
+```
+
+# Scaling
+
+```{r}
+edu_data_scale <- edu_data %>% 
+  mutate(across(where(is.numeric), scale))  # by scaling the data, we make sure that the mean is 0 and the sd is 1
+
+edu_data_scale
+```
+
+
+
+```{r}
+corrplot(cor(edu_data_scale), method = "number", type = "lower")
+```
+
+# Calculate your distance matrix
+
+
+```{r}
+diss_matrix <- edu_data_scale %>% 
+  select(home_school) %>% 
+  dist(method = "euclidean")
+
+
+fviz_dist(diss_matrix)
+```
+
+# Build a dendogram!
+
+
+```{r}
+clusters <- diss_matrix %>% 
+  hclust(method = "complete")
+
+clusters
+```
+
+
+```{r}
+clusters %>% 
+  plot(cex= 0.5, hang = -5)
+```
+
+
+```{r}
+plot(clusters, cex = 0.6, hang = -1)
+rect.hclust(clusters, k = 4, border = 2.5)
+```
+
+
+# Cutree
+
+
+```{r}
+edu_clustered_h2 <- edu_data_scale %>% 
+  mutate(school_cluster = cutree(clusters, 4))
+
+head(edu_clustered_h2)
+```
+
+
+# KMEANS CLUSTERING
+
+- use scaled data
+- Initial centroids which are the centers of each cluster
+- Each data point are grouped on the centroid position
+- the centroid start moving to the point representing the mean position of the points that were initially assigned
+- the data points are regrouped / distributed / separated depending on the centroids have been moved to.
+
+```{r}
+edu_data <- edu_data %>% 
+  select(c(home_school, state_school))
+
+edu_data
+```
+
+
+```{r}
+ggplot(edu_data, aes(x = home_school, y = state_school))+
+  geom_point()
+```
+
+
+
+```{r}
+set.seed(1234)
+
+clustered_edu <- kmeans(edu_data_scale,
+                        centers = 6, # final number of clusters
+                        nstart = 25 # 25 initial configurations for 6 centroids, the algorithm choose the best
+                        )
+
+clustered_edu
+```
+
+```{r}
+library(broom)
+```
+
+```{r}
+tidy(clustered_edu,
+     col.names = colnames(edu_data_scale))
+augment(clustered_edu, edu_data)
+```
+
+```{r}
+library(broom)
+
+max_k <- 20
+
+k_clusters <- tibble(k = 1:max_k) %>% 
+  mutate(
+    kclust = map(k, ~kmeans(edu_data_scale, .x, nstart = 25)),
+    tidied = map(kclust, tidy),
+    glanced = map(kclust, glance),
+    augmented = map(kclust, augment, edu_data_scale)
+  )
+
+k_clusters
+```
+
+
+
+# Elbow method
+
+Trying to find the optimal number of clusters
+ - uses tots within
+ 
+ 
+```{r}
+clustering <- k_clusters %>% 
+  unnest(glanced)
+
+clustering
+```
+ 
+
+```{r}
+ggplot(clustering, aes(x = k, y = tot.withinss))+
+  geom_point()+
+  geom_line()+
+  scale_x_continuous(breaks = seq(1, 20, by = 1))
+```
+
+The bigger change of gradient is 2 or 4, so 2 or 4 is the optimal number of clusters.
+
+
+lower cluster and least squares
+
+
+#Silhouette coefficient
+
+```{r}
+fviz_nbclust(edu_data_scale,
+             kmeans,
+             method = "silhouette",
+             nstart = 25)
+```
+
+
+2 is the optimal number of clusters following this method.
+
+
+# Gap statistics
+
+
+```{r}
+fviz_nbclust(edu_data_scale,
+             kmeans,
+             method = "gap_stat",
+             nstart = 25,
+             k.max = 10)
+```
+
+
+We managed to find the number of K (clusters)
+
+```{r}
+clustering %>% 
+  unnest(col = c(augmented)) %>% 
+  filter(k <= 2) %>% 
+  ggplot(aes(x = home_school, y = state_school))+
+  geom_point(aes(color = .cluster))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

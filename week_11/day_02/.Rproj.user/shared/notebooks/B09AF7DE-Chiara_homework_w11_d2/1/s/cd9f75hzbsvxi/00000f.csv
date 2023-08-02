@@ -1,6 +1,6 @@
 "0","titanic_clean <- titanic_clean %>% "
 "0","mutate(sex = as.factor(sex), "
-"0","           age_status = as.factor(if_else(age <= 16, ""child"", ""adult"")),"
+"0","           age_status = as.factor(if_else(age <= 16, ""child"", ""adult"")),  # the NAS?????"
 "0","         class = factor(pclass, levels = c(3,2,1), labels = c(""Lower"", ""Middle"", ""Upper"")), "
 "0","           survived_flag = factor(survived, levels = c(0,1), labels = c(""No"", ""Yes"")), "
 "0","           port_embarkation = as.factor(embarked)) %>%"

@@ -1,0 +1,6 @@
+"0","```r
+clustering <- k_clusters %>% 
+  unnest(augmented)
+
+clustering
+```"

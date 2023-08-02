@@ -1,0 +1,3 @@
+"0","mall_cus_grouped <- augment(clustered_mall_cus_imp, mall_cus)"
+"0",""
+"0","mall_cus_grouped"

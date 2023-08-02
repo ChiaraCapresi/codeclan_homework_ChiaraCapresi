@@ -1,0 +1,43 @@
+"0","```r
+set.seed(1234)
+
+clustered_edu <- kmeans(edu_data_scale,
+                        centers = 6, # final number of clusters
+                        nstart = 25 # 25 initial configurations for 6 centroids, the algorithm choose the best
+                        )
+
+clustered_edu
+```"
+"1","K-means clustering with 6 clusters of sizes 7, 10, 8, 4, 11, 10
+
+Cluster means:
+  home_school state_school  urban_pop private_school
+1   1.5803956    0.9662584 -0.7775109     0.04844071
+2  -0.6286291   -0.4086988  0.9506200    -0.38883734
+3   0.8666035    1.2103171  0.8262657     0.84936722
+4   0.4562038    0.9358314  0.6190084     2.26533514
+5  -0.1642225   -0.3658283 -0.2822467    -0.11697538
+6  -1.1727674   -1.2078573 -1.0045069    -1.10202608
+
+Clustering vector:
+       Alabama         Alaska        Arizona       Arkansas     California       Colorado    Connecticut       Delaware        Florida 
+             1              4              3              5              4              4              2              2              3 
+       Georgia         Hawaii          Idaho       Illinois        Indiana           Iowa         Kansas       Kentucky      Louisiana 
+             1              2              6              3              5              6              5              5              1 
+         Maine       Maryland  Massachusetts       Michigan      Minnesota    Mississippi       Missouri        Montana       Nebraska 
+             6              3              2              3              6              1              5              5              5 
+        Nevada  New Hampshire     New Jersey     New Mexico       New York North Carolina   North Dakota           Ohio       Oklahoma 
+             4              6              2              3              3              1              6              2              5 
+        Oregon   Pennsylvania   Rhode Island South Carolina   South Dakota      Tennessee          Texas           Utah        Vermont 
+             5              2              2              1              6              1              3              2              6 
+      Virginia     Washington  West Virginia      Wisconsin        Wyoming 
+             5              2              6              6              5 
+
+Within cluster sum of squares by cluster:
+[1] 6.128432 9.326266 5.888384 6.257771 7.788275 7.443899
+ (between_SS / total_SS =  78.1 %)
+
+Available components:
+
+[1] \"cluster\"      \"centers\"      \"totss\"        \"withinss\"     \"tot.withinss\" \"betweenss\"    \"size\"         \"iter\"         \"ifault\"      
+"

@@ -1,0 +1,296 @@
+---
+title: "Clustering lab"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(cluster)
+library(factoextra)
+library(dendextend)
+library(corrplot)
+library(CodeClanData)
+```
+
+
+
+```{r}
+students <- students_big
+
+students
+```
+
+# Part 1
+
+
+```{r}
+glimpse(students)
+```
+
+```{r}
+students_imp <- students %>% 
+  select(starts_with("importance"))
+```
+
+
+```{r}
+diss_matrix <- students_imp %>% 
+  #select(home_school) %>% 
+  dist(method = "euclidean")
+
+
+fviz_dist(diss_matrix)
+```
+
+
+```{r}
+clusters <- diss_matrix %>% 
+  hclust(method = "complete")
+
+clusters
+```
+
+```{r}
+plot(clusters, cex = 0.6, hang = -1)
+rect.hclust(clusters, k = 2, border = 2.5)
+```
+
+
+
+```{r}
+clusters %>% 
+  plot(cex= 0.5, hang = -5)
+```
+
+
+
+
+
+
+##########################
+
+
+
+
+
+```{r}
+library(broom)
+
+max_k <- 20
+
+k_clusters <- tibble(k = 1:max_k) %>% 
+  mutate(
+    kclust = map(k, ~kmeans(students_imp, .x, nstart = 25)),
+    tidied = map(kclust, tidy),
+    glanced = map(kclust, glance),
+    augmented = map(kclust, augment, students_imp)
+  )
+
+k_clusters
+```
+
+#Elbow method 
+
+```{r}
+clustering <- k_clusters %>% 
+  unnest(augmented)
+
+clustering
+```
+
+
+
+
+```{r}
+ggplot(clustering, aes(x = k, y = tot.withinss))+
+  geom_point()+
+  geom_line()+
+  scale_x_continuous(breaks = seq(1, 20, by = 1))
+```
+
+I would say 3
+
+
+
+```{r}
+fviz_nbclust(students_imp,
+             kmeans,
+             method = "silhouette",
+             nstart = 25)
+```
+
+This would say 2
+
+
+```{r}
+fviz_nbclust(students_imp,
+             kmeans,
+             method = "gap_stat",
+             nstart = 25,
+             k.max = 10)
+```
+
+
+With the first two methods, we obtained as optimal number of clusters 2 or 9. There is a very big difference between the two value. This means that there is not a very logical way to split the data into clusters. The choice would depend on the question.
+
+
+
+## Part 2
+
+Scaling is not required here, because data seems to be quite similarly scaled.
+
+
+```{r}
+stu <- students_imp %>% 
+  select("importance_reducing_pollution", "importance_recycling_rubbish", "importance_conserving_water", "importance_saving_enery") 
+ 
+clustered_stu <-  kmeans(stu,
+                        centers = 2, # final number of clusters
+                        nstart = 25 # 25 initial configurations for 6 centroids, the algorithm choose the best
+                        )
+
+clustered_stu
+
+
+#stud_group <- students_imp %>% 
+#  mutate(group = clustered_stu$cluster)
+
+
+```
+
+
+
+```{r}
+#tidy(clustered_stu,
+ #    col.names = colnames(students_imp))
+
+students_grouped <- augment(clustered_stu, students)
+
+students_grouped
+```
+
+
+```{r}
+students_grouped %>% 
+  ggplot(aes(x = importance_recycling_rubbish, y = importance_reducing_pollution))+
+  geom_point(aes(colour =  .cluster))
+```
+
+
+Students that don't give so much importance to recycling rubbish seems to give not so much importance to reducing pollution too and vice versa.
+
+
+```{r}
+students_grouped %>% 
+  group_by(.cluster) %>% 
+  summarise(across(.col = starts_with("importance"), .fns = ~mean(.x)))
+```
+
+
+
+```{r}
+tidy(clustered_stu,
+     col.names = colnames(stu))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

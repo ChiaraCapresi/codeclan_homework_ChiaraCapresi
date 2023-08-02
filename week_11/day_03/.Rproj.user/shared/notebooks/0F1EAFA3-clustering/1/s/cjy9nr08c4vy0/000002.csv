@@ -1,0 +1,6 @@
+"0","```r
+edu_data <- edu_data %>% 
+  column_to_rownames(\"X1\")
+
+head(edu_data)
+```"

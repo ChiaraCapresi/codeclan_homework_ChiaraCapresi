@@ -1,0 +1,13 @@
+"0","```r
+edu_data <- read_csv(\"data/school_data.csv\")
+```"
+"1","Rows: 50 Columns: 5── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: \",\"
+chr (1): X1
+dbl (4): home_school, state_school, urban_pop, private_school
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"0","```r
+edu_data
+```"

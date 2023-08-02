@@ -1,0 +1,6 @@
+"0","```r
+edu_data_scale <- edu_data %>% 
+  mutate(across(where(is.numeric), scale))  # by scaling the data, we make sure that the mean is 0 and the sd is 1
+
+edu_data_scale
+```"

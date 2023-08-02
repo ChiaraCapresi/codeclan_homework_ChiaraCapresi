@@ -1,2 +1,5 @@
 "0","titanic_pred <- titanic_test %>% "
 "0"," add_predictions(titanic_fit, type = 'class')"
+"2","Error in add_predictions(., titanic_fit, type = ""class"") : 
+  could not find function ""add_predictions""
+"

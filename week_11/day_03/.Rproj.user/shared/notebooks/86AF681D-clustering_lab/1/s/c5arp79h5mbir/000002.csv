@@ -1,0 +1,6 @@
+"0","```r
+fviz_nbclust(students_imp,
+             kmeans,
+             method = \"silhouette\",
+             nstart = 25)
+```"

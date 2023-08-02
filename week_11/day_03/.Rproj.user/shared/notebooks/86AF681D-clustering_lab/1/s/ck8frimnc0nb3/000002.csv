@@ -1,0 +1,48 @@
+"0","```r
+fviz_nbclust(students_imp,
+             kmeans,
+             method = \"gap_stat\",
+             nstart = 25,
+             k.max = 10)
+```"
+"1","Clustering k = 1,2,..., K.max (= 10): .. done
+Bootstrapping, b = 1,2,..., B (= 100)  [one \".\" per sample]:
+.....
+"
+"1","Avvertimento: non converge in 10 iterazioni
+"
+"1",".
+"
+"1","Avvertimento: non converge in 10 iterazioni
+"
+"1","......................................
+"
+"1","Avvertimento: non converge in 10 iterazioni
+"
+"1","...... 50 
+..
+"
+"1","Avvertimento: non converge in 10 iterazioni
+"
+"1","..............
+"
+"1","Avvertimento: non converge in 10 iterazioni
+"
+"1",".........
+"
+"1","Avvertimento: non converge in 10 iterazioni
+"
+"1","......
+"
+"1","Avvertimento: non converge in 10 iterazioniAvvertimento: non converge in 10 iterazioni
+"
+"1",".
+"
+"1","Avvertimento: non converge in 10 iterazioni
+"
+"1","...
+"
+"1","Avvertimento: non converge in 10 iterazioni
+"
+"1","............... 100 
+"

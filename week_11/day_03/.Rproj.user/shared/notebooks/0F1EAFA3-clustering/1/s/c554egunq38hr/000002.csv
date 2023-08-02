@@ -1,0 +1,14 @@
+"0","```r
+clusters <- diss_matrix %>% 
+  hclust(method = \"complete\")
+
+clusters
+```"
+"1","
+Call:
+hclust(d = ., method = \"complete\")
+
+Cluster method   : complete 
+Distance         : euclidean 
+Number of objects: 50 
+"

@@ -1,0 +1,23 @@
+"0","```r
+ggplot(clustering, aes(x = k, y = tot.withinss))+
+  geom_point()+
+  geom_line()+
+  scale_x_continuous(breaks = seq(1, 20, by = 1))
+```"
+"1","Error in `geom_point()`:
+! Problem while computing aesthetics.
+ℹ Error occurred in the 1st layer.
+Caused by error:
+! object 'tot.withinss' not found
+Backtrace:
+  1. base (local) `<fn>`(x)
+  2. ggplot2:::print.ggplot(x)
+  4. ggplot2:::ggplot_build.ggplot(x)
+  5. ggplot2:::by_layer(...)
+ 12. ggplot2 (local) f(l = layers[[i]], d = data[[i]])
+ 13. l$compute_aesthetics(d, plot)
+ 14. ggplot2 (local) compute_aesthetics(..., self = self)
+ 15. ggplot2:::scales_add_defaults(...)
+ 16. base::lapply(aesthetics[new_aesthetics], eval_tidy, data = data)
+ 17. rlang (local) FUN(X[[i]], ...)
+"

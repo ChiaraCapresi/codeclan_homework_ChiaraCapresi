@@ -1,0 +1,4 @@
+"0","```r
+students_imp <- students %>% 
+  select(starts_with(\"importance\"))
+```"

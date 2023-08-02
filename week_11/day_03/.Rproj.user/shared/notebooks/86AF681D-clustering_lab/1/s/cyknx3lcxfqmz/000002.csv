@@ -1,0 +1,15 @@
+"0","```r
+library(broom)
+
+max_k <- 20
+
+k_clusters <- tibble(k = 1:max_k) %>% 
+  mutate(
+    kclust = map(k, ~kmeans(students_imp, .x, nstart = 25)),
+    tidied = map(kclust, tidy),
+    glanced = map(kclust, glance),
+    augmented = map(kclust, augment, students_imp)
+  )
+
+k_clusters
+```"

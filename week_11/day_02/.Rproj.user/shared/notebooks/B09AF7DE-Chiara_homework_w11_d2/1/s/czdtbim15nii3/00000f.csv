@@ -1,0 +1,11 @@
+"0","titanic_clean %>%
+  select(survived_flag, sex) %>%
+  group_by(survived_flag,sex) %>%
+  summarise(total_count = n()) %>%
+  ggplot() + 
+  aes(x = survived_flag, y = total_count, fill = sex) + 
+  geom_bar(stat = ""identity"", position = position_dodge()) + 
+  scale_fill_brewer(palette=""Dark2"") + 
+  ylab(""total count"") + xlab(""survived"")
+"
+"2","`summarise()` has grouped output by 'survived_flag'. You can override using the `.groups` argument."

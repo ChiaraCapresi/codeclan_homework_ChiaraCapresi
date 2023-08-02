@@ -1,0 +1,2 @@
+"0","#titanic_clean <- titanic_clean %>% "
+"0","# mutate(across(.col = c(""sex"", ""survived"", ""pclass"", ""embarked""), .fns = ~as.factor(.x)))"

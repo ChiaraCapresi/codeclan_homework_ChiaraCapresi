@@ -1,0 +1,1 @@
+{"frames":[{"func":"titanic_test %>% add_predictions(titanic_fit, type = \"class\")","file":"","line_number":0,"end_line_number":0,"character_number":0,"end_character_number":0}],"message":"Error in add_predictions(., titanic_fit, type = \"class\") : \n  could not find function \"add_predictions\"\n"}

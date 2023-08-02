@@ -1,0 +1,4 @@
+"0","```r
+plot(clusters, cex = 0.6, hang = -1)
+rect.hclust(clusters, k = 4, border = 2.5)
+```"

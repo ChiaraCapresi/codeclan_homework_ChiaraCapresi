@@ -1,0 +1,5 @@
+"0","```r
+students_grouped %>% 
+  ggplot(aes(x = importance_recycling_rubbish, y = importance_reducing_pollution))+
+  geom_point(aes(colour =  .cluster))
+```"

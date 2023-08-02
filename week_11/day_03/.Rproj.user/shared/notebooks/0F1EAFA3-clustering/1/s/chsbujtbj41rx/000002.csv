@@ -1,0 +1,8 @@
+"0","```r
+diss_matrix <- edu_data_scale %>% 
+  select(home_school) %>% 
+  dist(method = \"euclidean\")
+
+
+fviz_dist(diss_matrix)
+```"

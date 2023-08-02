@@ -1,0 +1,351 @@
+---
+title: "Chiara homework week 11 day 3"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(cluster)
+library(factoextra)
+library(dendextend)
+library(corrplot)
+```
+
+
+
+```{r}
+mall_cus <- read_csv("data/mall_customers.csv") %>% 
+  janitor::clean_names()
+```
+
+
+
+```{r}
+glimpse(mall_cus)
+```
+# MVP
+
+## Task 1
+Do some exploratory analysis on the data. Comment on findings.
+
+
+```{r}
+mall_cus <- mall_cus %>% 
+  mutate(gender = as.factor(gender))
+```
+
+
+
+```{r}
+mall_cus %>% 
+  ggplot()+
+  aes(x = annual_income_k, y = spending_score_1_100)+
+  geom_point()
+```
+
+
+From how the plot looks like now it is difficult to understand how many clusters will be better to choose for splitting it. At a first sight it seems there could be 5 clusters, one more dense in the centre and other four around.
+
+It seems that most people has a medium annual income and they consequently have a medium spending score. People instead that have a very low or very high annual income seems to be divided into two further categories respectively: those who have an very high spending score and those who have a very low spending score (seems not minimum in general).
+
+
+
+```{r}
+mall_cus %>% 
+  ggplot()+
+  aes(x = annual_income_k, y = spending_score_1_100, colour = gender)+
+  geom_point()
+```
+
+It doesn't seem that there is very much difference between male and female for what concern the relation between annual_income and spending_score.
+
+
+```{r}
+mall_cus %>% 
+  ggplot()+
+  aes(x = annual_income_k, y = spending_score_1_100, colour = age)+
+  geom_point()
+```
+
+
+It seems instead that there is a sort of dependence on age in the relationship between annual income and spending_score. In fact, it seems that younger people generally have an higher income and and an higher spending score, while it is the opposite for the older (this could depend on the fact that their income is a sort of pension and they have less necessities than those of younger...!?)
+
+
+## Task 2
+
+We are interested in creating a marketing campaign to target customers based on their spending score and annual income. Select an appropriate value for k and perform k-means clustering to find if there are meaningful clusters in the data to target the customers.
+
+
+
+```{r}
+mall_cus %>% 
+  summarise(across(.col = c("annual_income_k", "spending_score_1_100"), .fns = ~mean(.x)))
+```
+
+The means of the two variables seems to be quite similar, so I wouldn't rescale the variables.
+
+
+
+```{r}
+mall_cus_int <- mall_cus %>% 
+  select("annual_income_k", "spending_score_1_100")
+
+# I show again the scatter plot that put in relationship the two variables of interest
+mall_cus_int %>% 
+  ggplot()+
+  aes(x = annual_income_k, y = spending_score_1_100) %>% 
+  geom_point()
+```
+
+- Elbow method
+
+
+```{r}
+library(broom)
+
+max_k <- 20
+
+k_clusters <- tibble(k = 1:max_k) %>% 
+  mutate(
+    kclust = map(k, ~kmeans(mall_cus_int, .x, nstart = 25)),
+    tidied = map(kclust, tidy),
+    glanced = map(kclust, glance),
+    augmented = map(kclust, augment, mall_cus_int)
+  )
+
+clustering <- k_clusters %>% 
+  unnest(glanced)
+```
+
+
+
+```{r}
+ggplot(clustering, aes(x = k, y = tot.withinss))+
+  geom_point()+
+  geom_line()+
+  scale_x_continuous(breaks = seq(1, 20, by = 1))
+```
+
+From this plot it seems to me that the optimal number of clusters for this example should be 5, which is exactly what I guessed at the beginning.
+
+
+
+```{r}
+fviz_nbclust(mall_cus_int, 
+             kmeans, 
+             method = "wss", 
+             nstart = 25)
+```
+
+I confirm that with tgis method 5 clusters seems to be a good choice.
+
+- Silhouette coefficient
+
+```{r}
+fviz_nbclust(mall_cus_int,
+             kmeans,
+             method = "silhouette",
+             nstart = 25
+             )
+```
+
+5 too!
+
+- Gap statistics
+
+```{r}
+fviz_nbclust(mall_cus_int,
+             kmeans,
+             method = "gap_stat",
+             nstart = 25,
+             k.max = 10)
+```
+
+This method emphathises 1 cluster, which is not possible. However, if I understood correctly how this method works I think that also here the 5 clusters (and maybe 3) seems to be a good choice.
+
+I conclude that clustering here is a good choice and the optimal number of clusters in this case, should be 5.
+
+## Task 3
+
+Visualise the clustering for your chosen value of k.
+
+
+```{r}
+clustered_mall_cus_imp <- kmeans(mall_cus_int,
+                                 centers = 5,
+                                 nstart = 25)
+
+clustered_mall_cus_imp
+```
+
+
+
+```{r}
+mall_cus_grouped <- augment(clustered_mall_cus_imp, mall_cus)
+
+mall_cus_grouped
+```
+
+
+```{r}
+mall_cus_grouped %>% 
+  ggplot()+
+  aes(x = annual_income_k, y = spending_score_1_100)+
+  geom_point(aes(colour = .cluster))
+```
+
+```{r}
+tidy(clustered_mall_cus_imp,
+     col.names = colnames(mall_cus_int))
+```
+
+
+## Task 4
+
+Do you think the clustering seems a good fit for this data?
+
+- As I mentioned also at the beginning I think that this clustering is quite good for these data.
+
+
+## Task 5
+
+Comment on the attributes of one or two of the clusters (maybe even give them an appropriate label if you like - similar to section 4.1 of the ‘Segmentation & clustering intro’ lesson where we saw labels such as “Super Fans” and “Tag-Alongs”).
+
+- the `green` cluster, the third one, is the most numerous. It says us that people having a medium annual income, also seems to have a medium spending score.
+
+- the first cluster, the `red` one is that of people that have  a low annual income and they proportion their spending score consequently: low income and low spendings. We could call this group that of the `wise` people.
+
+- the second cluster `olive green`, is that of people with low income, but high spendings. We could call this cluster that of `spendthrift` people.
+
+- the fourth cluster `light blue`, is that of people with high income and high spendings, so this cluster could be called as the cluster of `wealthy` people.
+
+- the fifth cluster `purple`, present high income and low spendings, so we could call it as the group of `stingy` people.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

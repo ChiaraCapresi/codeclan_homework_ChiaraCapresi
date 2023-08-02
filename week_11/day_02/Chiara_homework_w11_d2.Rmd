@@ -72,6 +72,43 @@ mutate(sex = as.factor(sex),
 ```
 
 
+
+
+```{r}
+titanic_clean %>%
+  ggplot(aes(x = survived_flag)) +
+  geom_bar()
+```
+
+
+```{r}
+titanic_clean %>%
+  select(survived_flag, sex) %>%
+  group_by(survived_flag,sex) %>%
+  summarise(total_count = n()) %>%
+  ggplot() + 
+  aes(x = survived_flag, y = total_count, fill = sex) + 
+  geom_bar(stat = "identity", position = position_dodge()) + 
+  scale_fill_brewer(palette="Dark2") + 
+  ylab("total count") + xlab("survived")
+```
+
+
+
+```{r}
+titanic_clean %>%
+  select(survived_flag, class) %>%
+  group_by(survived_flag,class) %>%
+  summarise(total_count = n()) %>%
+  ggplot() + 
+  aes(x = survived_flag, y = total_count, fill = class) + 
+  geom_bar(stat = "identity", position = position_dodge()) + 
+  scale_fill_brewer(palette="Dark2") + 
+  ylab("total count") + xlab("survived")
+```
+
+
+
 ## Question 2
 
 
@@ -185,6 +222,12 @@ Write down what this tells you, in detail. What variables are important? What do
 
   - if the class is `lower`, then the probability of `survive` is 0.46 and died for 14%
   - if the class is not `lower` then the probablility of `survive` is 0.94 and died for 22%.
+  
+  
+```{r}
+rpart.plot(titanic_fit, yesno = 2, type = 4, extra = 101)
+```
+  
 
 ## Question 6
 
