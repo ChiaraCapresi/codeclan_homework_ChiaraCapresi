@@ -1,0 +1,4 @@
+"0","mall_cus %>% "
+"0","  ggplot()+"
+"0","  aes(x = annual_income_k, y = spending_score_1_100, colour = gender)+"
+"0","  geom_point()"

@@ -1,9 +1,8 @@
-"0","fviz_nbclust(mall_cus_int,
-             kmeans,
-             method = ""gap_stat"",
-             nstart = 25,
-             k.max = 10)
-"
+"0","fviz_nbclust(mall_cus_int,"
+"0","             kmeans,"
+"0","             method = ""gap_stat"","
+"0","             nstart = 25,"
+"0","             k.max = 10)"
 "1","Clustering k = 1,2,..., K.max (= "
 "1",""
 "1","10"

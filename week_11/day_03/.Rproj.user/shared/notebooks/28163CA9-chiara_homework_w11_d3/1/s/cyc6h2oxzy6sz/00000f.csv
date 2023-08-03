@@ -1,0 +1,8 @@
+"0","mall_cus_int <- mall_cus %>% "
+"0","  select(""annual_income_k"", ""spending_score_1_100"")"
+"0",""
+"0","# I show again the scatter plot that put in relationship the two variables of interest"
+"0","mall_cus_int %>% "
+"0","  ggplot()+"
+"0","  aes(x = annual_income_k, y = spending_score_1_100) %>% "
+"0","  geom_point()"

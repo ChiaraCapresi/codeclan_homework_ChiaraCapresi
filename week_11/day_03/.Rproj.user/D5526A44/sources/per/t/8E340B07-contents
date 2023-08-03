@@ -84,6 +84,7 @@ mall_cus %>%
 
 The means of the two variables seems to be quite similar, so I wouldn't rescale the variables.
 
+**CORRECTION**: In this situation too it is necessary to scale!!! 
 
 
 ```{r}

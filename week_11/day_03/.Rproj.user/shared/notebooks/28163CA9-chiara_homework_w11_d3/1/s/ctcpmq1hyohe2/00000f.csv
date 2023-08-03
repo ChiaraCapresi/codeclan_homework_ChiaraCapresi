@@ -1,0 +1,2 @@
+"0","mall_cus %>% "
+"0","  summarise(across(.col = c(""annual_income_k"", ""spending_score_1_100""), .fns = ~mean(.x)))"

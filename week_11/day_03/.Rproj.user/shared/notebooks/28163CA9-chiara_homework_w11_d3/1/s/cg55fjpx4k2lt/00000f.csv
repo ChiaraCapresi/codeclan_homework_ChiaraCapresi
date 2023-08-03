@@ -1,0 +1,5 @@
+"0","fviz_nbclust(mall_cus_int,"
+"0","             kmeans,"
+"0","             method = ""silhouette"","
+"0","             nstart = 25"
+"0","             )"

@@ -1,0 +1,2 @@
+"0","mall_cus <- mall_cus %>% "
+"0","  mutate(gender = as.factor(gender))"

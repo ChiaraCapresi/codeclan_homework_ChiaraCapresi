@@ -10,4 +10,5 @@
 "0","    augmented = map(kclust, augment, mall_cus_int)"
 "0","  )"
 "0",""
-"0","k_clusters"
+"0","clustering <- k_clusters %>% "
+"0","  unnest(glanced)"

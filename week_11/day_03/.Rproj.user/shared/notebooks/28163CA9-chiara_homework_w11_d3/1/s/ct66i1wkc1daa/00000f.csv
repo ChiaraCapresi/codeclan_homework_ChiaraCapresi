@@ -1,0 +1,4 @@
+"0","mall_cus_grouped %>% "
+"0","  ggplot()+"
+"0","  aes(x = annual_income_k, y = spending_score_1_100)+"
+"0","  geom_point(aes(colour = .cluster))"
