@@ -1,0 +1,7 @@
+"0","```r
+phrases <- c(
+  \"Here is some text.\",
+  \"Again, more text!\",
+  \"TEXT is text?\"
+)
+```"

@@ -1,0 +1,2 @@
+"0","orange_tidy <- orange_tidy %>% "
+"0","  select(-c(""sale_price_mm"", ""sale_price_ch"", ""price_diff"", ""store7"", ""list_price_diff"", ""store"", ""weekof_purchase_fac""))"

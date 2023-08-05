@@ -1,0 +1,23 @@
+"0","skimr::skim(orange_juice)"
+"1","── Data Summary ────────────────────────
+"
+"1","                           Values      
+"
+"1","Name                       orange_juice
+"
+"1","Number of rows             1070        
+"
+"1","Number of columns          18          
+"
+"1","_______________________                
+"
+"1","Column type frequency:                 
+"
+"1","  character                2           
+"
+"1","  numeric                  16          
+"
+"1","________________________               
+"
+"1","Group variables            None        
+"

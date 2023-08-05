@@ -1,0 +1,8 @@
+"0","```r
+library(janeaustenr)
+library(tidyverse)
+library(tidytext)
+library(textdata)
+```"
+"1","Avvertimento: il pacchetto ‘textdata’ è stato creato con R versione 4.3.1
+"

@@ -1,0 +1,16 @@
+"0","roc_1 <- test %>%"
+"0","  add_predictions(model_1, type = ""response"") %>%"
+"0","  roc(response = purchase_mm, predictor = pred)"
+"2","Setting levels: control = FALSE, case = TRUE
+"
+"2","Setting direction: controls < cases
+"
+"0","auc(roc_1)"
+"1","Area under the curve: "
+"1",""
+"1","0.8966"
+"1",""
+"1",""
+"1",""
+"1","
+"

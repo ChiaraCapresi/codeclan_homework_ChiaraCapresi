@@ -1,0 +1,20 @@
+"0","```r
+red_wines <- read_csv(\"data/wine_quality_red.csv\")
+```"
+"1","Rows: 1599 Columns: 14── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: \",\"
+chr  (1): region
+dbl (13): wine_id, fixed_acidity, volatile_acidity, citric_acid, residual_sugar, chlorides, free_sulfur_dioxide, total_sulfur_dioxide, den...
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"0","```r
+white_wines <- read_csv(\"data/wine_quality_white.csv\")
+```"
+"1","Rows: 4898 Columns: 14── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: \",\"
+chr  (1): region
+dbl (13): wine_id, fixed_acidity, volatile_acidity, citric_acid, residual_sugar, chlorides, free_sulfur_dioxide, total_sulfur_dioxide, den...
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"

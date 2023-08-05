@@ -1,0 +1,4 @@
+"0","```r
+wines <- wines %>% 
+  select(-wine_id)
+```"

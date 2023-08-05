@@ -1,0 +1,29 @@
+"0","#library(modelr)"
+"0","library(janitor)"
+"2","
+Caricamento pacchetto: ‘janitor’
+
+"
+"2","I seguenti oggetti sono mascherati da ‘package:stats’:
+
+    chisq.test, fisher.test
+
+"
+"0","train %>%"
+"0","  tabyl(purchase_mm)"
+"1",""
+"1"," purchase_mm"
+"1","   n"
+"1","   percent"
+"1","
+"
+"1","       FALSE"
+"1"," 531"
+"1"," 0.6203271"
+"1","
+"
+"1","        TRUE"
+"1"," 325"
+"1"," 0.3796729"
+"1","
+"

@@ -1,0 +1,5 @@
+"0","auc(model_3)
+"
+"2","Error in roc.default(response, predictor, auc = TRUE, ...) : 
+  No valid data provided.
+"

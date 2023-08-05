@@ -1,0 +1,11 @@
+"0","roc_obj_2pred <- mortgages_pred %>% "
+"0","  roc(response = accepted,"
+"0","      predictor = pred)"
+"2","Setting levels: control = FALSE, case = TRUE
+"
+"2","Setting direction: controls < cases
+"
+"0","roc_curve <- ggroc(data = roc_obj_2pred)"
+"0",""
+"0","roc_curve"
+"0",""

@@ -1,0 +1,5 @@
+"0","orange_index <- sample(1:nrow(orange_juice), size = nrow(orange_juice)*0.2)"
+"0",""
+"0","# Use the test index to create test and training datasets"
+"0","test  <- slice(orange_juice, orange_index)"
+"0","train <- slice(orange_juice, -orange_index)"

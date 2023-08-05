@@ -1,0 +1,11 @@
+"0","```r
+# Classification vs Clustering
+
+#Both *Classification* and *Clustering* are method of pattern identification. The main difference between the two is that:
+
+#- the first is a form of `Supervised learning`, meaning that the labels are predefined, already assigned; it is used to predict whether or not any new data point belongs to one of the original group of labels.
+#- the second is instead a form of `Unsupervised learning`, meaning that identify itself similarities among objects dividing them into groups, which are known as `clusters`.
+
+## Neural networks
+
+```"

@@ -1,0 +1,519 @@
+---
+title: "Text mining"
+output: html_notebook
+---
+
+Learning objectives:
+
+- know how to convert from text data to tokenised data using something called unnest_tokens
+
+- how text data can be cleaned
+
+
+```{r}
+library(tidytext)
+library(tidyverse)
+```
+
+
+```{r}
+phrases <- c(
+  "here is some text",
+  "again more text",
+  "text is text"
+)
+
+class(phrases)
+```
+
+
+
+```{r}
+word_df <- example_text %>% 
+  unnest_tokens(word, phrase)
+
+word_df
+```
+
+```{r}
+word_df %>% 
+  arrange(word)
+```
+
+```{r}
+word_df %>% 
+  filter(word == "text")
+```
+
+
+```{r}
+word_df %>% 
+  group_by(word, id) %>% 
+  summarise(count = n())
+```
+
+
+# Capitals and punctuations!
+
+
+```{r}
+phrases <- c(
+  "Here is some text.",
+  "Again, more text!",
+  "TEXT is text?"
+)
+```
+
+
+```{r}
+example_text <- tibble(
+  phrase = phrases,
+  id = 1:3
+)
+
+example_text
+```
+
+
+```{r}
+example_text %>% 
+  unnest_tokens(word, phrase)
+```
+
+
+```{r}
+example_text %>% 
+  unnest_tokens(word, phrase, to_lower = FALSE)
+```
+
+Let's try arranging them to find the most common and the least common 
+
+```{r}
+word_df %>% 
+  group_by(word) %>% 
+  summarise(
+    count = n()
+  ) %>% 
+  arrange(desc(count))
+```
+
+```{r}
+word_df %>% 
+  count(word, sort = TRUE)
+```
+
+
+#### Task 
+
+```{r}
+lines <- 
+c(
+  "Whose woods these are I think I know.",
+  "His house is in the village though;", 
+  "He will not see me stopping here",
+  "To watch his woods fill up with snow."
+)
+```
+
+  -  Create a data frame that has two variables: one with each word, the second with the line number of the word.
+  
+```{r}
+poem <- tibble(
+  phrases = lines,
+  id = 1:4
+)
+
+poem_df <- poem %>% 
+  unnest_tokens(word, phrases)
+```
+  
+  -  Use this data frame to find all the words that appear more than once in the four lines.
+
+
+```{r}
+poem_df %>% 
+  count(word, sort = TRUE) %>% 
+  filter(n > 1)
+```
+
+
+# Removing stop words
+
+i.e.`is`,`or`,`a`...
+
+```{r}
+library(janeaustenr)
+```
+
+
+
+```{r}
+head(prideprejudice, 20)
+```
+
+
+
+```{r}
+pride_book <- tibble(
+  id = 1:length(prideprejudice),
+  text = prideprejudice
+) %>% 
+  unnest_tokens(word, text)
+
+pride_book
+```
+
+
+##### Task - 2 minutes
+
+- Find the most common words in “Pride and Prejudice”.
+What do you notice about the most common words?
+
+
+```{r}
+pride_book %>% 
+  count(word, sort = TRUE)
+```
+
+All the most common words are `stop words`!
+
+
+```{r}
+stop_words
+```
+
+
+```{r}
+pride_book %>% 
+  anti_join(stop_words) %>% 
+  count(word, sort = TRUE)
+```
+
+```{r}
+stop_words %>% 
+  count(lexicon, sort = TRUE)
+```
+
+
+Remove stop words from a particular lexicon only!
+
+```{r}
+pride_book %>% 
+  anti_join(filter(stop_words, lexicon == "snowball")) %>% 
+  count(word, sort = TRUE)
+```
+
+
+###### Task
+
+Find the most common words, not including stop words, in the book “Sense and Sensibility”.
+
+```{r}
+poem_2 <- tibble(
+  id = 1:length(sensesensibility),
+  text = sensesensibility
+) %>% 
+  unnest_tokens(word, text)
+```
+
+
+
+
+```{r}
+pride_sw_free <- poem_2 %>% 
+  anti_join(stop_words, by = join_by(word)) %>% 
+  count(word, sort = TRUE) %>% 
+  arrange(desc(n))
+
+pride_sw_free
+```
+
+_TF-IDF and N - Grams_
+
+$$TF - IDF = TF * log(\frac{1}{DF})$$
+
+Learning objectives
+
+- understand the TF-IDF
+
+- be able to work and calculate TF and IDF scores
+
+- understand the definition of N gram
+
+- to work with N grams
+
+```{r}
+sentences <- c(
+  "This is a sentence about cats.",
+  "This is a sentence about dogs.",
+  "This is a sentence about alligators."
+)
+```
+
+
+```{r}
+sentences_df <- tibble(
+  sentence = sentences,
+  id = 1:3
+) %>% 
+  unnest_tokens(word, sentence)
+
+sentences_df
+```
+
+
+
+```{r}
+sentences_df %>% 
+  count(word, id) %>% 
+  bind_tf_idf(term = word, document = id, n = n)
+```
+
+# Calculating TF-IDF scores across all Jabìne Austen Books!
+
+```{r}
+titles <- c("Pride and Prejudice", "Sense and Sensibility", "Emma", "Persuasion", "Mansfield Park", "Northanger Abbey")
+
+books <- list(prideprejudice, sensesensibility, emma, persuasion, mansfieldpark,  northangerabbey)
+```
+
+
+
+```{r}
+books <- purrr::map_chr(books, paste, collapse = " ")
+
+str(books)
+```
+
+Let's convert them into a tidy format
+
+
+```{r}
+all_books_df <- tibble(
+  title = titles,
+  text = books
+) %>% 
+  unnest_tokens(word, text)
+
+
+head(all_books_df)
+```
+
+
+```{r}
+all_books_df <- all_books_df %>% 
+  count(word, title) %>% 
+  bind_tf_idf(word, title, n) %>% 
+  arrange(desc(tf_idf))
+
+all_books_df
+```
+
+same result as before, with a different method.
+
+# most common five words
+
+```{r}
+all_books_df %>% 
+  group_by(title) %>% 
+  slice_max(tf_idf, n = 5)
+```
+
+# N-GRAM!
+
+
+```{r}
+phrases <- c(
+  "here is some text",
+  "again more text",
+  "text is text"
+)
+
+phrases_df <- tibble(
+  phrase = phrases,
+  id = 1:3
+)
+
+
+phrases_df %>% 
+  unnest_tokens(bigram, phrase, token = "ngrams", n = 2)
+```
+
+
+
+###### Task - 5 minutes
+
+  -  For the book “Pride and Prejudice”, find the top:
+
+    bigrams
+    trigrams
+
+  -  Try some of the other available token options. You can see the options in the unnest_tokens help file.
+
+
+```{r}
+book_df <- tibble(
+  id = 1:length(prideprejudice),
+  text = prideprejudice
+) 
+```
+
+
+
+```{r}
+book_df %>% 
+  unnest_tokens(bigram, text, token = "ngrams", n = 2) %>% 
+  group_by(id) %>% 
+  count(bigram) %>% 
+  arrange(desc(n))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

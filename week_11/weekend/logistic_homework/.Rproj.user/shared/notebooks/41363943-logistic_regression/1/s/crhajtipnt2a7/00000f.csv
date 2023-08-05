@@ -1,0 +1,2 @@
+"0","mortgages_pred <- mortgages %>% "
+"0","  add_predictions(mortgages_log_reg_model, type = ""response"") # 'response' convert value into probabilities"

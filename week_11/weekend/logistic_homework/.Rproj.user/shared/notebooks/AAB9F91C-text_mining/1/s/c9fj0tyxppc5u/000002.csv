@@ -1,0 +1,11 @@
+"0","```r
+phrases <- c(
+  \"here is some text\",
+  \"again more text\",
+  \"text is text\"
+)
+
+class(phrases)
+```"
+"1","[1] \"character\"
+"

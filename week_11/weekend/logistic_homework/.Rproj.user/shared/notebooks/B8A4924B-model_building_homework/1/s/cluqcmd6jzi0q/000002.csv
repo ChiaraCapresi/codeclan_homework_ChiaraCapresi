@@ -1,0 +1,4 @@
+"0","```r
+wines <- wines %>% 
+  mutate(wine_id, wine_id = as.factor(wine_id)) 
+```"

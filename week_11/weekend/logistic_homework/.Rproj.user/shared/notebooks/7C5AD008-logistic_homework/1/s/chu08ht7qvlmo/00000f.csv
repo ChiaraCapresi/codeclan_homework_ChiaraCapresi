@@ -1,0 +1,9 @@
+"0","library(GGally)"
+"2","Avvertimento: il pacchetto ‘GGally’ è stato creato con R versione 4.3.1"
+"2","Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+"
+"0","orange_tidy %>% "
+"0","select(purchase_mm, weekof_purchase) %>% "
+"0","ggpairs(progress = FALSE)"

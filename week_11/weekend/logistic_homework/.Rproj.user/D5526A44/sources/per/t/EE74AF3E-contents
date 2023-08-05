@@ -1,0 +1,271 @@
+---
+title: "text mining homework"
+output: html_notebook
+---
+
+
+```{r}
+library(janeaustenr)
+library(tidyverse)
+library(tidytext)
+#library(textdata)
+```
+
+```{r}
+austen_books()
+```
+
+```{r}
+austen_books() %>% 
+  distinct(book)
+```
+
+
+
+## 1. Find the most common words in both Mansfield Park and Sense & Sensibility.
+
+```{r}
+austen_sens_mans <- austen_books() %>% 
+  filter(book %in% c("Sense & Sensibility", "Mansfield Park")) 
+```
+
+
+```{r}
+austen_sens_mans %>%
+  unnest_tokens(word, text) %>%
+  #anti_join(stop_words) %>% 
+  count(word, sort = TRUE) %>% 
+  arrange(desc(n))
+```
+
+
+## 2. Find the most common words in both Mansfield Park and Sense & Sensibility, not including stop words.
+
+```{r}
+austen_sens_mans %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words) %>% 
+  count(word, sort = TRUE) %>% 
+  arrange(desc(n))
+```
+
+
+## 3. Find the most common sentiment words in both Mansfield Park and Sense & Sensibility.
+
+```{r}
+austen_sens_mans_sentiment <- austen_sens_mans %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words, join_by(word)) %>%
+  inner_join(get_sentiments("loughran"))
+
+austen_sens_mans_sentiment
+```
+
+```{r}
+austen_sens_mans_sentiment %>% 
+  filter(book == "Sense & Sensibility") %>% 
+  count(word, sentiment, sort = TRUE)
+  
+```
+
+
+
+```{r}
+austen_sens_mans_sentiment %>% 
+  filter(book == "Mansfield Park") %>% 
+  count(word, sentiment, sort = TRUE)
+  
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

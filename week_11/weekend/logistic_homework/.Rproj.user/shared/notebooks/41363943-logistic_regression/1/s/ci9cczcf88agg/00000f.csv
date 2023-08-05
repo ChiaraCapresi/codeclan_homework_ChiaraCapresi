@@ -1,0 +1,13 @@
+"0","library(pROC)"
+"2","Avvertimento: il pacchetto ‘pROC’ è stato creato con R versione 4.3.1"
+"2","Type 'citation(""pROC"")' for a citation.
+"
+"2","
+Caricamento pacchetto: ‘pROC’
+
+"
+"2","I seguenti oggetti sono mascherati da ‘package:stats’:
+
+    cov, smooth, var
+
+"

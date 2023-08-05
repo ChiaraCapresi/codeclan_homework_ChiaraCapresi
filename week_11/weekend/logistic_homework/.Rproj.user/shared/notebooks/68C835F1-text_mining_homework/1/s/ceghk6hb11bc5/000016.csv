@@ -1,0 +1,7 @@
+"0","austen_sens_mans %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words) %>% 
+  count(word, sort = TRUE) %>% 
+  arrange(desc(n))
+"
+"2","Joining with `by = join_by(word)`"

@@ -1,0 +1,7 @@
+"0","```r
+word_df %>% 
+  group_by(word, id) %>% 
+  summarise(count = n())
+```"
+"1","`summarise()` has grouped output by 'word'. You can override using the `.groups` argument.
+"

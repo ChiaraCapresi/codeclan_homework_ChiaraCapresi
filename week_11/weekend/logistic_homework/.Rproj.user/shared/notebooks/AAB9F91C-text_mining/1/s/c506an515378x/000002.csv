@@ -1,0 +1,9 @@
+"0","```r
+poem <- tibble(
+  phrases = lines,
+  id = 1:4
+)
+
+poem_df <- poem %>% 
+  unnest_tokens(word, phrases)
+```"

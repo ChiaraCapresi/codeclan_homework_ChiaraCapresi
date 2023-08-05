@@ -1,0 +1,436 @@
+---
+title: "Logistic Regression homework"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(modelr)
+#library(janitor)
+```
+
+
+```{r}
+orange_juice <- read_csv("data/orange_juice.csv") %>% 
+  janitor::clean_names()
+```
+
+
+```{r}
+glimpse(orange_juice)
+```
+
+
+```{r}
+skimr::skim(orange_juice)
+```
+
+```{r}
+orange_juice %>% 
+  distinct(store_id)
+```
+
+
+```{r}
+#orange_index <- sample(1:nrow(orange_juice), size = nrow(orange_juice)*0.2)
+
+# Use the test index to create test and training datasets
+#test  <- slice(orange_juice, orange_index)
+#train <- slice(orange_juice, -orange_index)
+```
+
+
+
+## Wrangling Data and Feature engineering
+
+
+```{r}
+orange_tidy <- orange_juice %>% 
+  mutate(special_ch = as.logical(special_ch)) %>% 
+  mutate(special_mm = as.logical(special_mm)) %>% 
+  mutate(store7 = store7 == "Yes") %>% 
+  mutate(store = as.factor(store)) %>% 
+  mutate(store_id = as.factor(store_id)) %>% 
+  mutate(purchase_mm = purchase == "MM") %>% #I need the purchase variable to be two-categorical for applying logist. regr.
+  select(-purchase)
+
+orange_tidy
+```
+
+```{r}
+orange_tidy %>% 
+  group_by(weekof_purchase) %>% 
+  summarise(sum = n())
+```
+
+`weekof_purchase` could be converted as a factor, but this would lead to many labels, so I don't think it would be a good idea.
+
+```{r}
+library(GGally)
+
+orange_tidy %>% 
+select(purchase_mm, weekof_purchase) %>% 
+ggpairs(progress = FALSE)
+```
+
+From the ggpairs plot, it seems that `weekof_purchase` has a certain incidence on the purchase.
+
+
+For this reason, for now I will turn it into a factor, even if the labels will be many.
+
+
+```{r}
+orange_tidy <- orange_tidy %>% 
+  mutate(weekof_purchase_fac = as.factor(weekof_purchase))
+```
+
+
+Check for aliased variables
+
+
+```{r}
+alias(purchase_mm ~., data = orange_tidy)
+```
+
+
+from the alias function we can deduce that the variables "sale_price_mm", "sale_price_ch", "price_diff", "store7", "list_price_diff", "store" can be derived from the other variables, for this reason we can delete them.
+
+Of course also weekof_purchese is dependent from its factorial version!
+
+```{r}
+orange_tidy <- orange_tidy %>% 
+  select(-c("sale_price_mm", "sale_price_ch", "price_diff", "store7", "list_price_diff", "store", "weekof_purchase_fac"))
+```
+
+
+
+
+```{r}
+glimpse(orange_tidy)
+```
+
+```{r}
+orange_num <- orange_tidy %>% 
+  select_if(is.numeric)
+
+orange_num$purchase_mm <- orange_tidy$purchase_mm
+
+
+orange_cat <- orange_tidy %>% 
+  select_if(function(x) !is.numeric(x)) 
+
+```
+
+
+
+```{r}
+ggpairs(orange_cat, progress = FALSE)
+ggpairs(orange_num, progress = FALSE)
+```
+
+
+It seems that there is an interesting relationship between `purchase_mm` and `weekof_purchase`, `store_id`, `loyal_ch`, `price_ch` , `price_mm`, `disc_mm` and `pct_disc_ch`.
+
+
+## Train and test sets set up and model's construction
+
+
+Let's construct the train and test sets
+
+
+```{r}
+set.seed(42)
+
+
+orange_index <- sample(1:nrow(orange_tidy), size = nrow(orange_tidy)*0.2)
+
+test  <- slice(orange_tidy, orange_index)
+train <- slice(orange_tidy, -orange_index)
+
+
+```
+
+
+
+I want to verify if the division into train and test sets is proportionate.
+
+```{r}
+#library(modelr)
+library(janitor)
+
+train %>%
+  tabyl(purchase_mm)
+```
+```{r}
+test %>%
+  tabyl(purchase_mm)
+```
+
+There is a bit of difference, I will try setting the test set as 25% of the data!
+
+
+```{r}
+orange_index <- sample(1:nrow(orange_tidy), size = nrow(orange_tidy)*0.2)
+
+test  <- slice(orange_tidy, orange_index)
+train <- slice(orange_tidy, -orange_index)
+
+
+train %>%
+  tabyl(purchase_mm)
+
+test %>%
+  tabyl(purchase_mm)
+```
+
+This seems to be better!
+
+So I have test set `25%` and train set `75%`.
+
+
+Now, I am ready for setting up the predictive models.
+
+
+```{r}
+model_1 <- glm(purchase_mm ~., data = train, family = binomial(link = "logit"))
+
+summary(model_1)
+```
+
+```{r}
+model_2 <- glm(purchase_mm ~ weekof_purchase + store_id + loyal_ch, train, family = binomial(link = "logit"))
+
+summary(model_2)
+```
+
+The residual deviance id higher in model_2 than in model_1
+```{r}
+model_3 <- glm(purchase_mm ~ price_ch + price_mm + disc_mm + loyal_ch + pct_disc_ch, train, family = binomial(link = "logit"))
+
+summary(model_3)
+```
+```{r}
+library(pROC)
+```
+
+The residual deviance of model_3 seems to be the best until now
+
+```{r}
+roc_3 <- test %>%
+  add_predictions(model_3, type = "response") %>%
+  roc(response = purchase_mm, predictor = pred)
+```
+
+```{r}
+auc(roc_3)
+```
+```{r}
+roc_1 <- test %>%
+  add_predictions(model_1, type = "response") %>%
+  roc(response = purchase_mm, predictor = pred)
+
+auc(roc_1)
+```
+
+
+```{r}
+roc_2 <- test %>%
+  add_predictions(model_2, type = "response") %>%
+  roc(response = purchase_mm, predictor = pred)
+
+auc(roc_2)
+```
+
+model_3 has higher AUC and lower AIC!
+
+
+```{r}
+model_1_pred <- test %>%
+  add_predictions(model_1, type = "response") %>%
+  mutate(odds = pred / (1 - pred))
+
+roc_obj_1 <- model_1_pred %>% 
+  roc(response = purchase_mm,
+      predictor = pred)
+
+ggroc(roc_obj_1)
+```
+
+
+
+
+
+```{r}
+model_2_pred <- test %>%
+  add_predictions(model_2, type = "response") %>%
+  mutate(odds = pred / (1 - pred))
+
+roc_obj_2 <- model_2_pred %>% 
+  roc(response = purchase_mm,
+      predictor = pred)
+
+ggroc(roc_obj_2)
+```
+
+
+```{r}
+model_3_pred <- test %>%
+  add_predictions(model_3, type = "response") %>%
+  mutate(odds = pred / (1 - pred))
+
+roc_obj_3 <- model_3_pred %>% 
+  roc(response = purchase_mm,
+      predictor = pred)
+
+ggroc(roc_obj_3)
+```
+
+
+Also the `roc` diagram seems to prefer model 3!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

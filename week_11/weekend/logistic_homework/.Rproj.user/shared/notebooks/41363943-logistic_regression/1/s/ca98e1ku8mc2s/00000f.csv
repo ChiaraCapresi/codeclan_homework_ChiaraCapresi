@@ -1,0 +1,7 @@
+"0","mortgages %>% "
+"0","  ggplot(aes(x = tu_score,"
+"0","             y = as.integer(accepted))) +"
+"0","  geom_jitter(shape = 1, "
+"0","              position = position_jitter(h = 0.05))+"
+"0","  labs(x = ""Credit Score"","
+"0","       y = ""Accepted Status"")"

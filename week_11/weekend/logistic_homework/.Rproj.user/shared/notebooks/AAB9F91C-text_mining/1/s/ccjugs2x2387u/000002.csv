@@ -1,0 +1,6 @@
+"0","```r
+word_df <- example_text %>% 
+  unnest_tokens(word, phrase)
+```"
+"1","Error: object 'example_text' not found
+"

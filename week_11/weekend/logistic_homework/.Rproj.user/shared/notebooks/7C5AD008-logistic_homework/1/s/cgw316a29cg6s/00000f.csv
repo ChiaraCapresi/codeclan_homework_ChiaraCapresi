@@ -1,0 +1,2 @@
+"0","orange_tidy <- orange_tidy %>% "
+"0","  mutate(weekof_purchase_fac = as.factor(weekof_purchase))"

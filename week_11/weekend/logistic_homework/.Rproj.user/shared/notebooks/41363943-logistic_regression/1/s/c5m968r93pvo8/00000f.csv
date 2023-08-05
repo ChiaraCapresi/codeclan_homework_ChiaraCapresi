@@ -1,0 +1,5 @@
+"0","emp_true_coef <- mortgages_multi_log_reg_model %>% "
+"0","  broom::tidy() %>% "
+"0","  filter(term == ""employedTRUE"") %>% "
+"0","  pull(estimate)"
+"0",""

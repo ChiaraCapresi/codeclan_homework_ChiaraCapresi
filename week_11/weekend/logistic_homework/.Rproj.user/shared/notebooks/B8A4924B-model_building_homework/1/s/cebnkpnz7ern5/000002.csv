@@ -1,0 +1,15 @@
+"0","```r
+wine_r <- rep(\"red_wine\", nrow(red_wines))
+
+red_wines <- red_wines %>% 
+  bind_cols(wine = wine_r)
+
+
+wine_w <- rep(\"white_wine\", nrow(white_wines))
+
+white_wines <- white_wines %>% 
+  bind_cols(wine = wine_w)
+
+
+wines <- bind_rows(red_wines, white_wines)
+```"

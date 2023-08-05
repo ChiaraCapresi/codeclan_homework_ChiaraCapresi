@@ -1,0 +1,7 @@
+"0","```r
+names(wines)
+```"
+"1"," [1] \"wine_id\"              \"fixed_acidity\"        \"volatile_acidity\"     \"citric_acid\"          \"residual_sugar\"       \"chlorides\"           
+ [7] \"free_sulfur_dioxide\"  \"total_sulfur_dioxide\" \"density\"              \"p_h\"                  \"sulphates\"            \"alcohol\"             
+[13] \"quality\"              \"region\"               \"wine\"                
+"

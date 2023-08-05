@@ -1,0 +1,4 @@
+"0","threshold <- 0.6"
+"0",""
+"0","mortgages_classifier <- mortgages_pred %>% "
+"0","  mutate(pred_thresh_0.6 = pred >= threshold)"

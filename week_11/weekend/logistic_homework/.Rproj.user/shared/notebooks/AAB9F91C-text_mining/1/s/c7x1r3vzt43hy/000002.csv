@@ -1,0 +1,5 @@
+"0","```r
+poem_df %>% 
+  count(word, sort = TRUE) %>% 
+  filter(n > 1)
+```"

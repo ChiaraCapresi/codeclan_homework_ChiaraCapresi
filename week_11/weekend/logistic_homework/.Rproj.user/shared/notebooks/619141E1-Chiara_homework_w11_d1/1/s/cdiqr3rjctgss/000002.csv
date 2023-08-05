@@ -1,0 +1,6 @@
+"0","```r
+library(magick)
+
+img <- magick::image_read('ann_2.png')
+plot(img) #www.coursera.com
+```"

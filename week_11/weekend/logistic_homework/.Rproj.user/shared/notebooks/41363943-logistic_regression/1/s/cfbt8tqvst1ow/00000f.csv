@@ -1,0 +1,2 @@
+"0","mortgages %>% "
+"0","  GGally::ggpairs(progress = FALSE)"

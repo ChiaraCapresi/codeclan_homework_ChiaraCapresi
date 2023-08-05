@@ -1,0 +1,12 @@
+"0","model_2_pred <- test %>%"
+"0","  add_predictions(model_2, type = ""response"") %>%"
+"0","  mutate(odds = pred / (1 - pred))"
+"0",""
+"0","roc_obj_2 <- model_2_pred %>% "
+"0","  roc(response = purchase_mm,"
+"0","      predictor = pred)"
+"2","Setting levels: control = FALSE, case = TRUE
+"
+"2","Setting direction: controls < cases
+"
+"0","ggroc(roc_obj_2)"

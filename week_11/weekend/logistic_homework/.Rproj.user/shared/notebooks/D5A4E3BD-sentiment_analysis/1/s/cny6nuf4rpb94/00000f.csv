@@ -1,0 +1,2 @@
+"0","get_sentiments(""afinn"") %>% "
+"0","  count(value, sort = 2)"

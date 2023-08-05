@@ -1,0 +1,5 @@
+"0","classifier_data <- tibble("
+"0","  threshold = roc_obj_2pred$thresholds,"
+"0","  sensitivity = roc_obj_2pred$sensitivities,"
+"0","  specificity = roc_obj_2pred$specificities"
+"0",")"

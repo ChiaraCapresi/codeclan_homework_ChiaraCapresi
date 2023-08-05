@@ -1,0 +1,320 @@
+---
+title: "Sentiment analysis"
+output: html_notebook
+---
+
+
+"sentiment" - feelings e.g. from surveys or product reviews
+
+Sentiment Analysis: quantify/label (systematise) these feelings, so we can perform data analysis
+
+```{r}
+library(janeaustenr)
+library(tidyverse)
+library(tidytext)
+library(textdata)
+```
+
+```{r}
+get_sentiments("afinn") %>% 
+  count(value, sort = 2)
+```
+
+affin: affinity scores between (-, +) - [continuous numeric]
+
+bing: positive or negative only - [binary polarising numeric]
+
+loughran: six categories, more granular than 'bing' - [categoric labels]
+
+nrc: 10 categories 
+
+```{r}
+get_sentiments("bing") %>% 
+  count(sentiment, sort = TRUE)
+```
+
+
+```{r}
+get_sentiments("loughran") %>% 
+  count(sentiment, sort = TRUE)
+```
+
+
+```{r}
+get_sentiments("nrc")
+```
+
+
+
+```{r}
+book_pride <- tibble(
+  text = prideprejudice,
+  sentence = 1:length(prideprejudice)
+    ) %>% 
+  unnest_tokens(word, text) %>% 
+  anti_join(stop_words)
+```
+
+Let's fetch some sentiments
+
+```{r}
+book_pride %>% 
+  left_join(get_sentiments("bing"))
+```
+
+
+```{r}
+book_pride %>% 
+  inner_join(get_sentiments("bing"))
+```
+
+
+
+```{r}
+book_sentiments <- book_pride %>% 
+  inner_join(get_sentiments("bing"))
+
+book_sentiments %>% 
+  filter(sentiment == "positive") %>% 
+  count(word, sort = TRUE)
+
+book_sentiments %>% 
+  filter(sentiment == "negative") %>% 
+  count(word, sort = TRUE)
+```
+
+
+###### Task
+
+Find the most common positive, negative and neutral words in the book “Emma”. Use the loughran sentiment lexicon.
+
+
+
+```{r}
+book_emma <- tibble(
+  text = emma,
+  sentence = 1:length(emma)
+    ) %>% 
+  unnest_tokens(word, text) %>% 
+  anti_join(stop_words)
+```
+
+
+
+```{r}
+book_sentiments <- book_emma %>% 
+  inner_join(get_sentiments("loughran"))
+
+
+book_sentiments %>% 
+  filter(sentiment %in% c("positive", "negative", "superfluous", "uncertainty")) %>% 
+  count(word, sort = TRUE)
+
+
+book_sentiments %>% 
+  filter(sentiment %in% c("positive", "negative", "superfluous", "uncertainty")) %>% 
+  group_by(sentiment) %>% 
+  count(word, sort = TRUE) 
+```
+
+
+```{r}
+book_sentiments %>% 
+  filter(sentiment %in% c("positive", "negative", "superfluous", "uncertainty")) %>% 
+  #group_by(sentiment) %>% 
+  count(word, sentiment, sort = TRUE)
+```
+
+
+Numerical analysis, e.g. Average Sentiment per Sentence
+
+```{r}
+book_sentiments <- book_pride %>% 
+  inner_join(get_sentiments("afinn"))
+
+
+book_sentiments <- book_sentiments %>% 
+  group_by(sentence) %>% 
+  summarise(mean_sentiment = mean(value))
+
+book_sentiments
+```
+
+
+
+```{r}
+book_sentiments %>% 
+  ggplot(aes(x = sentence, y = mean_sentiment))+
+  geom_point()+
+  geom_smooth()+
+  coord_cartesian(ylim = c(-1, 1))+
+  theme_minimal() 
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
